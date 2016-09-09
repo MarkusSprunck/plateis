@@ -376,7 +376,7 @@ class GameScene: SKScene {
                 renderModel()
                 updateLabels()
                 if viewController.getModel().isComplete() {
-                    NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(GameScene.actionLevelsTimer(_:)), userInfo: nil, repeats: false)
+             //       NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(GameScene.actionLevelsTimer(_:)), userInfo: nil, repeats: false)
                 }
             }
         }

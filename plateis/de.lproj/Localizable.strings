@@ -48,6 +48,11 @@ DESCRIPTION_4="extrem schwer.";
 
 LEVEL_HELP="Ebenenwechsel durch wischen";
 
+GAME_HELP="Tippe auf die Knoten";
+
+NEXT="Nexte";
+
+BACK="Zurück";
 
 
 
