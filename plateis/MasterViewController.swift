@@ -83,6 +83,7 @@ class MasterViewController: UITableViewController {
                                                                name: IAPHelper.IAPHelperPurchaseNotification,
                                                              object: nil)
   }
+    
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
