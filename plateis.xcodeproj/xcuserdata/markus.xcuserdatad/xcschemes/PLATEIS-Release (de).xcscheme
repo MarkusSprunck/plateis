@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
-   version = "1.3">
+   LastUpgradeVersion = "0800"
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,26 +14,35 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2837BF371D83412A001E81A9"
-               BuildableName = "plateis.app"
-               BlueprintName = "plateis"
+               BlueprintIdentifier = "283A5E7D1D2EBBA000870CF6"
+               BuildableName = "PLATEIS.app"
+               BlueprintName = "PLATEIS"
                ReferencedContainer = "container:plateis.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "283A5E7D1D2EBBA000870CF6"
+            BuildableName = "PLATEIS.app"
+            BlueprintName = "PLATEIS"
+            ReferencedContainer = "container:plateis.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -41,19 +50,32 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "NO"
+      language = "de"
+      region = "DE">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2837BF371D83412A001E81A9"
-            BuildableName = "plateis.app"
-            BlueprintName = "plateis"
+            BlueprintIdentifier = "283A5E7D1D2EBBA000870CF6"
+            BuildableName = "PLATEIS.app"
+            BlueprintName = "PLATEIS"
             ReferencedContainer = "container:plateis.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = ""
+            value = ""
+            isEnabled = "NO">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
+      <LocationScenarioReference
+         identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
+         referenceType = "1">
+      </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -61,21 +83,23 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2837BF371D83412A001E81A9"
-            BuildableName = "plateis.app"
-            BlueprintName = "plateis"
+            BlueprintIdentifier = "283A5E7D1D2EBBA000870CF6"
+            BuildableName = "PLATEIS.app"
+            BlueprintName = "PLATEIS"
             ReferencedContainer = "container:plateis.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Release">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "PLATEIS-Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

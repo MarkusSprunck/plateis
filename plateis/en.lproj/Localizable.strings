@@ -1,0 +1,52 @@
+/*
+ Localizable.strings
+ PLATEIS
+ 
+ Created by Markus Sprunck on 24/08/16.
+ Copyright © 2016 Markus Sprunck. All rights reserved.
+ */
+
+PLAY="Play";
+
+FEATURES="Shop";
+
+RESTORE="Restore";
+
+HOME="Home";
+
+HINT="Hint";
+
+UNDO="Undo";
+
+LEVEL="Level";
+
+LEVELS="Levels";
+
+VIEW="View";
+
+COMPLETE="Complete";
+
+LOCKED="Locked";
+
+IMPROVE="Improve";
+
+WORLD="World";
+
+BEST="Best";
+
+RESULT="Result";
+
+DESCRIPTION_0="Finding the shortest path between";
+
+DESCRIPTION_1="some nodes is simple, but with an";
+
+DESCRIPTION_2="increasing number of nodes";
+
+DESCRIPTION_3="the task gets extremely";
+
+DESCRIPTION_4="difficult to solve.";
+
+LEVEL_HELP="swipe to select level";
+
+
+

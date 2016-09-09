@@ -1,0 +1,53 @@
+/* 
+  Localizable.strings
+  PLATEIS
+
+  Created by Markus Sprunck on 24/08/16.
+  Copyright © 2016 Markus Sprunck. All rights reserved.
+*/
+
+PLAY="Spielen";
+
+FEATURES="Shop";
+
+RESTORE="Laden";
+
+HOME="Home";
+
+HINT="Tipp";
+
+UNDO="Zurück";
+
+LEVEL="Level";
+
+LEVELS="Levels";
+
+VIEW="Zeigen";
+
+COMPLETE="Weiter";
+
+LOCKED="Gesperrt";
+
+IMPROVE="Besser";
+
+WORLD="World";
+
+BEST="Bestes";
+
+RESULT="Aktuell";
+
+DESCRIPTION_0="Den kürzesten Weg zwischen";
+
+DESCRIPTION_1="einigen Knoten zu finden ist";
+
+DESCRIPTION_2="einfach, aber mit zunehmen-";
+
+DESCRIPTION_3="der Anzahl wird es";
+
+DESCRIPTION_4="extrem schwer.";
+
+LEVEL_HELP="Ebenenwechsel durch wischen";
+
+
+
+

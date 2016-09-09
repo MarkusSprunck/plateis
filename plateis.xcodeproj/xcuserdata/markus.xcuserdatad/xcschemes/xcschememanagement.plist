@@ -4,7 +4,29 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>plateis.xcscheme</key>
+		<key>PLATEIS (Debug).xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>PLATEIS-Debug.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>PLATEIS-Release (de).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>PLATEIS-Release.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>PLATEIS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,17 +34,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2837BF371D83412A001E81A9</key>
+		<key>283A5E7D1D2EBBA000870CF6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2837BF4F1D83412A001E81A9</key>
+		<key>283A5E951D2EBBA000870CF6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2837BF5A1D83412A001E81A9</key>
+		<key>283A5EA01D2EBBA000870CF6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

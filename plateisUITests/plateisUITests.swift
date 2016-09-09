@@ -1,14 +1,14 @@
 //
-//  plateisUITests.swift
-//  plateisUITests
+//  PLATEISUITests.swift
+//  PLATEISUITests
 //
-//  Created by Markus Sprunck on 09/09/16.
+//  Created by Markus Sprunck on 07/07/16.
 //  Copyright © 2016 Markus Sprunck. All rights reserved.
 //
 
 import XCTest
 
-class plateisUITests: XCTestCase {
+class PlateisUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()

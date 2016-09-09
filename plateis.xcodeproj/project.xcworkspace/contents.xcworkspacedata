@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:plateis.xcodeproj">
+      location = "self:PLATEIS.xcodeproj">
    </FileRef>
 </Workspace>
