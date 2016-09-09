@@ -11,7 +11,7 @@ import SpriteKit
 class LevelScene: SKScene {
     
     private var viewController:DataViewController
- 
+    
     internal let PI_DIV_8 = CGFloat(M_PI / 8.0)
     
     private let labelDistanceFromTop: CGFloat = 190.0
@@ -39,7 +39,7 @@ class LevelScene: SKScene {
     internal var gammaOffset:CGFloat = -CGFloat(M_PI_2)
     
     private var selectedModelIndex : Int = 0
- 
+    
     internal var centerLarge : CGPoint = CGPoint(x: 0.0, y: 0.0)
     
     private var radiusLargeX : CGFloat = 0.0
@@ -51,10 +51,16 @@ class LevelScene: SKScene {
     private var timerSnapToPosition = NSTimer()
     
     private var timerRenderModel = NSTimer()
-
+    
     private var circles : [SKShapeNode] = []
     
     private var circlesText : [SKLabelNode] = []
+    
+    private let fontSizeWorldLabel : CGFloat = 28
+    private let fontSizeWorldSelection : CGFloat = 22
+    private let buttonHeightWorldSelection : CGFloat = 28
+    private let buttonWidth:CGFloat = 95
+    private let distanceTopWorldSelection : CGFloat = 15
     
     init(size:CGSize, viewController:DataViewController) {
         self.viewController = viewController
@@ -64,7 +70,7 @@ class LevelScene: SKScene {
         radiusLargeX = viewController.width * 0.38
         radiusLargeY = viewController.width * 0.45
         centerLarge  = CGPoint(x: viewController.width * 0.5 , y: viewController.height * 0.55)
-       
+        
         if !viewController.modelController.pageModels.isEmpty {
             createBackground()
             createPlayButton()
@@ -92,7 +98,7 @@ class LevelScene: SKScene {
         
         let x = (self.viewController.width / 2 - 47)
         let y = CGFloat(0.0)
-        buttonPlayLevel.frame = CGRect(x : x, y: y, width : 95, height : 34)
+        buttonPlayLevel.frame = CGRect(x : x, y: y, width : 95, height : buttonHeightWorldSelection)
         buttonPlayLevel.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
         buttonPlayLevel.backgroundColor =  Colors.blue
         buttonPlayLevel.layer.cornerRadius = 0.5 * buttonPlayLevel.bounds.size.height
@@ -103,7 +109,7 @@ class LevelScene: SKScene {
         viewController.skview.addSubview(buttonPlayLevel)
         
         buttonFeatures = UIButton(type: UIButtonType.Custom)
-        buttonFeatures.frame = CGRect(x : ((self.centerLarge.x - buttonPlayLevel.bounds.width) * 0.5), y : CGFloat(0.0), width : 95,height : 34)
+        buttonFeatures.frame = CGRect(x : ((self.centerLarge.x - buttonPlayLevel.bounds.width) * 0.5), y : CGFloat(0.0), width : 95,height : buttonHeightWorldSelection)
         buttonFeatures.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
         buttonFeatures.backgroundColor =  Colors.blue
         buttonFeatures.layer.cornerRadius = 0.5 * buttonFeatures.bounds.size.height
@@ -113,33 +119,28 @@ class LevelScene: SKScene {
         buttonFeatures.alpha = 0
         viewController.skview.addSubview(buttonFeatures)
         
-        let buttonWidth:CGFloat = 36
         
         buttonPreviousWorld = UIButton(type: UIButtonType.Custom)
-        buttonPreviousWorld.frame =   CGRect(x : 15, y: 8, width : buttonWidth, height : 36)
-        buttonPreviousWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: 24)
-        buttonPreviousWorld.backgroundColor =  Colors.white
-        buttonPreviousWorld.setTitleColor(Colors.blue, forState: UIControlState.Normal)
-        buttonPreviousWorld.setTitleColor(Colors.lightGray, forState: UIControlState.Disabled)
+        buttonPreviousWorld.frame =   CGRect(x : 15, y: distanceTopWorldSelection, width : buttonWidth, height : buttonHeightWorldSelection)
+        buttonPreviousWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: fontSizeWorldSelection)
+        buttonPreviousWorld.backgroundColor =   Colors.grey
         buttonPreviousWorld.layer.cornerRadius = 0.5 * buttonPreviousWorld.bounds.size.height
         buttonPreviousWorld.layer.borderWidth = 0
-        buttonPreviousWorld.setTitle("<", forState: UIControlState.Normal)
+        buttonPreviousWorld.setTitle(NSLocalizedString("BACK", comment:"Previous world"), forState: UIControlState.Normal)
         buttonPreviousWorld.addTarget(self, action: #selector(LevelScene.actionPreviousWorldButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         buttonPreviousWorld.alpha = 0
         buttonPreviousWorld.enabled = false
         viewController.view.addSubview(buttonPreviousWorld)
-            
-            
+        
+        
         buttonNextWorld = UIButton(type: UIButtonType.Custom)
-        buttonNextWorld.frame =    CGRect(x : (viewController.width - buttonWidth - 15), y: 8, width : buttonWidth, height : 36)
-
-        buttonNextWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: 24)
-        buttonNextWorld.backgroundColor =  Colors.white
-        buttonNextWorld.setTitleColor(Colors.blue, forState: UIControlState.Normal)
-        buttonNextWorld.setTitleColor(Colors.lightGray,forState: UIControlState.Disabled)
+        buttonNextWorld.frame =    CGRect(x : (viewController.width - buttonWidth - 15), y: distanceTopWorldSelection, width : buttonWidth, height : buttonHeightWorldSelection)
+        
+        buttonNextWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: fontSizeWorldSelection)
+        buttonNextWorld.backgroundColor =   Colors.blue
         buttonNextWorld.layer.cornerRadius = 0.5 * buttonNextWorld.bounds.size.height
         buttonNextWorld.layer.borderWidth = 0
-        buttonNextWorld.setTitle(">", forState:UIControlState.Normal)
+        buttonNextWorld.setTitle(NSLocalizedString("NEXT", comment:"Next world"), forState:UIControlState.Normal)
         buttonNextWorld.addTarget(self, action: #selector(LevelScene.actionNextWorldButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         buttonNextWorld.alpha = 0
         viewController.view.addSubview(buttonNextWorld)
@@ -175,7 +176,17 @@ class LevelScene: SKScene {
         for worldNext in  ModelController.WorldKeys.allValues.reverse() {
             if worldLast.rawValue == worldCurrent {
                 buttonNextWorld.enabled  = true
-                buttonPreviousWorld.enabled  = (worldNext != ModelController.WorldKeys.allValues.first)
+                buttonNextWorld.backgroundColor =   Colors.blue
+                
+                if worldNext != ModelController.WorldKeys.allValues.first {
+                    buttonPreviousWorld.enabled  = true
+                    buttonPreviousWorld.backgroundColor  = Colors.blue
+                }
+                else {
+                    buttonPreviousWorld.enabled  = false
+                    buttonPreviousWorld.backgroundColor  = Colors.grey
+                }
+                
                 viewController.modelController.selectModel(worldNext.rawValue)
                 break
             }
@@ -191,8 +202,19 @@ class LevelScene: SKScene {
         var worldLast : ModelController.WorldKeys = ModelController.WorldKeys.allValues.last!
         for worldNext in  ModelController.WorldKeys.allValues {
             if worldLast.rawValue == worldCurrent {
-                buttonNextWorld.enabled  = (worldNext != ModelController.WorldKeys.allValues.last)
                 buttonPreviousWorld.enabled  = true
+                buttonPreviousWorld.backgroundColor =   Colors.blue
+                
+                
+                if worldNext != ModelController.WorldKeys.allValues.last {
+                    buttonNextWorld.enabled  = true
+                    buttonNextWorld.backgroundColor  = Colors.blue
+                }
+                else {
+                    buttonNextWorld.enabled  = false
+                    buttonNextWorld.backgroundColor  = Colors.grey
+                }
+                
                 viewController.modelController.selectModel(worldNext.rawValue)
                 break
             }
@@ -211,14 +233,14 @@ class LevelScene: SKScene {
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         viewController.presentViewController(alert, animated: true, completion: nil)
     }
-
+    
     func createLabels() {
         let model : Model = viewController.modelController.pageModels[selectedModelIndex]
-     
+        
         labelWorld = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelWorld.text = model.world;
-        labelWorld.fontSize = 26
-        labelWorld.position = CGPoint(x: viewController.width/2 , y: viewController.height - 28)
+        labelWorld.fontSize = fontSizeWorldLabel
+        labelWorld.position = CGPoint(x: viewController.width/2 , y: viewController.height - distanceTopWorldSelection - buttonHeightWorldSelection / 2)
         labelWorld.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         labelWorld.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         labelWorld.fontColor = Colors.black
@@ -258,7 +280,7 @@ class LevelScene: SKScene {
         labelHelp.alpha = 0
         self.addChild(labelHelp)
     }
-
+    
     func createNodes() {
         let indexMax = viewController.modelController.pageModels.count
         var index = 0
@@ -341,7 +363,7 @@ class LevelScene: SKScene {
         
         let model : Model = viewController.modelController.pageModels[selectedModelIndex]
         labelWorld.text = model.world;
- 
+        
         // 1. row
         buttonFeatures.frame = CGRectMake(10,  getButtonYPosition() , buttonFeatures.frame.width, buttonFeatures.frame.height)
         buttonPlayLevel.frame = CGRectMake(UIScreen.mainScreen().bounds.width / 2 - buttonPlayLevel.frame.width / 2,  getButtonYPosition() , buttonPlayLevel.frame.width, buttonPlayLevel.frame.height)
@@ -376,7 +398,7 @@ class LevelScene: SKScene {
     func getLabelXPosition() -> CGFloat {
         return self.centerLarge.x
     }
-  
+    
     func setSelectedModel(index: Int) {
         selectedModelIndex = index
     }
@@ -391,7 +413,7 @@ class LevelScene: SKScene {
             } else if viewController.modelController.pageModels[index].getSelectedCount() > 0 {
                 color = Colors.red
             }
-
+            
         } else {
             if PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage)  {
                 color = Colors.darkGrey
@@ -418,7 +440,7 @@ class LevelScene: SKScene {
         // restore inital state
         circle.removeAllActions()
         circle.setScale(1.0)
-      
+        
         // add new animation
         if animate {
             let waitAction = SKAction.waitForDuration(0.8)
@@ -475,6 +497,6 @@ class LevelScene: SKScene {
             }
         }
     }
-
+    
     
 }
