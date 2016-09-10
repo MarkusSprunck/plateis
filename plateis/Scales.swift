@@ -12,9 +12,9 @@ import SpriteKit
 class Scales {
     
     internal static let scaleStars : CGFloat = 0.45
-    internal static let fontSizeLabel : CGFloat = 24
+    internal static let fontSizeLabel : CGFloat = 22
     
-    internal static let fontSizeButton : CGFloat = 22
+    internal static let fontSizeButton : CGFloat = 20
     internal static let buttonHeight : CGFloat = 28
     internal static let buttonWidth:CGFloat = 95
     

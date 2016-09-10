@@ -56,7 +56,8 @@ class LevelScene: SKScene {
     
     private var circlesText : [SKLabelNode] = []
     
-   
+    private var isTapped : Bool = false
+    
     init(size:CGSize, viewController:DataViewController) {
         self.viewController = viewController
         super.init(size: size)
@@ -305,13 +306,16 @@ class LevelScene: SKScene {
     }
     
     func fadeInHelpText() {
-        let fadeAction = SKAction.fadeAlphaTo(1.0, duration: 3.0)
-        labelHelp.runAction(fadeAction)
+        if !isTapped {
+            let fadeAction = SKAction.fadeAlphaTo(1.0, duration: 3.0)
+            labelHelp.runAction(fadeAction)
+        }
     }
     
     func fadeOutHelpText() {
         let fadeAction = SKAction.fadeAlphaTo(0.0, duration: 3.0)
         labelHelp.runAction(fadeAction)
+        isTapped = true
     }
     
     func updateScene() {

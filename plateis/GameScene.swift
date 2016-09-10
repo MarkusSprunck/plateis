@@ -20,6 +20,8 @@ class GameScene: SKScene {
     
     private var labelResult: SKLabelNode!
     
+    private var labelHelp: SKLabelNode!
+    
     private var buttonHint: UIButton!
 
     private var buttonUndo: UIButton!
@@ -38,12 +40,14 @@ class GameScene: SKScene {
     
     private var hintCount : Int = 0
     
+    private static var isTapped : Bool = false
+    
     init(size : CGSize, viewController : DataViewController) {
         self.viewController = viewController
         super.init(size:size)
      
         radiusNode = viewController.width * 0.05
-     
+       
         createLabels()
         createButtons()
         createStars()
@@ -70,6 +74,7 @@ class GameScene: SKScene {
         
         showElements()
         updateLabels()
+        fadeInHelpText()
     }
     
     internal func actionHint(sender: UIButton!) {
@@ -90,13 +95,6 @@ class GameScene: SKScene {
         hideAllElements()
     }
     
-    internal func actionLevelsTimer(timer: NSTimer!) {
-        if !isSelectionBestVisible {
-            viewController.modelController.savePageModels()
-            viewController.actionStart()
-        }
-    }
-    
     private func isDistanceBest() -> Bool {
         let model : Model = viewController.getModel()
         let distance = round(Model.getDistance(model.nodesSelected) * Float(100.0))
@@ -107,15 +105,12 @@ class GameScene: SKScene {
     private func updateLabels() {
         let model : Model = viewController.getModel()
         labelLevel.text = viewController.modelController.getCurrentWorld() + " / " + NSLocalizedString("LEVEL", comment:"Level") + " " + model.getName()
-        labelLevel.position = CGPoint(x: viewController.width - 15 , y: viewController.height - Scales.top)
+        
         buttonUndo.backgroundColor = (model.getSelectedCount() > 0) ? Colors.blue : Colors.grey
         
         let distance = Model.getDistance(model.nodesSelected)
         labelResult.text = "Result \(distance) / Hints \(hintCount)"
-        labelResult.position = CGPoint(x: viewController.width - 15 , y: viewController.height - Scales.top - Scales.bannerTop)
-        labelResult.alpha = 1.0
-
-    }
+   }
     
     public func resetHintCount() {
         hintCount = 0
@@ -146,7 +141,7 @@ class GameScene: SKScene {
         buttonUndo.backgroundColor =  Colors.blue
         buttonUndo.layer.cornerRadius = 0.5 * buttonLevels.bounds.size.height
         buttonUndo.layer.borderWidth = 0
-        buttonUndo.setTitle(NSLocalizedString("UNDO", comment:"Undo last selection"),forState: UIControlState.Normal)
+        buttonUndo.setTitle(NSLocalizedString("UNDO", comment:"Undo last selection"), forState: UIControlState.Normal)
         buttonUndo.addTarget(self, action: #selector(GameScene.actionUndoButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         viewController.view.addSubview(buttonUndo)
 
@@ -203,15 +198,42 @@ class GameScene: SKScene {
         labelLevel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top
         labelLevel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
         labelLevel.fontColor = Colors.black
+        labelLevel.position = CGPoint(x: viewController.width - 15 , y: viewController.height - Scales.top)
         self.addChild(labelLevel)
         
         labelResult = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelResult.fontSize = Scales.fontSizeLabel
         labelResult.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top
-        labelResult.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
+        labelResult.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         labelResult.fontColor = Colors.black
+        labelResult.position = CGPoint(x: viewController.width/2, y: Scales.bottom + Scales.bannerBottom)
         self.addChild(labelResult)
+        
+        labelHelp = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
+        labelHelp.fontSize = Scales.fontSizeLabel
+        labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
+        labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        labelHelp.fontColor = Colors.black
+        labelHelp.text = NSLocalizedString("GAME_HELP", comment:"Tap to select node")
+        labelHelp.alpha = 0.0
+        labelHelp.position = CGPoint(x: viewController.width/2, y: viewController.height - Scales.top - Scales.bannerTop*2)
+        self.addChild(labelHelp)
     }
+    
+    
+    func fadeInHelpText() {
+        if !GameScene.isTapped {
+            let fadeAction = SKAction.fadeAlphaTo(1.0, duration: 3.0)
+            labelHelp.runAction(fadeAction)
+        }
+    }
+    
+    func fadeOutHelpText() {
+        let fadeAction = SKAction.fadeAlphaTo(0.0, duration: 3.0)
+        labelHelp.runAction(fadeAction)
+        GameScene.isTapped = true
+    }
+
     
     private func createBackground() {
         if nil == self.background {
@@ -393,8 +415,9 @@ class GameScene: SKScene {
                 renderModel()
                 updateLabels()
                 if viewController.getModel().isComplete() {
-             //       NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(GameScene.actionLevelsTimer(_:)), userInfo: nil, repeats: false)
+                    labelResult.alpha = 1.0
                 }
+                fadeOutHelpText()
             }
         }
     }
@@ -402,6 +425,7 @@ class GameScene: SKScene {
     internal func hideAllElements() {
         labelLevel.alpha = 0.0
         labelResult.alpha = 0.0
+        labelHelp.alpha = 0.0
         buttonUndo.alpha = 0.0
         buttonHint.alpha = 0.0
         buttonLevels.alpha = 0.0
