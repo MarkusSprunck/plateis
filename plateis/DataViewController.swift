@@ -82,6 +82,7 @@ class DataViewController: UIViewController {
         sceneLevel.buttonNextWorld.fadeOut(0.1)
         sceneLevel.buttonPreviousWorld.fadeOut(0.1)
         
+        sceneGame.resetHintCount()
         skview.presentScene(sceneGame)
         sceneGame.renderModel()
     }

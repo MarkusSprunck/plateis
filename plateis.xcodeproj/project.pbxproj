@@ -24,6 +24,7 @@
 		283C8DF21D8354F100AF7FBE /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 283C8DF11D8354F100AF7FBE /* Base.lproj */; };
 		283C8DF41D8355CA00AF7FBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 283C8DF31D8355CA00AF7FBE /* Main.storyboard */; };
 		28517E901D5E5FC90084565F /* ModelSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28517E8F1D5E5FC90084565F /* ModelSolver.swift */; };
+		2869B3281D83E2FF001E1D49 /* Scales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869B3271D83E2FF001E1D49 /* Scales.swift */; };
 		28943FEF1D63388500F1062D /* ModelControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28943FEE1D63388500F1062D /* ModelControllerTests.swift */; };
 		28AF987F1D44D0EB00713962 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AF987E1D44D0EB00713962 /* StartScene.swift */; };
 		28C85D951D762475008CBD36 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C85D941D762475008CBD36 /* MasterViewController.swift */; };
@@ -77,6 +78,7 @@
 		283C8DF11D8354F100AF7FBE /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = ../plateis/Base.lproj; sourceTree = "<group>"; };
 		283C8DF31D8355CA00AF7FBE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = plateis/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		28517E8F1D5E5FC90084565F /* ModelSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSolver.swift; sourceTree = "<group>"; };
+		2869B3271D83E2FF001E1D49 /* Scales.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scales.swift; sourceTree = "<group>"; };
 		28943FEE1D63388500F1062D /* ModelControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelControllerTests.swift; sourceTree = "<group>"; };
 		28AF987E1D44D0EB00713962 /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		28C85D941D762475008CBD36 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,8 @@
 		283A5E801D2EBBA000870CF6 /* PLATEIS */ = {
 			isa = PBXGroup;
 			children = (
+				2869B3271D83E2FF001E1D49 /* Scales.swift */,
+				282A97C11D65FFD5002DBC9D /* Colors.swift */,
 				283C8DF31D8355CA00AF7FBE /* Main.storyboard */,
 				283AA9931D7235B80089C26B /* en.lproj */,
 				283AA9911D7235A90089C26B /* de.lproj */,
@@ -155,7 +159,6 @@
 				283A5E871D2EBBA000870CF6 /* ModelController.swift */,
 				28517E8F1D5E5FC90084565F /* ModelSolver.swift */,
 				28C86C711D30BDE100D77A99 /* Node.swift */,
-				282A97C11D65FFD5002DBC9D /* Colors.swift */,
 				283A5E811D2EBBA000870CF6 /* AppDelegate.swift */,
 				283A5E8C1D2EBBA000870CF6 /* Assets.xcassets */,
 				283A5E911D2EBBA000870CF6 /* Info.plist */,
@@ -350,6 +353,7 @@
 				283A5E861D2EBBA000870CF6 /* DataViewController.swift in Sources */,
 				28517E901D5E5FC90084565F /* ModelSolver.swift in Sources */,
 				283A5E821D2EBBA000870CF6 /* AppDelegate.swift in Sources */,
+				2869B3281D83E2FF001E1D49 /* Scales.swift in Sources */,
 				28D00F251D70AC6A006279DC /* UIViewExtension.swift in Sources */,
 				28C86C761D30F89600D77A99 /* Model.swift in Sources */,
 				28AF987F1D44D0EB00713962 /* StartScene.swift in Sources */,

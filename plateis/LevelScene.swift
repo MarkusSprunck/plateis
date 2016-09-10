@@ -56,20 +56,15 @@ class LevelScene: SKScene {
     
     private var circlesText : [SKLabelNode] = []
     
-    private let fontSizeWorldLabel : CGFloat = 28
-    private let fontSizeWorldSelection : CGFloat = 22
-    private let buttonHeightWorldSelection : CGFloat = 28
-    private let buttonWidth:CGFloat = 95
-    private let distanceTopWorldSelection : CGFloat = 15
-    
+   
     init(size:CGSize, viewController:DataViewController) {
         self.viewController = viewController
         super.init(size: size)
         
         radiusLevel = viewController.width * 0.07
-        radiusLargeX = viewController.width * 0.38
-        radiusLargeY = viewController.width * 0.45
-        centerLarge  = CGPoint(x: viewController.width * 0.5 , y: viewController.height * 0.55)
+        radiusLargeX = (viewController.width -  Scales.left - Scales.right) * 0.5 - radiusLevel
+        radiusLargeY = (viewController.height -  Scales.top - Scales.bottom - Scales.bannerTop*2 - Scales.bannerBottom*2 ) * 0.5 - radiusLevel
+        centerLarge  = CGPoint(x: viewController.width * 0.5 , y:radiusLargeY + Scales.bottom + Scales.bannerBottom + radiusLevel)
         
         if !viewController.modelController.pageModels.isEmpty {
             createBackground()
@@ -96,10 +91,11 @@ class LevelScene: SKScene {
     func createPlayButton(){
         buttonPlayLevel = UIButton(type: UIButtonType.Custom)
         
-        let x = (self.viewController.width / 2 - 47)
+        let x = (self.viewController.width / 2 - Scales.buttonWidth/2)
         let y = CGFloat(0.0)
-        buttonPlayLevel.frame = CGRect(x : x, y: y, width : 95, height : buttonHeightWorldSelection)
-        buttonPlayLevel.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
+        buttonPlayLevel.frame = CGRect(x : x, y: y, width : Scales.buttonWidth, height :
+            Scales.buttonHeight)
+        buttonPlayLevel.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonPlayLevel.backgroundColor =  Colors.blue
         buttonPlayLevel.layer.cornerRadius = 0.5 * buttonPlayLevel.bounds.size.height
         buttonPlayLevel.layer.borderWidth = 0
@@ -109,8 +105,8 @@ class LevelScene: SKScene {
         viewController.skview.addSubview(buttonPlayLevel)
         
         buttonFeatures = UIButton(type: UIButtonType.Custom)
-        buttonFeatures.frame = CGRect(x : ((self.centerLarge.x - buttonPlayLevel.bounds.width) * 0.5), y : CGFloat(0.0), width : 95,height : buttonHeightWorldSelection)
-        buttonFeatures.titleLabel!.font =  UIFont(name: "Helvetica", size: 20)
+        buttonFeatures.frame = CGRect(x : ((self.centerLarge.x - buttonPlayLevel.bounds.width) * 0.5), y : CGFloat(0.0), width : 95,height : Scales.buttonHeight)
+        buttonFeatures.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonFeatures.backgroundColor =  Colors.blue
         buttonFeatures.layer.cornerRadius = 0.5 * buttonFeatures.bounds.size.height
         buttonFeatures.layer.borderWidth = 0
@@ -121,8 +117,8 @@ class LevelScene: SKScene {
         
         
         buttonPreviousWorld = UIButton(type: UIButtonType.Custom)
-        buttonPreviousWorld.frame =   CGRect(x : 15, y: distanceTopWorldSelection, width : buttonWidth, height : buttonHeightWorldSelection)
-        buttonPreviousWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: fontSizeWorldSelection)
+        buttonPreviousWorld.frame =   CGRect(x : Scales.left, y: Scales.top , width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonPreviousWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonPreviousWorld.backgroundColor =   Colors.grey
         buttonPreviousWorld.layer.cornerRadius = 0.5 * buttonPreviousWorld.bounds.size.height
         buttonPreviousWorld.layer.borderWidth = 0
@@ -134,9 +130,9 @@ class LevelScene: SKScene {
         
         
         buttonNextWorld = UIButton(type: UIButtonType.Custom)
-        buttonNextWorld.frame =    CGRect(x : (viewController.width - buttonWidth - 15), y: distanceTopWorldSelection, width : buttonWidth, height : buttonHeightWorldSelection)
+        buttonNextWorld.frame =    CGRect(x : (viewController.width - Scales.buttonWidth - Scales.right), y: Scales.top, width : Scales.buttonWidth, height : Scales.buttonHeight)
         
-        buttonNextWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: fontSizeWorldSelection)
+        buttonNextWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonNextWorld.backgroundColor =   Colors.blue
         buttonNextWorld.layer.cornerRadius = 0.5 * buttonNextWorld.bounds.size.height
         buttonNextWorld.layer.borderWidth = 0
@@ -239,8 +235,8 @@ class LevelScene: SKScene {
         
         labelWorld = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelWorld.text = model.world;
-        labelWorld.fontSize = fontSizeWorldLabel
-        labelWorld.position = CGPoint(x: viewController.width/2 , y: viewController.height - distanceTopWorldSelection - buttonHeightWorldSelection / 2)
+        labelWorld.fontSize = Scales.fontSizeLabel
+        labelWorld.position = CGPoint(x: viewController.width/2 , y: viewController.height - Scales.top - Scales.buttonHeight / 2)
         labelWorld.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         labelWorld.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         labelWorld.fontColor = Colors.black
@@ -248,7 +244,7 @@ class LevelScene: SKScene {
         
         labelNameOfLevel = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelNameOfLevel.text = NSLocalizedString("LEVEL", comment:"Level ") + model.getName();
-        labelNameOfLevel.fontSize = 22
+        labelNameOfLevel.fontSize = Scales.fontSizeLabel
         labelNameOfLevel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         labelNameOfLevel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         labelNameOfLevel.fontColor = Colors.black
@@ -256,7 +252,7 @@ class LevelScene: SKScene {
         
         labelBest = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelBest.text = "Best \(model.getDistanceBest())"
-        labelBest.fontSize = 22
+        labelBest.fontSize = Scales.fontSizeLabel
         labelBest.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         labelBest.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         labelBest.fontColor = Colors.black
@@ -264,7 +260,7 @@ class LevelScene: SKScene {
         
         labelResult = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelResult.text = (model.isComplete() || model.isReady()) ? "Result \(Model.getDistance(model.nodesSelected))" : ""
-        labelResult.fontSize = 22
+        labelResult.fontSize = Scales.fontSizeLabel
         labelResult.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         labelResult.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         labelResult.fontColor = Colors.black
@@ -272,8 +268,8 @@ class LevelScene: SKScene {
         
         labelHelp = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelHelp.text = NSLocalizedString("LEVEL_HELP", comment:"Help text for level");
-        labelHelp.fontSize = 22
-        labelHelp.position = CGPoint(x: viewController.width / 2, y: 80)
+        labelHelp.fontSize = Scales.fontSizeLabel
+        labelHelp.position = CGPoint(x: viewController.width / 2, y: viewController.height - Scales.top - Scales.bannerTop*2)
         labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         labelHelp.fontColor = Colors.black
@@ -297,7 +293,7 @@ class LevelScene: SKScene {
             let label = SKLabelNode(fontNamed:"Helvetica Neue Light")
             label.text = viewController.modelController.pageModels[index].getName();
             label.name = String(index)
-            label.fontSize = 22
+            label.fontSize = Scales.fontSizeLabel
             label.position =  position
             label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
             label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
@@ -349,7 +345,7 @@ class LevelScene: SKScene {
             let animate : Bool = (index == selectedModelIndex)
             let font = animate ? "Helvetica Neue": "Helvetica Neue Light"
             circlesText[index].fontName = font
-            circlesText[index].fontSize = 22
+            circlesText[index].fontSize = Scales.fontSizeLabel
             circlesText[index].text = viewController.modelController.pageModels[index].getName();
             
             updateAnimationOfCircle(circles[index], animate: (index == selectedModelIndex))
@@ -364,8 +360,9 @@ class LevelScene: SKScene {
         let model : Model = viewController.modelController.pageModels[selectedModelIndex]
         labelWorld.text = model.world;
         
+        
         // 1. row
-        buttonFeatures.frame = CGRectMake(10,  getButtonYPosition() , buttonFeatures.frame.width, buttonFeatures.frame.height)
+        buttonFeatures.frame = CGRectMake( Scales.left,  getButtonYPosition() , buttonFeatures.frame.width, buttonFeatures.frame.height)
         buttonPlayLevel.frame = CGRectMake(UIScreen.mainScreen().bounds.width / 2 - buttonPlayLevel.frame.width / 2,  getButtonYPosition() , buttonPlayLevel.frame.width, buttonPlayLevel.frame.height)
         
         // 2. row
@@ -391,7 +388,7 @@ class LevelScene: SKScene {
     }
     
     func getButtonYPosition() -> CGFloat {
-        return UIScreen.mainScreen().bounds.height - 46.0
+        return UIScreen.mainScreen().bounds.height - Scales.bottom
     }
     
     

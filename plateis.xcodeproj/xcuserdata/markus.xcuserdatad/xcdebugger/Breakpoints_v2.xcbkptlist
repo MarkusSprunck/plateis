@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/GameScene.swift"
-            timestampString = "494794969.939854"
+            timestampString = "495196020.207913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "createStars()"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/LevelScene.swift"
-            timestampString = "495147884.038995"
+            timestampString = "495194007.957536"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
             landmarkName = "fadeInHelpText()"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/LevelScene.swift"
-            timestampString = "495147884.038995"
+            timestampString = "495193809.281628"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "491"
-            endingLineNumber = "491"
+            startingLineNumber = "488"
+            endingLineNumber = "488"
             landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/GameScene.swift"
-            timestampString = "494794969.939854"
+            timestampString = "495194747.889444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "actionLevelsTimer(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/GameScene.swift"
-            timestampString = "494064673.823221"
+            timestampString = "495194747.889444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "GameScene"
             landmarkType = "3">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/LevelScene.swift"
-            timestampString = "495147884.038995"
+            timestampString = "495183623.635589"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "actionExitButton(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,7 +202,7 @@
                   moduleName = "PLATEIS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/markus/git/plateis/PLATEIS/Node.swift"
-                  timestampString = "495148194.19817"
+                  timestampString = "495196021.280519"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -217,7 +217,7 @@
                   moduleName = "PLATEIS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/markus/git/plateis/PLATEIS/Node.swift"
-                  timestampString = "495148194.198324"
+                  timestampString = "495196021.280675"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "11"
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/DataViewController.swift"
-            timestampString = "494799446.885878"
+            timestampString = "495196020.207913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/GameScene.swift"
-            timestampString = "494799631.538028"
+            timestampString = "495196020.207913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
             landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "5">
             <Locations>
@@ -520,11 +520,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/DataViewController.swift"
-            timestampString = "494799446.885878"
+            timestampString = "495196020.207913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -536,11 +536,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/DataViewController.swift"
-            timestampString = "494799446.885878"
+            timestampString = "495196020.207913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -552,11 +552,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/GameScene.swift"
-            timestampString = "494799631.538028"
+            timestampString = "495196020.207913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
             landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "5">
             <Locations>
@@ -600,11 +600,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/GameScene.swift"
-            timestampString = "494799631.538028"
+            timestampString = "495196020.207913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "369"
-            endingLineNumber = "369"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
             landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -616,11 +616,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/GameScene.swift"
-            timestampString = "494799631.538028"
+            timestampString = "495196020.207913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
+            startingLineNumber = "391"
+            endingLineNumber = "391"
             landmarkName = "touchesBegan(_:withEvent:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -632,11 +632,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/GameScene.swift"
-            timestampString = "494799631.538028"
+            timestampString = "495196020.207913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
             landmarkName = "hideAllElements()"
             landmarkType = "5">
             <Locations>
@@ -701,6 +701,22 @@
                   offsetFromSymbolStart = "359">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PLATEIS/GameScene.swift"
+            timestampString = "495195101.209119"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "updateLabels()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
