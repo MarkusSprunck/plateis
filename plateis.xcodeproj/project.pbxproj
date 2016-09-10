@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		280BA48A1D7A41FF002830DC /* ModelDefault.binary in Resources */ = {isa = PBXBuildFile; fileRef = 280BA4891D7A41FF002830DC /* ModelDefault.binary */; };
 		280EFE6B1D76EFE500F5FA5C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280EFE6A1D76EFE500F5FA5C /* LaunchScreen.xib */; };
+		28139F831D84B79900930A7F /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 28139F821D84B79900930A7F /* it.lproj */; };
+		28139F841D84BACE00930A7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28139F861D84BACE00930A7F /* Main.storyboard */; };
 		28143A481D427E5F00F48360 /* LevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28143A471D427E5F00F48360 /* LevelScene.swift */; };
 		282A97C21D65FFD5002DBC9D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A97C11D65FFD5002DBC9D /* Colors.swift */; };
 		283451BD1D59CA9E00E9A00F /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283451BC1D59CA9E00E9A00F /* ModelTests.swift */; };
@@ -22,7 +24,6 @@
 		283C8DE41D8352F800AF7FBE /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 283AA9931D7235B80089C26B /* en.lproj */; };
 		283C8DE51D8352FF00AF7FBE /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 283AA9911D7235A90089C26B /* de.lproj */; };
 		283C8DF21D8354F100AF7FBE /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 283C8DF11D8354F100AF7FBE /* Base.lproj */; };
-		283C8DF41D8355CA00AF7FBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 283C8DF31D8355CA00AF7FBE /* Main.storyboard */; };
 		28517E901D5E5FC90084565F /* ModelSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28517E8F1D5E5FC90084565F /* ModelSolver.swift */; };
 		2869B3281D83E2FF001E1D49 /* Scales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869B3271D83E2FF001E1D49 /* Scales.swift */; };
 		28943FEF1D63388500F1062D /* ModelControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28943FEE1D63388500F1062D /* ModelControllerTests.swift */; };
@@ -57,6 +58,10 @@
 /* Begin PBXFileReference section */
 		280BA4891D7A41FF002830DC /* ModelDefault.binary */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = ModelDefault.binary; path = plateis/ModelDefault.binary; sourceTree = SOURCE_ROOT; };
 		280EFE6A1D76EFE500F5FA5C /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		28139F821D84B79900930A7F /* it.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = it.lproj; path = plateis/it.lproj; sourceTree = SOURCE_ROOT; };
+		28139F851D84BACE00930A7F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		28139F871D84BB0000930A7F /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/Main.storyboard; sourceTree = "<group>"; };
+		28139F881D84BB0600930A7F /* it */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = it; path = it.lproj/Main.storyboard; sourceTree = "<group>"; };
 		28143A471D427E5F00F48360 /* LevelScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelScene.swift; sourceTree = "<group>"; };
 		282A97C11D65FFD5002DBC9D /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		283451BC1D59CA9E00E9A00F /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
@@ -76,7 +81,6 @@
 		283AA9911D7235A90089C26B /* de.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = de.lproj; path = ../plateis/de.lproj; sourceTree = "<group>"; };
 		283AA9931D7235B80089C26B /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = ../plateis/en.lproj; sourceTree = "<group>"; };
 		283C8DF11D8354F100AF7FBE /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = ../plateis/Base.lproj; sourceTree = "<group>"; };
-		283C8DF31D8355CA00AF7FBE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = plateis/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		28517E8F1D5E5FC90084565F /* ModelSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSolver.swift; sourceTree = "<group>"; };
 		2869B3271D83E2FF001E1D49 /* Scales.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scales.swift; sourceTree = "<group>"; };
 		28943FEE1D63388500F1062D /* ModelControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelControllerTests.swift; sourceTree = "<group>"; };
@@ -141,12 +145,13 @@
 		283A5E801D2EBBA000870CF6 /* PLATEIS */ = {
 			isa = PBXGroup;
 			children = (
+				283C8DF11D8354F100AF7FBE /* Base.lproj */,
+				283AA9911D7235A90089C26B /* de.lproj */,
+				283AA9931D7235B80089C26B /* en.lproj */,
+				28139F821D84B79900930A7F /* it.lproj */,
 				2869B3271D83E2FF001E1D49 /* Scales.swift */,
 				282A97C11D65FFD5002DBC9D /* Colors.swift */,
-				283C8DF31D8355CA00AF7FBE /* Main.storyboard */,
-				283AA9931D7235B80089C26B /* en.lproj */,
-				283AA9911D7235A90089C26B /* de.lproj */,
-				283C8DF11D8354F100AF7FBE /* Base.lproj */,
+				28139F861D84BACE00930A7F /* Main.storyboard */,
 				280BA4891D7A41FF002830DC /* ModelDefault.binary */,
 				280EFE6A1D76EFE500F5FA5C /* LaunchScreen.xib */,
 				28C85D961D7624C8008CBD36 /* ProductCell.swift */,
@@ -295,6 +300,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				de,
+				it,
 			);
 			mainGroup = 283A5E751D2EBBA000870CF6;
 			productRefGroup = 283A5E7F1D2EBBA000870CF6 /* Products */;
@@ -313,8 +320,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				283C8DF41D8355CA00AF7FBE /* Main.storyboard in Resources */,
+				28139F841D84BACE00930A7F /* Main.storyboard in Resources */,
 				283C8DE51D8352FF00AF7FBE /* de.lproj in Resources */,
+				28139F831D84B79900930A7F /* it.lproj in Resources */,
 				283C8DF21D8354F100AF7FBE /* Base.lproj in Resources */,
 				283C8DE41D8352F800AF7FBE /* en.lproj in Resources */,
 				280EFE6B1D76EFE500F5FA5C /* LaunchScreen.xib in Resources */,
@@ -395,6 +403,20 @@
 			targetProxy = 283A5EA21D2EBBA000870CF6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		28139F861D84BACE00930A7F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				28139F851D84BACE00930A7F /* en */,
+				28139F871D84BB0000930A7F /* de */,
+				28139F881D84BB0600930A7F /* it */,
+			);
+			name = Main.storyboard;
+			path = plateis;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		283A5EA81D2EBBA000870CF6 /* Debug */ = {
