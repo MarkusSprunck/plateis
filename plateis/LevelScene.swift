@@ -65,7 +65,7 @@ class LevelScene: SKScene {
         radiusLevel = viewController.width * 0.07
         radiusLargeX = (viewController.width -  Scales.left - Scales.right) * 0.5 - radiusLevel
         radiusLargeY = (viewController.height -  Scales.top - Scales.bottom - Scales.bannerTop*2 - Scales.bannerBottom*2 ) * 0.5 - radiusLevel
-        centerLarge  = CGPoint(x: viewController.width * 0.5 , y:radiusLargeY + Scales.bottom + Scales.bannerBottom + radiusLevel)
+        centerLarge  = CGPoint(x: viewController.width * 0.5 , y:radiusLargeY + Scales.bottom + Scales.bannerBottom*2 + radiusLevel)
         
         if !viewController.modelController.pageModels.isEmpty {
             createBackground()
@@ -264,13 +264,13 @@ class LevelScene: SKScene {
         labelResult.fontColor = Colors.black
         self.addChild(labelResult)
         
-        labelHelp = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
+        labelHelp = SKLabelNode(fontNamed:"Helvetica Neue Light")
         labelHelp.text = NSLocalizedString("LEVEL_HELP", comment:"Help text for level");
         labelHelp.fontSize = Scales.fontSizeLabel
-        labelHelp.position = CGPoint(x: viewController.width / 2, y: viewController.height - Scales.top - Scales.bannerTop*2)
+        labelHelp.position = CGPoint(x: viewController.width / 2, y: Scales.bottom + Scales.bannerBottom)
         labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
-        labelHelp.fontColor = Colors.black
+        labelHelp.fontColor = Colors.green
         labelHelp.alpha = 0
         self.addChild(labelHelp)
     }

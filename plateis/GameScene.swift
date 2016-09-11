@@ -108,8 +108,15 @@ class GameScene : SKScene {
         buttonLevels.frame = CGRect(x : (self.viewController.width - Scales.buttonWidth - 10), y : self.viewController.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
         
         
+        let best = model.getDistanceBest()
         let distance = Model.getDistance(model.nodesSelected)
-        labelResult.text = "Result \(distance)"  //  / Hints \(viewController.getModel().hints)"
+        labelResult.text = "\(distance) / \(best)"
+        if model.isReady() {
+            fadeInResultText()
+        } else {
+            fadeOutResultText()
+        }
+        
         GameScene.isTapped = GameScene.isTapped || model.isComplete()
         
         buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " #\(viewController.getModel().hints + 1)"  ,forState : UIControlState.Normal)
@@ -206,17 +213,18 @@ class GameScene : SKScene {
         labelResult.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top
         labelResult.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
         labelResult.fontColor = Colors.black
+        labelResult.alpha = 0.0
         labelResult.position = CGPoint(x : viewController.width - Scales.right , y :viewController.height - Scales.top - Scales.bannerTop)
         self.addChild(labelResult)
         
-        labelHelp = SKLabelNode(fontNamed : "Helvetica Neue UltraLight")
+        labelHelp = SKLabelNode(fontNamed : "Helvetica Neue Light")
         labelHelp.fontSize = Scales.fontSizeLabel
         labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Bottom
         labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
-        labelHelp.fontColor = Colors.black
+        labelHelp.fontColor = Colors.green
         labelHelp.text = NSLocalizedString("GAME_HELP", comment : "Tap to select node")
         labelHelp.alpha = 0.0
-        labelHelp.position = CGPoint(x : viewController.width/2, y : viewController.height - Scales.top - Scales.bannerTop*2)
+        labelHelp.position = CGPoint(x : viewController.width/2, y :  Scales.bottom + Scales.bannerBottom)
         self.addChild(labelHelp)
     }
     
@@ -234,6 +242,16 @@ class GameScene : SKScene {
         GameScene.isTapped = true
     }
 
+    
+    func fadeInResultText() {
+        let fadeAction = SKAction.fadeAlphaTo(1.0, duration : 2.0)
+        labelResult.runAction(fadeAction)
+    }
+    
+    func fadeOutResultText() {
+        let fadeAction = SKAction.fadeAlphaTo(0.0, duration : 2.0)
+        labelResult.runAction(fadeAction)
+    }
     
     private func createBackground() {
         if nil == self.background {
@@ -305,7 +323,7 @@ class GameScene : SKScene {
     private func getLocation(node : Node) -> CGPoint {
         
         let offsetYTop = Scales.top + Scales.bannerTop * 2
-        let offsetYBottom = Scales.bottom + Scales.bannerBottom * 2
+        let offsetYBottom = Scales.bottom + Scales.bannerBottom * 3
         let sizeY = viewController.height - offsetYBottom - offsetYTop
         
         let boxWidth : CGFloat  = viewController.width  / CGFloat(viewController.getModel().getCols() + 1)
@@ -411,9 +429,6 @@ class GameScene : SKScene {
                 viewController.getModel().selectNode(node)
                 renderModel()
                 updateLabels()
-                if viewController.getModel().isComplete() {
-                    labelResult.alpha = 1.0
-                }
                 fadeOutHelpText()
             }
         }
