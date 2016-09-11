@@ -20,6 +20,7 @@ public class Model : NSObject, NSCoding {
     var cols: Int
     var startTime: Double = 0
     var endTime: Double = 0
+    public var hints : Int = 0
     
     // MARK: Archiving Paths
     static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
@@ -34,6 +35,7 @@ public class Model : NSObject, NSCoding {
         static let nodesSelectedBestKey = "nodesSelectedBest"
         static let rowsKey = "rows"
         static let colsKey = "cols"
+        static let hintsKey = "hints"
     }
     
     // MARK: NSCoding
@@ -45,9 +47,10 @@ public class Model : NSObject, NSCoding {
         aCoder.encodeObject(nodesSelectedBest, forKey: PropertyKey.nodesSelectedBestKey)
         aCoder.encodeInteger(rows, forKey: PropertyKey.rowsKey)
         aCoder.encodeInteger(cols, forKey: PropertyKey.colsKey)
+        aCoder.encodeInteger(hints, forKey: PropertyKey.hintsKey)
     }
 
-    public init?(nodes : [Node], nodesSelected : [Node], nodesSelectedBest : [Node], name : String, rows: Int, cols: Int, world : String) {
+    public init?(nodes : [Node], nodesSelected : [Node], nodesSelectedBest : [Node], name : String, rows: Int, cols: Int, world : String, hints : Int) {
         // Initialize stored properties.
         self.nodes = nodes
         self.nodesSelected = nodesSelected
@@ -56,6 +59,7 @@ public class Model : NSObject, NSCoding {
         self.world = world
         self.rows = rows
         self.cols = cols
+        self.hints = hints
     }
     
     required convenience public init?(coder aDecoder: NSCoder) {
@@ -66,9 +70,10 @@ public class Model : NSObject, NSCoding {
         let world = aDecoder.decodeObjectForKey( PropertyKey.worldKey) as! String
         let rows : Int = aDecoder.decodeIntegerForKey( PropertyKey.rowsKey)
         let cols : Int = aDecoder.decodeIntegerForKey( PropertyKey.colsKey)
-    
+        let hints : Int = aDecoder.decodeIntegerForKey( PropertyKey.hintsKey)
+        
         // Must call designated initializer.
-        self.init(nodes: nodes, nodesSelected: nodesSelected, nodesSelectedBest: nodesSelectedBest, name: name, rows: rows, cols: cols, world: world)
+        self.init(nodes: nodes, nodesSelected: nodesSelected, nodesSelectedBest: nodesSelectedBest, name: name, rows: rows, cols: cols, world: world, hints: hints)
     }
     
     public init(world: String, name : String, rows: Int, cols: Int) {

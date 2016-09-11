@@ -16,17 +16,19 @@ class Scales {
     
     internal static let fontSizeButton : CGFloat = 20
     internal static let buttonHeight : CGFloat = 28
-    internal static let buttonWidth:CGFloat = 95
+    internal static let buttonWidth : CGFloat = 95
     
     
     // distance from border
-    internal static let top:CGFloat = 20
-    internal static let bottom:CGFloat = buttonHeight + 20
-    internal static let left:CGFloat = 10
-    internal static let right:CGFloat = 10
+    internal static let top : CGFloat = 15
+    internal static let bottom : CGFloat = buttonHeight + 15
+    internal static let left : CGFloat = 10
+    internal static let right : CGFloat = 10
     
-    internal static let bannerTop:CGFloat = 30
-    internal static let bannerBottom:CGFloat = 30
+    internal static let bannerTop : CGFloat = 30
+    internal static let bannerBottom : CGFloat = 30
+    
+    internal static let scaleNodes : CGFloat = 0.05
     
 
 }

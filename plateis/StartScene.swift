@@ -59,9 +59,7 @@ class StartScene: SKScene {
         labelTitle.text = "P L A T E I S "
       
         // position
-        let x = viewController.width * 0.5
-        let y = viewController.height * 0.80
-        labelTitle.position = CGPoint(x: x, y: y)
+        labelTitle.position = CGPoint(x: viewController.width * 0.5, y: viewController.height * 0.80)
     
         // rendering style
         labelTitle.fontSize = 46
@@ -128,10 +126,8 @@ class StartScene: SKScene {
         // create
         buttonStart = UIButton(type: UIButtonType.Custom)
         
-        // define position
-        let x = viewController.width * 0.5 - 140
-        let y = getLabelYPosition(1)
-        buttonStart.frame = CGRect(x : x, y: y, width : 140, height : 40)
+        // define size
+        buttonStart.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth*1.5, height : Scales.buttonHeight*1.5)
        
         // define look and feel
         buttonStart.setTitle("Start", forState: UIControlState.Normal)
@@ -140,10 +136,7 @@ class StartScene: SKScene {
         buttonStart.layer.cornerRadius = 0.5 * buttonStart.bounds.height
         buttonStart.layer.borderWidth = 0
         buttonStart.alpha = 0
-        
-        let verticalCenter = viewController.height * 0.5
-        let horizontalCenter = viewController.width * 0.5
-        buttonStart.center = CGPoint(x : horizontalCenter, y: verticalCenter)
+        buttonStart.center = CGPoint(x : viewController.width * 0.5, y: viewController.height * 0.45)
     
         // add button to view
         viewController.view.addSubview(buttonStart)
@@ -156,7 +149,7 @@ class StartScene: SKScene {
         viewController.actionStart()
     }
     
-    internal func hideAllElements() {
+    internal func hide() {
         labelTitle.alpha = 0
         buttonStart.alpha = 0
         for label in labelDescriptions {

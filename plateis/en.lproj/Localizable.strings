@@ -48,7 +48,7 @@ DESCRIPTION_4="difficult to solve.";
 
 LEVEL_HELP="swipe to select level";
 
-GAME_HELP="Tap to select node";
+GAME_HELP="tap to select node";
 
 NEXT="Next";
 

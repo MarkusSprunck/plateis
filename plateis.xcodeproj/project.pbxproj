@@ -81,6 +81,9 @@
 		283AA9911D7235A90089C26B /* de.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = de.lproj; path = ../plateis/de.lproj; sourceTree = "<group>"; };
 		283AA9931D7235B80089C26B /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = ../plateis/en.lproj; sourceTree = "<group>"; };
 		283C8DF11D8354F100AF7FBE /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = ../plateis/Base.lproj; sourceTree = "<group>"; };
+		283F86B81D85788C00BBDC3D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = es.lproj/Main.storyboard; sourceTree = "<group>"; };
+		283F86B91D85789400BBDC3D /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "es-MX"; path = "es-MX.lproj/Main.storyboard"; sourceTree = "<group>"; };
+		283F86BA1D85789D00BBDC3D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/Main.storyboard; sourceTree = "<group>"; };
 		28517E8F1D5E5FC90084565F /* ModelSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSolver.swift; sourceTree = "<group>"; };
 		2869B3271D83E2FF001E1D49 /* Scales.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scales.swift; sourceTree = "<group>"; };
 		28943FEE1D63388500F1062D /* ModelControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelControllerTests.swift; sourceTree = "<group>"; };
@@ -145,15 +148,13 @@
 		283A5E801D2EBBA000870CF6 /* PLATEIS */ = {
 			isa = PBXGroup;
 			children = (
+				283A5E8C1D2EBBA000870CF6 /* Assets.xcassets */,
 				283C8DF11D8354F100AF7FBE /* Base.lproj */,
 				283AA9911D7235A90089C26B /* de.lproj */,
 				283AA9931D7235B80089C26B /* en.lproj */,
 				28139F821D84B79900930A7F /* it.lproj */,
 				2869B3271D83E2FF001E1D49 /* Scales.swift */,
 				282A97C11D65FFD5002DBC9D /* Colors.swift */,
-				28139F861D84BACE00930A7F /* Main.storyboard */,
-				280BA4891D7A41FF002830DC /* ModelDefault.binary */,
-				280EFE6A1D76EFE500F5FA5C /* LaunchScreen.xib */,
 				28C85D961D7624C8008CBD36 /* ProductCell.swift */,
 				28C85D941D762475008CBD36 /* MasterViewController.swift */,
 				283A5E851D2EBBA000870CF6 /* DataViewController.swift */,
@@ -165,11 +166,13 @@
 				28517E8F1D5E5FC90084565F /* ModelSolver.swift */,
 				28C86C711D30BDE100D77A99 /* Node.swift */,
 				283A5E811D2EBBA000870CF6 /* AppDelegate.swift */,
-				283A5E8C1D2EBBA000870CF6 /* Assets.xcassets */,
-				283A5E911D2EBBA000870CF6 /* Info.plist */,
 				28DEC0FE1D67AE4B00E06EF8 /* PlateisProducts.swift */,
 				28DEC1001D67AF3C00E06EF8 /* IAPHelper.swift */,
 				28D00F241D70AC6A006279DC /* UIViewExtension.swift */,
+				28139F861D84BACE00930A7F /* Main.storyboard */,
+				280EFE6A1D76EFE500F5FA5C /* LaunchScreen.xib */,
+				280BA4891D7A41FF002830DC /* ModelDefault.binary */,
+				283A5E911D2EBBA000870CF6 /* Info.plist */,
 			);
 			path = PLATEIS;
 			sourceTree = "<group>";
@@ -302,6 +305,9 @@
 				en,
 				de,
 				it,
+				es,
+				"es-MX",
+				ru,
 			);
 			mainGroup = 283A5E751D2EBBA000870CF6;
 			productRefGroup = 283A5E7F1D2EBBA000870CF6 /* Products */;
@@ -411,6 +417,9 @@
 				28139F851D84BACE00930A7F /* en */,
 				28139F871D84BB0000930A7F /* de */,
 				28139F881D84BB0600930A7F /* it */,
+				283F86B81D85788C00BBDC3D /* es */,
+				283F86B91D85789400BBDC3D /* es-MX */,
+				283F86BA1D85789D00BBDC3D /* ru */,
 			);
 			name = Main.storyboard;
 			path = plateis;
