@@ -108,11 +108,17 @@ class GameScene: SKScene {
         
         buttonUndo.backgroundColor = (model.getSelectedCount() > 0) ? Colors.blue : Colors.grey
         
+        // Move buttons to right position
+        buttonUndo.frame = CGRect(x : (self.viewController.width/2 - Scales.buttonWidth/2), y: self.viewController.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonHint.frame = CGRect(x : 10, y: self.viewController.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonLevels.frame = CGRect(x : (self.viewController.width - Scales.buttonWidth - 10), y: self.viewController.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        
+        
         let distance = Model.getDistance(model.nodesSelected)
         labelResult.text = "Result \(distance) / Hints \(hintCount)"
    }
     
-    public func resetHintCount() {
+    internal func resetHintCount() {
         hintCount = 0
     }
     
@@ -123,10 +129,9 @@ class GameScene: SKScene {
         buttonUndo.fadeIn()
     }
     
-    private func createButtons(){
-        
+    private func createButtons() {
         buttonLevels = UIButton(type: UIButtonType.Custom)
-        buttonLevels.frame = CGRect(x : (self.viewController.width - Scales.buttonWidth - 10), y: self.viewController.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonLevels.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonLevels.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonLevels.backgroundColor =  Colors.blue
         buttonLevels.layer.cornerRadius = 0.5 * buttonLevels.bounds.size.height
@@ -136,7 +141,7 @@ class GameScene: SKScene {
         viewController.view.addSubview(buttonLevels)
     
         buttonUndo = UIButton(type: UIButtonType.Custom)
-        buttonUndo.frame = CGRect(x : (self.viewController.width/2 - Scales.buttonWidth/2), y: self.viewController.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonUndo.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonUndo.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonUndo.backgroundColor =  Colors.blue
         buttonUndo.layer.cornerRadius = 0.5 * buttonLevels.bounds.size.height
@@ -146,7 +151,7 @@ class GameScene: SKScene {
         viewController.view.addSubview(buttonUndo)
 
         buttonHint = UIButton(type: UIButtonType.Custom)
-        buttonHint.frame = CGRect(x : 10, y: self.viewController.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonHint.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonHint.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton )
         buttonHint.backgroundColor =  Colors.blue
         buttonHint.layer.cornerRadius = 0.5 * buttonLevels.bounds.size.height
@@ -297,7 +302,6 @@ class GameScene: SKScene {
                 circles.append(circle)
                 circle.zPosition = 2000
             }
-            
             index += 1
         }
     }
@@ -351,9 +355,7 @@ class GameScene: SKScene {
     }
     
     private func createLinesBest() {
-        
         if self.isSelectionBestVisible {
-            
             var firstNodeLocation:CGPoint? = nil
             let path : CGMutablePath = CGPathCreateMutable()
         
@@ -432,6 +434,11 @@ class GameScene: SKScene {
         starYellow.alpha = 0.0
         starGreen.alpha = 0.0
         starRed.alpha = 0.0
+        
+        // Remove buttons to avoid not wanted clicks
+        buttonHint.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonUndo.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonLevels.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
     }
     
     func pointFrom(angle: CGFloat, radius: CGFloat, offset: CGPoint) -> CGPoint {

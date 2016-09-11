@@ -91,11 +91,7 @@ class LevelScene: SKScene {
     
     func createPlayButton(){
         buttonPlayLevel = UIButton(type: UIButtonType.Custom)
-        
-        let x = (self.viewController.width / 2 - Scales.buttonWidth/2)
-        let y = CGFloat(0.0)
-        buttonPlayLevel.frame = CGRect(x : x, y: y, width : Scales.buttonWidth, height :
-            Scales.buttonHeight)
+        buttonPlayLevel.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonPlayLevel.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonPlayLevel.backgroundColor =  Colors.blue
         buttonPlayLevel.layer.cornerRadius = 0.5 * buttonPlayLevel.bounds.size.height
@@ -105,8 +101,9 @@ class LevelScene: SKScene {
         buttonPlayLevel.alpha = 0
         viewController.skview.addSubview(buttonPlayLevel)
         
+        
         buttonFeatures = UIButton(type: UIButtonType.Custom)
-        buttonFeatures.frame = CGRect(x : ((self.centerLarge.x - buttonPlayLevel.bounds.width) * 0.5), y : CGFloat(0.0), width : 95,height : Scales.buttonHeight)
+        buttonFeatures.frame = CGRect(x : 0, y :0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonFeatures.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonFeatures.backgroundColor =  Colors.blue
         buttonFeatures.layer.cornerRadius = 0.5 * buttonFeatures.bounds.size.height
@@ -364,10 +361,9 @@ class LevelScene: SKScene {
         let model : Model = viewController.modelController.pageModels[selectedModelIndex]
         labelWorld.text = model.world;
         
-        
-        // 1. row
+        // Move buttons to right position
         buttonFeatures.frame = CGRectMake( Scales.left,  getButtonYPosition() , buttonFeatures.frame.width, buttonFeatures.frame.height)
-        buttonPlayLevel.frame = CGRectMake(UIScreen.mainScreen().bounds.width / 2 - buttonPlayLevel.frame.width / 2,  getButtonYPosition() , buttonPlayLevel.frame.width, buttonPlayLevel.frame.height)
+        buttonPlayLevel.frame = CGRectMake(UIScreen.mainScreen().bounds.width  - Scales.buttonWidth - Scales.right,  getButtonYPosition() , buttonPlayLevel.frame.width, buttonPlayLevel.frame.height)
         
         // 2. row
         labelNameOfLevel.text = NSLocalizedString("LEVEL", comment:"Level") + " " + model.getName();
@@ -494,6 +490,8 @@ class LevelScene: SKScene {
                 let index : Int = Int(sprite.name!)!
                 if index <= viewController.modelController.getIndexOfNextFreeLevel()  ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage) {
                     viewController.actionOpenGame(index)
+                    buttonFeatures.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+                    buttonPlayLevel.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
                 }
             }
         }
