@@ -12,24 +12,34 @@
 		<key>PLATEIS-Debug.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>5</integer>
 		</dict>
 		<key>PLATEIS-Release (de).xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>PLATEIS-Release (it).xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
-		<key>PLATEIS-Release.xcscheme</key>
+		<key>PLATEIS-Release (en).xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>
 			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>PLATEIS-Release (es).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>PLATEIS-Release (it).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>PLATEIS-Release (ru).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>PLATEIS.xcscheme_^#shared#^_</key>
 		<dict>

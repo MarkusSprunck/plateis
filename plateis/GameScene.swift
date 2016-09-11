@@ -112,7 +112,7 @@ class GameScene : SKScene {
         labelResult.text = "Result \(distance)"  //  / Hints \(viewController.getModel().hints)"
         GameScene.isTapped = GameScene.isTapped || model.isComplete()
         
-        buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " \(viewController.getModel().hints)"  ,forState : UIControlState.Normal)
+        buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " #\(viewController.getModel().hints + 1)"  ,forState : UIControlState.Normal)
     }
     
     private func showElements() {

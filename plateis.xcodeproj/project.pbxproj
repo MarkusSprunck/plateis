@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		280BA48A1D7A41FF002830DC /* ModelDefault.binary in Resources */ = {isa = PBXBuildFile; fileRef = 280BA4891D7A41FF002830DC /* ModelDefault.binary */; };
-		280EFE6B1D76EFE500F5FA5C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280EFE6A1D76EFE500F5FA5C /* LaunchScreen.xib */; };
 		28139F831D84B79900930A7F /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 28139F821D84B79900930A7F /* it.lproj */; };
 		28139F841D84BACE00930A7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28139F861D84BACE00930A7F /* Main.storyboard */; };
 		28143A481D427E5F00F48360 /* LevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28143A471D427E5F00F48360 /* LevelScene.swift */; };
@@ -36,6 +35,10 @@
 		28DEC0FF1D67AE4B00E06EF8 /* PlateisProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DEC0FE1D67AE4B00E06EF8 /* PlateisProducts.swift */; };
 		28DEC1011D67AF3C00E06EF8 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DEC1001D67AF3C00E06EF8 /* IAPHelper.swift */; };
 		28E1EBEF1D6F72B5004DD1B4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E1EBEE1D6F72B5004DD1B4 /* StoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		28F483621D85C16700CF833F /* es-MX.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 28F4835F1D85C16700CF833F /* es-MX.lproj */; };
+		28F483631D85C16700CF833F /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 28F483601D85C16700CF833F /* es.lproj */; };
+		28F483641D85C16700CF833F /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 28F483611D85C16700CF833F /* ru.lproj */; };
+		28F483651D85C89100CF833F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F483671D85C89100CF833F /* LaunchScreen.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +60,6 @@
 
 /* Begin PBXFileReference section */
 		280BA4891D7A41FF002830DC /* ModelDefault.binary */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = ModelDefault.binary; path = plateis/ModelDefault.binary; sourceTree = SOURCE_ROOT; };
-		280EFE6A1D76EFE500F5FA5C /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		28139F821D84B79900930A7F /* it.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = it.lproj; path = plateis/it.lproj; sourceTree = SOURCE_ROOT; };
 		28139F851D84BACE00930A7F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		28139F871D84BB0000930A7F /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -96,6 +98,15 @@
 		28DEC0FE1D67AE4B00E06EF8 /* PlateisProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateisProducts.swift; sourceTree = "<group>"; };
 		28DEC1001D67AF3C00E06EF8 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		28E1EBEE1D6F72B5004DD1B4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		28F4835F1D85C16700CF833F /* es-MX.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "es-MX.lproj"; path = "plateis/es-MX.lproj"; sourceTree = SOURCE_ROOT; };
+		28F483601D85C16700CF833F /* es.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = es.lproj; path = plateis/es.lproj; sourceTree = SOURCE_ROOT; };
+		28F483611D85C16700CF833F /* ru.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ru.lproj; path = plateis/ru.lproj; sourceTree = SOURCE_ROOT; };
+		28F483661D85C89100CF833F /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		28F483681D85C89D00CF833F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		28F483691D85C89E00CF833F /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		28F4836A1D85C8A000CF833F /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		28F4836B1D85C8A200CF833F /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		28F4836C1D85C8A400CF833F /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "es-MX"; path = "es-MX.lproj/LaunchScreen.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,8 +160,11 @@
 			isa = PBXGroup;
 			children = (
 				283A5E8C1D2EBBA000870CF6 /* Assets.xcassets */,
-				283C8DF11D8354F100AF7FBE /* Base.lproj */,
 				283AA9911D7235A90089C26B /* de.lproj */,
+				28F4835F1D85C16700CF833F /* es-MX.lproj */,
+				28F483601D85C16700CF833F /* es.lproj */,
+				28F483611D85C16700CF833F /* ru.lproj */,
+				283C8DF11D8354F100AF7FBE /* Base.lproj */,
 				283AA9931D7235B80089C26B /* en.lproj */,
 				28139F821D84B79900930A7F /* it.lproj */,
 				2869B3271D83E2FF001E1D49 /* Scales.swift */,
@@ -170,7 +184,7 @@
 				28DEC1001D67AF3C00E06EF8 /* IAPHelper.swift */,
 				28D00F241D70AC6A006279DC /* UIViewExtension.swift */,
 				28139F861D84BACE00930A7F /* Main.storyboard */,
-				280EFE6A1D76EFE500F5FA5C /* LaunchScreen.xib */,
+				28F483671D85C89100CF833F /* LaunchScreen.xib */,
 				280BA4891D7A41FF002830DC /* ModelDefault.binary */,
 				283A5E911D2EBBA000870CF6 /* Info.plist */,
 			);
@@ -327,12 +341,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				28139F841D84BACE00930A7F /* Main.storyboard in Resources */,
+				28F483621D85C16700CF833F /* es-MX.lproj in Resources */,
 				283C8DE51D8352FF00AF7FBE /* de.lproj in Resources */,
+				28F483631D85C16700CF833F /* es.lproj in Resources */,
 				28139F831D84B79900930A7F /* it.lproj in Resources */,
 				283C8DF21D8354F100AF7FBE /* Base.lproj in Resources */,
 				283C8DE41D8352F800AF7FBE /* en.lproj in Resources */,
-				280EFE6B1D76EFE500F5FA5C /* LaunchScreen.xib in Resources */,
+				28F483651D85C89100CF833F /* LaunchScreen.xib in Resources */,
 				280BA48A1D7A41FF002830DC /* ModelDefault.binary in Resources */,
+				28F483641D85C16700CF833F /* ru.lproj in Resources */,
 				283A5E8D1D2EBBA000870CF6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,6 +441,19 @@
 			name = Main.storyboard;
 			path = plateis;
 			sourceTree = SOURCE_ROOT;
+		};
+		28F483671D85C89100CF833F /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				28F483661D85C89100CF833F /* ru */,
+				28F483681D85C89D00CF833F /* en */,
+				28F483691D85C89E00CF833F /* de */,
+				28F4836A1D85C8A000CF833F /* it */,
+				28F4836B1D85C8A200CF833F /* es */,
+				28F4836C1D85C8A400CF833F /* es-MX */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 

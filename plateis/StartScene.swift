@@ -81,7 +81,7 @@ class StartScene: SKScene {
         labelDescriptions[0].verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         labelDescriptions[0].horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         labelDescriptions[0].alpha = 0
-        labelDescriptions[0].fontSize = 22
+        labelDescriptions[0].fontSize = Scales.fontSizeLabel
         labelDescriptions[0].fontColor = Colors.black
         
         // line 1
@@ -130,8 +130,8 @@ class StartScene: SKScene {
         buttonStart.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth*1.5, height : Scales.buttonHeight*1.5)
        
         // define look and feel
-        buttonStart.setTitle("Start", forState: UIControlState.Normal)
-        buttonStart.titleLabel!.font = UIFont(name: "Helvetica", size: 24)
+        buttonStart.setTitle(NSLocalizedString("START", comment:"Start"), forState: UIControlState.Normal)
+        buttonStart.titleLabel!.font = UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonStart.backgroundColor = Colors.blue
         buttonStart.layer.cornerRadius = 0.5 * buttonStart.bounds.height
         buttonStart.layer.borderWidth = 0
