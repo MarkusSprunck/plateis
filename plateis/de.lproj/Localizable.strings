@@ -6,6 +6,8 @@
   Copyright © 2016 Markus Sprunck. All rights reserved.
 */
 
+START="Starten";
+
 PLAY="Spielen";
 
 FEATURES="Shop";
@@ -14,7 +16,7 @@ RESTORE="Laden";
 
 HOME="Home";
 
-HINT="Tipp";
+HINT="Hinweis";
 
 UNDO="Zurück";
 
