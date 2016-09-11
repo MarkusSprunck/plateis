@@ -1,0 +1,63 @@
+/*
+ Localizable.strings
+ PLATEIS
+ 
+ Created by Markus Sprunck on 24/08/16.
+ Copyright © 2016 Markus Sprunck. All rights reserved.
+ */
+
+START="Comienzo";
+
+PLAY="Play";
+
+FEATURES="Shop";
+
+RESTORE="Restore";
+
+HOME="Home";
+
+HINT="Hint";
+
+UNDO="Undo";
+
+LEVEL="Level";
+
+LEVELS="Levels";
+
+VIEW="View";
+
+COMPLETE="Complete";
+
+LOCKED="Locked";
+
+IMPROVE="Improve";
+
+WORLD="World";
+
+BEST="Best";
+
+RESULT="Result";
+
+DESCRIPTION_0="Encontrar el camino más corto entre";
+
+DESCRIPTION_1="algunos nodos es simple, pero con un";
+
+DESCRIPTION_2="creciente número de nodos de la";
+
+DESCRIPTION_3="tarea se hace extremadamente";
+
+DESCRIPTION_4="difícil de resolver.";
+
+LEVEL_HELP="swipe to select level";
+
+GAME_HELP="tap to select node";
+
+NEXT="Next";
+
+BACK="Back";
+
+
+
+
+
+
