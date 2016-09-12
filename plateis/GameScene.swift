@@ -38,6 +38,8 @@ class GameScene : SKScene {
  
     private var isSelectionBestVisible : Bool = false
     
+    private var lastSelectedNode : Node!
+    
     init(size : CGSize, viewController : DataViewController) {
         self.viewController = viewController
         super.init(size : size)
@@ -306,6 +308,16 @@ class GameScene : SKScene {
                 self.addChild(circle)
                 circles.append(circle)
                 circle.zPosition = 1000
+        
+                if !viewController.getModel().isReady() && viewController.getModel().getNodeSelected(viewController.getModel().getSelectedCount()-1) == node {
+                    let waitAction = SKAction.waitForDuration(0.8)
+                    let growAction = SKAction.scaleBy(1.1, duration: 0.3)
+                    let shrinkAction = growAction.reversedAction()
+                    let backAndForthSequence = SKAction.sequence([waitAction, growAction, shrinkAction])
+                    circle.runAction(SKAction.repeatActionForever(backAndForthSequence))
+                }
+
+                
             } else if node.isActive() {
                 let circle : SKShapeNode = LevelScene.createcircle(viewController.width * Scales.scaleNodes, position : position, color : Colors.white, alpha : alpha, lineWidth : lineWidth, animate : false, name : String(index))
                 circle.lineWidth =  2
@@ -427,6 +439,10 @@ class GameScene : SKScene {
                 let index : Int = Int(sprite.name!)!
                 let node =  viewController.getModel().getNode( index )
                 viewController.getModel().selectNode(node)
+                
+                // Store last selected node for animation
+                lastSelectedNode = node
+                
                 renderModel()
                 updateLabels()
                 fadeOutHelpText()
