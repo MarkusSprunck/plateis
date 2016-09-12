@@ -223,8 +223,8 @@ class GameScene : SKScene {
         labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         labelHelp.fontColor = Colors.green
         labelHelp.text = NSLocalizedString("GAME_HELP", comment : "Tap to select node")
-        labelHelp.alpha = 0.0
         labelHelp.position = CGPoint(x : viewController.width/2, y :  Scales.bottom + Scales.bannerBottom)
+        labelHelp.alpha = GameScene.isTapped ? 0.0 : 1.0
         self.addChild(labelHelp)
     }
     
@@ -437,7 +437,6 @@ class GameScene : SKScene {
     internal func hide() {
         labelLevel.alpha = 0.0
         labelResult.alpha = 0.0
-        labelHelp.alpha = 0.0
         
         buttonUndo.alpha = 0.0
         buttonHint.alpha = 0.0
