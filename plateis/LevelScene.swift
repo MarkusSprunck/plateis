@@ -264,13 +264,13 @@ class LevelScene: SKScene {
         labelResult.fontColor = Colors.black
         self.addChild(labelResult)
         
-        labelHelp = SKLabelNode(fontNamed:"Helvetica Neue Light")
+        labelHelp = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelHelp.text = NSLocalizedString("LEVEL_HELP", comment:"Help text for level");
         labelHelp.fontSize = Scales.fontSizeLabel
         labelHelp.position = CGPoint(x: viewController.width / 2, y: Scales.bottom + Scales.bannerBottom)
         labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
         labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
-        labelHelp.fontColor = Colors.green
+        labelHelp.fontColor = Colors.darkGrey
         labelHelp.alpha = 0
         self.addChild(labelHelp)
     }

@@ -85,34 +85,34 @@ class StartScene: SKScene {
         labelDescriptions[0].fontColor = Colors.black
         
         // line 1
-        labelDescriptions[0].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 0 * deltaY)
+        labelDescriptions[0].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 0 * deltaY + Scales.bottom)
         labelDescriptions[0].text = NSLocalizedString("DESCRIPTION_0", comment:"Finding the shortest path between");
         self.addChild(labelDescriptions[0]);
 
         // line 2
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[1].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 1 * deltaY)
+        labelDescriptions[1].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 1 * deltaY + Scales.bottom)
         labelDescriptions[1].text = NSLocalizedString("DESCRIPTION_1", comment:"some nodes is simple, but with an");
         labelDescriptions[1].alpha = 0
         self.addChild(labelDescriptions[1]);
 
         // line 3
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[2].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 2 * deltaY)
+        labelDescriptions[2].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 2 * deltaY + Scales.bottom)
         labelDescriptions[2].text = NSLocalizedString("DESCRIPTION_2", comment:"increasing number of nodes");
         labelDescriptions[2].alpha = 0
         self.addChild(labelDescriptions[2]);
 
         // line 4
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[3].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 3 * deltaY)
+        labelDescriptions[3].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 3 * deltaY + Scales.bottom)
         labelDescriptions[3].text = NSLocalizedString("DESCRIPTION_3", comment:"the task gets extremely");
         labelDescriptions[3].alpha = 0
         self.addChild(labelDescriptions[3]);
         
         // line 5
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[4].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 4 * deltaY)
+        labelDescriptions[4].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 4 * deltaY + Scales.bottom)
         labelDescriptions[4].text = NSLocalizedString("DESCRIPTION_4", comment:"difficult to solve.");
         labelDescriptions[4].alpha = 0
         self.addChild(labelDescriptions[4]);
@@ -136,7 +136,7 @@ class StartScene: SKScene {
         buttonStart.layer.cornerRadius = 0.5 * buttonStart.bounds.height
         buttonStart.layer.borderWidth = 0
         buttonStart.alpha = 0
-        buttonStart.center = CGPoint(x : viewController.width * 0.5, y: viewController.height * 0.45)
+        buttonStart.center = CGPoint(x : viewController.width * 0.5, y: viewController.height * 0.4)
     
         // add button to view
         viewController.view.addSubview(buttonStart)

@@ -112,16 +112,18 @@ class GameScene : SKScene {
         
         let best = model.getDistanceBest()
         let distance = Model.getDistance(model.nodesSelected)
-        labelResult.text = "\(distance) / \(best)"
+        labelResult.text = NSLocalizedString("RESULT", comment : "Result") + " \(distance) / " + NSLocalizedString("BEST", comment : "Result") + " \(best)"
         if model.isReady() {
+            fadeOutHelpText()
             fadeInResultText()
         } else {
             fadeOutResultText()
+            fadeInHelpText()
         }
         
         GameScene.isTapped = GameScene.isTapped || model.isComplete()
         
-        buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " #\(viewController.getModel().hints + 1)"  ,forState : UIControlState.Normal)
+        buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " \(viewController.getModel().hints + 1)"  ,forState : UIControlState.Normal)
     }
     
     private func showElements() {
@@ -165,6 +167,8 @@ class GameScene : SKScene {
     
     private func createStars(){
         
+        let delta : CGFloat = 35
+        let halfX : CGFloat = 19
         let starPath : CGPath = starPathInRect()
         let model : Model = viewController.getModel()
         
@@ -174,7 +178,7 @@ class GameScene : SKScene {
         let isRed = model.getSelectedCount() > 0
         
         starGreen = SKShapeNode(path : starPath)
-        starGreen.position = CGPoint(x : 95, y : viewController.height - Scales.top )
+        starGreen.position = CGPoint(x : Scales.left + halfX + delta * 2.0, y : viewController.height - Scales.top )
         starGreen.zPosition = 10
         starGreen.setScale(Scales.scaleStars)
         starGreen.strokeColor = Colors.black
@@ -183,7 +187,7 @@ class GameScene : SKScene {
         addChild(starGreen)
 
         starYellow = SKShapeNode(path : starPath)
-        starYellow.position = CGPoint(x : 60, y : viewController.height - Scales.top )
+        starYellow.position = CGPoint(x : Scales.left + halfX + delta, y : viewController.height - Scales.top )
         starYellow.zPosition = 10
         starYellow.setScale(Scales.scaleStars)
         starYellow.strokeColor = Colors.black
@@ -192,7 +196,7 @@ class GameScene : SKScene {
         addChild(starYellow)
 
         starRed = SKShapeNode(path : starPath)
-        starRed.position = CGPoint(x : 25, y : viewController.height - Scales.top )
+        starRed.position = CGPoint(x : Scales.left + halfX , y : viewController.height - Scales.top )
         starRed.zPosition = 10
         starRed.setScale(Scales.scaleStars)
         starRed.strokeColor = Colors.black
@@ -207,26 +211,26 @@ class GameScene : SKScene {
         labelLevel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top
         labelLevel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
         labelLevel.fontColor = Colors.black
-        labelLevel.position = CGPoint(x : viewController.width - 15 , y : viewController.height - Scales.top)
+        labelLevel.position = CGPoint(x : viewController.width - Scales.right , y : viewController.height - Scales.top)
         self.addChild(labelLevel)
         
         labelResult = SKLabelNode(fontNamed : "Helvetica Neue UltraLight")
         labelResult.fontSize = Scales.fontSizeLabel
-        labelResult.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Top
-        labelResult.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
+        labelResult.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Bottom
+        labelResult.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
         labelResult.fontColor = Colors.black
-        labelResult.alpha = 0.0
-        labelResult.position = CGPoint(x : viewController.width - Scales.right , y :viewController.height - Scales.top - Scales.bannerTop)
+        labelResult.alpha = viewController.getModel().isReady() ? 1.0 : 0.0
+        labelResult.position = CGPoint(x : viewController.width/2, y :Scales.bottom + Scales.bannerBottom * 0.5)
         self.addChild(labelResult)
         
         labelHelp = SKLabelNode(fontNamed : "Helvetica Neue Light")
         labelHelp.fontSize = Scales.fontSizeLabel
         labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Bottom
         labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
-        labelHelp.fontColor = Colors.green
+        labelHelp.fontColor = Colors.darkGrey
         labelHelp.text = NSLocalizedString("GAME_HELP", comment : "Tap to select node")
-        labelHelp.position = CGPoint(x : viewController.width/2, y :  Scales.bottom + Scales.bannerBottom)
-        labelHelp.alpha = GameScene.isTapped ? 0.0 : 1.0
+        labelHelp.position = CGPoint(x : viewController.width/2, y :  Scales.bottom + Scales.bannerBottom * 0.5)
+        labelHelp.alpha = GameScene.isTapped || viewController.getModel().isReady() ? 0.0 : 1.0
         self.addChild(labelHelp)
     }
     
@@ -334,14 +338,17 @@ class GameScene : SKScene {
     
     private func getLocation(node : Node) -> CGPoint {
         
-        let offsetYTop = Scales.top + Scales.bannerTop * 2
-        let offsetYBottom = Scales.bottom + Scales.bannerBottom * 3
+        let offsetYTop = Scales.top + Scales.bannerTop * 0.5
+        let offsetYBottom = Scales.bottom + Scales.bannerBottom * 2.5
         let sizeY = viewController.height - offsetYBottom - offsetYTop
         
-        let boxWidth : CGFloat  = viewController.width  / CGFloat(viewController.getModel().getCols() + 1)
-        let xLocation : CGFloat =  (CGFloat(node.x) + 1.0 )  * boxWidth
+        let sizeX = viewController.width - Scales.left - Scales.right
+        let radius = viewController.width * Scales.scaleNodes
+        
+        let boxWidth : CGFloat  = sizeX / CGFloat(viewController.getModel().getCols())
+        let xLocation : CGFloat =  CGFloat(node.x)  * boxWidth + Scales.left + radius*2
       
-        let boxHeight : CGFloat  = sizeY  / CGFloat(viewController.getModel().getRows() )
+        let boxHeight : CGFloat  = sizeY / CGFloat(viewController.getModel().getRows())
         let yLocation : CGFloat =  CGFloat(node.y) * boxHeight + offsetYBottom
         
         return CGPoint(x : Int(xLocation), y : Int(yLocation))
@@ -475,8 +482,8 @@ class GameScene : SKScene {
     
     func starPathInRect() -> CGPath {
     
-        let rect : CGRect = CGRect( x : 0 , y : 0, width : 30, height : 30 )
-        let starExtrusion : CGFloat = 30.0
+        let rect : CGRect = CGRect( x : 0 , y : 0, width : 28, height : 28 )
+        let starExtrusion : CGFloat = 28.0
         let center = CGPoint(x : rect.width / 2.0, y : -rect.height )
         let pointsOnStar = 5
         var angle : CGFloat = -CGFloat(M_PI / 2.0)
