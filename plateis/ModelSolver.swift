@@ -12,16 +12,16 @@ import UIKit
 class ModelSolver {
     
     // Number of steps for simulated annealing
-    private static let STEPS = 25
+    fileprivate static let STEPS = 25
  
     // Number of iterations per step and node
-    private static let ITERATIONS = 100
+    fileprivate static let ITERATIONS = 100
     
     // Start temperature for simulated annealing
-    private static let START_TEMPERATURE : Float = 2000.0
+    fileprivate static let START_TEMPERATURE : Float = 2000.0
     
     // Select all active nodes from model
-    private class func getActiveNodes(model : Model) -> [Node] {
+    fileprivate class func getActiveNodes(_ model : Model) -> [Node] {
         var activeNodes : [Node] = []
         for node in model.nodes {
             if node.isActive() {
@@ -32,7 +32,7 @@ class ModelSolver {
     }
     
     // Find the shortest path between active nodes
-    class func run(model : Model) -> ([Node], Float) {
+    class func run(_ model : Model) -> ([Node], Float) {
         
         var activeNodes : [Node] = ModelSolver.getActiveNodes(model)
       

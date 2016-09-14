@@ -20,13 +20,13 @@ class ModelController: NSObject {
         static let allValues = [random01, random02, random03, random04, random05, random06, random07, random08, random09, random10]
     }
     
-    private var currentWorld : String = WorldKeys.random01.rawValue
+    fileprivate var currentWorld : String = WorldKeys.random01.rawValue
     
-    private var indexOfNextFreeLevel = 0
+    fileprivate var indexOfNextFreeLevel = 0
     
-    private let MAX_NUMBER_OF_ROWS = 10
+    fileprivate let MAX_NUMBER_OF_ROWS = 10
     
-    private let MAX_NUMBER_OF_COLUMNS = 7
+    fileprivate let MAX_NUMBER_OF_COLUMNS = 7
 
     override init() {
         super.init()
@@ -35,9 +35,9 @@ class ModelController: NSObject {
             print("Load stored worlds")
             allModels += savedMeals
         } else {
-            let filepath = NSBundle.mainBundle().pathForResource("ModelDefault", ofType: "binary")
+            let filepath = Bundle.main.path(forResource: "ModelDefault", ofType: "binary")
             if filepath != nil {
-                allModels = (NSKeyedUnarchiver.unarchiveObjectWithFile(filepath!) as? [Model])!
+                allModels = (NSKeyedUnarchiver.unarchiveObject(withFile: filepath!) as? [Model])!
                 print("Load \(allModels.count) default worlds from filepath=\(filepath)")
             } else {
                 print("File not found")
@@ -83,7 +83,7 @@ class ModelController: NSObject {
         return self.currentWorld
     }
 
-    internal func selectModel(world : String) {
+    internal func selectModel(_ world : String) {
         print ("Select '\(world)'" )
         currentWorld = world
         pageModels.removeAll()
@@ -95,18 +95,18 @@ class ModelController: NSObject {
     }
     
     internal func savePageModels() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(allModels, toFile: Model.ArchiveURL.path!)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(allModels, toFile: Model.ArchiveURL.path)
         if !isSuccessfulSave {
             print("Failed to save models...")
         }
     }
     
-    private func loadPageModels() -> [Model]? {
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(Model.ArchiveURL.path!) as? [Model]
+    fileprivate func loadPageModels() -> [Model]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Model.ArchiveURL.path) as? [Model]
     }
     
     
-    internal func createModelRandomLevel(world : String, start_number : Int) {
+    internal func createModelRandomLevel(_ world : String, start_number : Int) {
         for index in 1...16 {
             let model = createModel(world,  name: String(index))
             for _ in 1...(start_number + index)  {
@@ -116,7 +116,7 @@ class ModelController: NSObject {
         }
     }
     
-    private func getRandomIndex(model : Model) -> Int {
+    fileprivate func getRandomIndex(_ model : Model) -> Int {
         var dice:Int = 0
         repeat {
             dice = Int(arc4random_uniform(70)) ;
@@ -125,7 +125,7 @@ class ModelController: NSObject {
     }
     
   
-    private func createModel(world: String, name: String) -> Model{
+    fileprivate func createModel(_ world: String, name: String) -> Model{
         let model1 = Model(world: world, name: name, rows: MAX_NUMBER_OF_ROWS, cols: MAX_NUMBER_OF_COLUMNS)
         var rowIndex : Int = 0
         while  ((rowIndex) <= MAX_NUMBER_OF_COLUMNS - 1) {
@@ -139,7 +139,7 @@ class ModelController: NSObject {
         return model1
     }
     
-    private func copyActiveSettings(fromModel: Model, toModel: Model) {
+    fileprivate func copyActiveSettings(_ fromModel: Model, toModel: Model) {
         var index : Int = 0
         while index < MAX_NUMBER_OF_COLUMNS * MAX_NUMBER_OF_ROWS {
             toModel.getNode(index).setActive( fromModel.getNode(index).isActive() )

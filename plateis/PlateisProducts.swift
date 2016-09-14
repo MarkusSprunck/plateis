@@ -12,7 +12,7 @@ public struct PlateisProducts {
     
     public static let SkipLevelsRage = "plateis.skip_levels"
 
-    private static let productIdentifiers: Set<ProductIdentifier> = [
+    fileprivate static let productIdentifiers: Set<ProductIdentifier> = [
         PlateisProducts.SkipLevelsRage
     ]
     

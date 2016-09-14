@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class Model : NSObject, NSCoding {
+open class Model : NSObject, NSCoding {
     
     var nodes : [Node] = []
     var nodesSelected : [Node] = []
@@ -20,11 +20,11 @@ public class Model : NSObject, NSCoding {
     var cols: Int
     var startTime: Double = 0
     var endTime: Double = 0
-    public var hints : Int = 0
+    open var hints : Int = 0
     
     // MARK: Archiving Paths
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    public static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("model")
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    open static let ArchiveURL = DocumentsDirectory.appendingPathComponent("model")
     
     // MARK: Types
     public struct PropertyKey {
@@ -39,15 +39,15 @@ public class Model : NSObject, NSCoding {
     }
     
     // MARK: NSCoding
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(world, forKey: PropertyKey.worldKey)
-        aCoder.encodeObject(name, forKey: PropertyKey.nameKey)
-        aCoder.encodeObject(nodes, forKey: PropertyKey.nodesKey)
-        aCoder.encodeObject(nodesSelected, forKey: PropertyKey.nodesSelectedKey)
-        aCoder.encodeObject(nodesSelectedBest, forKey: PropertyKey.nodesSelectedBestKey)
-        aCoder.encodeInteger(rows, forKey: PropertyKey.rowsKey)
-        aCoder.encodeInteger(cols, forKey: PropertyKey.colsKey)
-        aCoder.encodeInteger(hints, forKey: PropertyKey.hintsKey)
+    open func encode(with aCoder: NSCoder) {
+        aCoder.encode(world, forKey: PropertyKey.worldKey)
+        aCoder.encode(name, forKey: PropertyKey.nameKey)
+        aCoder.encode(nodes, forKey: PropertyKey.nodesKey)
+        aCoder.encode(nodesSelected, forKey: PropertyKey.nodesSelectedKey)
+        aCoder.encode(nodesSelectedBest, forKey: PropertyKey.nodesSelectedBestKey)
+        aCoder.encode(rows, forKey: PropertyKey.rowsKey)
+        aCoder.encode(cols, forKey: PropertyKey.colsKey)
+        aCoder.encode(hints, forKey: PropertyKey.hintsKey)
     }
 
     public init?(nodes : [Node], nodesSelected : [Node], nodesSelectedBest : [Node], name : String, rows: Int, cols: Int, world : String, hints : Int) {
@@ -63,14 +63,14 @@ public class Model : NSObject, NSCoding {
     }
     
     required convenience public init?(coder aDecoder: NSCoder) {
-        let nodes = aDecoder.decodeObjectForKey(PropertyKey.nodesKey) as! [Node]
-        let nodesSelected = aDecoder.decodeObjectForKey(PropertyKey.nodesSelectedKey) as! [Node]
-        let nodesSelectedBest = aDecoder.decodeObjectForKey( PropertyKey.nodesSelectedBestKey) as! [Node]
-        let name = aDecoder.decodeObjectForKey( PropertyKey.nameKey) as! String
-        let world = aDecoder.decodeObjectForKey( PropertyKey.worldKey) as! String
-        let rows : Int = aDecoder.decodeIntegerForKey( PropertyKey.rowsKey)
-        let cols : Int = aDecoder.decodeIntegerForKey( PropertyKey.colsKey)
-        let hints : Int = aDecoder.decodeIntegerForKey( PropertyKey.hintsKey)
+        let nodes = aDecoder.decodeObject(forKey: PropertyKey.nodesKey) as! [Node]
+        let nodesSelected = aDecoder.decodeObject(forKey: PropertyKey.nodesSelectedKey) as! [Node]
+        let nodesSelectedBest = aDecoder.decodeObject( forKey: PropertyKey.nodesSelectedBestKey) as! [Node]
+        let name = aDecoder.decodeObject( forKey: PropertyKey.nameKey) as! String
+        let world = aDecoder.decodeObject( forKey: PropertyKey.worldKey) as! String
+        let rows : Int = aDecoder.decodeInteger( forKey: PropertyKey.rowsKey)
+        let cols : Int = aDecoder.decodeInteger( forKey: PropertyKey.colsKey)
+        let hints : Int = aDecoder.decodeInteger( forKey: PropertyKey.hintsKey)
         
         // Must call designated initializer.
         self.init(nodes: nodes, nodesSelected: nodesSelected, nodesSelectedBest: nodesSelectedBest, name: name, rows: rows, cols: cols, world: world, hints: hints)
@@ -83,23 +83,23 @@ public class Model : NSObject, NSCoding {
         self.cols = cols
     }
     
-    public func getName() -> String {
+    open func getName() -> String {
         return name
     }
     
-    public func getRows() -> Int {
+    open func getRows() -> Int {
         return rows
     }
     
-    public func getCols() -> Int {
+    open func getCols() -> Int {
         return cols
     }
     
-    public func addNode(node:Node) {
+    open func addNode(_ node:Node) {
         nodes.append(node)
     }
     
-    public func selectNode(node:Node) {
+    open func selectNode(_ node:Node) {
         if !isSelected(node) {
             nodesSelected.append(node)
         }
@@ -111,19 +111,19 @@ public class Model : NSObject, NSCoding {
         }
     }
     
-    public func getDuration() -> Int {
+    open func getDuration() -> Int {
         return  Int(endTime - startTime)
     }
     
-    public func isSelected(node:Node) -> Bool {
+    open func isSelected(_ node:Node) -> Bool {
         return  nodesSelected.contains(node)
     }
     
-    public func isSelectedLast(node:Node) -> Bool {
-        return  ((nodesSelected.count - 1)  == nodesSelected.indexOf(node)!)
+    open func isSelectedLast(_ node:Node) -> Bool {
+        return  ((nodesSelected.count - 1)  == nodesSelected.index(of: node)!)
     }
     
-    public func undoLastSelected() {
+    open func undoLastSelected() {
         if nodesSelected.count == 1 {
              startTime = CFAbsoluteTimeGetCurrent() as Double
         }
@@ -133,22 +133,22 @@ public class Model : NSObject, NSCoding {
         }
     }
     
-    public func undoAllSelected() {
+    open func undoAllSelected() {
         if !nodesSelected.isEmpty {
             nodesSelected.removeAll()
             startTime = CFAbsoluteTimeGetCurrent() as Double
         }
     }
 
-    public func getNode(index : Int) -> Node {
+    open func getNode(_ index : Int) -> Node {
         return nodes[index]
     }
     
-    public func getNodeSelected(index : Int) -> Node {
+    open func getNodeSelected(_ index : Int) -> Node {
         return nodesSelected[index]
     }
     
-    public class func getDistance(selected : [Node]) -> Float {
+    open class func getDistance(_ selected : [Node]) -> Float {
         //if isReady() {
         var distance : Double = 0.0
         let numberOfSelected = selected.count
@@ -163,11 +163,11 @@ public class Model : NSObject, NSCoding {
         return Float(distance)
     }
     
-    public func getDistanceBest() -> Float {
+    open func getDistanceBest() -> Float {
         return (self.nodesSelectedBest.isEmpty) ? Float.infinity : Model.getDistance(self.nodesSelectedBest)
     }
     
-    public func getActiveNodesCount() -> Int {
+    open func getActiveNodesCount() -> Int {
         var activeCount = 0
         for object in nodes {
             if (object.isActive()) {
@@ -177,27 +177,27 @@ public class Model : NSObject, NSCoding {
         return activeCount
     }
     
-    public func getSelectedCount() -> Int {
+    open func getSelectedCount() -> Int {
         return nodesSelected.count
     }
     
-    public func getIndexOfSelected(node:Node) -> Int {
-        return nodesSelected.indexOf(node)!
+    open func getIndexOfSelected(_ node:Node) -> Int {
+        return nodesSelected.index(of: node)!
     }
     
-    public func count() -> Int {
+    open func count() -> Int {
         return nodes.count
     }
     
-    public func isReady() -> Bool {
+    open func isReady() -> Bool {
         return ( getSelectedCount() == getActiveNodesCount() )
     }
     
-    public func isComplete() -> Bool {
+    open func isComplete() -> Bool {
         return ( (Model.getDistance(self.nodesSelected) - getDistanceBest() <= (0.001)) && isReady() )
     }
     
-    public func isIncomplete() -> Bool {
+    open func isIncomplete() -> Bool {
         return ( (Model.getDistance(self.nodesSelected) - getDistanceBest() > (0.001)) && isReady() )
     }
     

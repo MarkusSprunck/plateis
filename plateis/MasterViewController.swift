@@ -29,18 +29,18 @@ class MasterViewController: UITableViewController {
   
   var products = [SKProduct]()
   
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
  
     
-  override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+  override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
     if identifier == showDetailSegueIdentifier {
       guard let indexPath = tableView.indexPathForSelectedRow else {
         return false
       }
       
-      let product = products[indexPath.row]
+      let product = products[(indexPath as NSIndexPath).row]
       
       return PlateisProducts.store.isProductPurchased(product.productIdentifier)
     }
@@ -48,7 +48,7 @@ class MasterViewController: UITableViewController {
     return true
   }
 
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
    /*
  if segue.identifier == showDetailSegueIdentifier {
       guard let indexPath = tableView.indexPathForSelectedRow else { return }
@@ -70,22 +70,22 @@ class MasterViewController: UITableViewController {
     title = "PLATEIS"
     
     refreshControl = UIRefreshControl()
-    refreshControl?.addTarget(self, action: #selector(MasterViewController.reload), forControlEvents: .ValueChanged)
+    refreshControl?.addTarget(self, action: #selector(MasterViewController.reload), for: .valueChanged)
     
-    let restoreButton = UIBarButtonItem(title: NSLocalizedString("RESTORE", comment:"Restore"), style: .Plain, target: self, action: #selector(MasterViewController.restoreTapped(_:)))
+    let restoreButton = UIBarButtonItem(title: NSLocalizedString("RESTORE", comment:"Restore"), style: .plain, target: self, action: #selector(MasterViewController.restoreTapped(_:)))
     navigationItem.rightBarButtonItem = restoreButton
     
-    let backButton = UIBarButtonItem(title: NSLocalizedString("HOME", comment:"Home"), style: .Plain, target: self, action: #selector(MasterViewController.backTapped(_:)))
+    let backButton = UIBarButtonItem(title: NSLocalizedString("HOME", comment:"Home"), style: .plain, target: self, action: #selector(MasterViewController.backTapped(_:)))
     navigationItem.leftBarButtonItem = backButton
     
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MasterViewController.handlePurchaseNotification(_:)),
-                                                               name: IAPHelper.IAPHelperPurchaseNotification,
+    NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.handlePurchaseNotification(_:)),
+                                                               name: NSNotification.Name(rawValue: IAPHelper.IAPHelperPurchaseNotification),
                                                              object: nil)
   }
     
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
     reload()
@@ -107,22 +107,22 @@ class MasterViewController: UITableViewController {
     }
   }
   
-  func restoreTapped(sender: AnyObject) {
+  func restoreTapped(_ sender: AnyObject) {
     PlateisProducts.store.restorePurchases()
   }
 
-  func backTapped(sender: AnyObject) {
+  func backTapped(_ sender: AnyObject) {
     
     let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     
-    let secondViewController = storyboard.instantiateViewControllerWithIdentifier("PlateisId") as UIViewController
+    let secondViewController = storyboard.instantiateViewController(withIdentifier: "PlateisId") as UIViewController
     
-    let window = UIApplication.sharedApplication().windows[0] as UIWindow
-    UIView.transitionFromView(
-        window.rootViewController!.view,
-        toView: secondViewController.view,
+    let window = UIApplication.shared.windows[0] as UIWindow
+    UIView.transition(
+        from: window.rootViewController!.view,
+        to: secondViewController.view,
         duration: 0.65,
-        options: .TransitionCrossDissolve,
+        options: .transitionCrossDissolve,
         completion: {
             finished in window.rootViewController = secondViewController
         })
@@ -131,14 +131,14 @@ class MasterViewController: UITableViewController {
     }
 
     
-  func handlePurchaseNotification(notification: NSNotification) {
+  func handlePurchaseNotification(_ notification: Notification) {
     print("handlePurchaseNotification")
     guard let productID = notification.object as? String else { return }
     
-    for (index, product) in products.enumerate() {
+    for (index, product) in products.enumerated() {
       guard product.productIdentifier == productID else { continue }
       
-      tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Fade)
+      tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
     }
   }
 }
@@ -147,18 +147,18 @@ class MasterViewController: UITableViewController {
 
 extension MasterViewController {
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return products.count
   }
 
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ProductCell
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ProductCell
     
-    let product = products[indexPath.row]
+    let product = products[(indexPath as NSIndexPath).row]
     
     cell.product = product
     cell.buyButtonHandler = { product in

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class Node : NSObject, NSCoding {
+open class Node : NSObject, NSCoding {
     
     var x:Int!
 
@@ -23,17 +23,17 @@ public class Node : NSObject, NSCoding {
     }
 
     required convenience public init(coder aDecoder: NSCoder) {
-        let x = aDecoder.decodeObjectForKey(PropertyKey.xKey) as! Int
-        let y = aDecoder.decodeObjectForKey(PropertyKey.yKey) as! Int
-        let active = aDecoder.decodeObjectForKey(PropertyKey.activeKey) as! Bool
+        let x = aDecoder.decodeObject(forKey: PropertyKey.xKey) as! Int
+        let y = aDecoder.decodeObject(forKey: PropertyKey.yKey) as! Int
+        let active = aDecoder.decodeObject(forKey: PropertyKey.activeKey) as! Bool
         
         self.init(x: x, y: y, active: active)
     }
     
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(x, forKey: PropertyKey.xKey)
-        aCoder.encodeObject(y, forKey: PropertyKey.yKey)
-        aCoder.encodeObject(active, forKey: PropertyKey.activeKey)
+    open func encode(with aCoder: NSCoder) {
+        aCoder.encode(x, forKey: PropertyKey.xKey)
+        aCoder.encode(y, forKey: PropertyKey.yKey)
+        aCoder.encode(active, forKey: PropertyKey.activeKey)
     }
     
     public init(x:Int, y:Int, active:Bool) {
@@ -42,11 +42,11 @@ public class Node : NSObject, NSCoding {
         self.active = active
     }
     
-    public func setActive(active : Bool) {
+    open func setActive(_ active : Bool) {
         self.active = active
     }
     
-    public func isActive() -> Bool {
+    open func isActive() -> Bool {
         return  self.active
     }
     
