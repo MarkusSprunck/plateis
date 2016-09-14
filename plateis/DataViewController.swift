@@ -22,33 +22,19 @@ class DataViewController: UIViewController {
             return _modelController!
         }
     }
-    private var _modelController : ModelController? = nil
+    fileprivate var _modelController : ModelController? = nil
 
-    var width : CGFloat {
-        get {
-            return _width
-        }
-    }
-    private var _width : CGFloat!
+    fileprivate var sceneStart: StartScene!
     
-    var height : CGFloat {
-        get {
-            return _height
-        }
-    }
-    private var _height : CGFloat!
-    
-    private var sceneStart: StartScene!
-    
-    private var sceneLevel: LevelScene!
+    fileprivate var sceneLevel: LevelScene!
     
     internal var sceneGame:  GameScene!
     
-    private var indexOfActiveModel : Int = 0;
+    fileprivate var indexOfActiveModel : Int = 0;
     
-    private var isInSwipe:Bool = false
+    fileprivate var isInSwipe:Bool = false
     
-    private var products : [SKProduct] = []
+    fileprivate var products : [SKProduct] = []
     
     var skview: SKView!
     
@@ -71,7 +57,7 @@ class DataViewController: UIViewController {
         
     }
     
-    internal func actionOpenGame(indexOfModel : Int){
+    internal func actionOpenGame(_ indexOfModel : Int){
         indexOfActiveModel = indexOfModel
         
         // rotate so that the active model is at 9am
@@ -99,49 +85,44 @@ class DataViewController: UIViewController {
         return indexOfActiveModel
     }
     
-    func updateSize(size : CGSize) {
-        _width =  min(size.width, size.height)
-        _height = max(size.width, size.height)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateSize(UIScreen.mainScreen().bounds.size)
+        Scales.setSize(UIScreen.main.bounds.size)
         
-        skview = SKView(frame: CGRect(x: 0, y: 0, width: _width, height: _height));
+        skview = SKView(frame: CGRect(x: 0, y: 0, width: Scales.width, height: Scales.height));
         self.view.addSubview(skview);
         
         sceneStart = StartScene(size: skview.frame.size, viewController: self)
         skview.showsFPS = false
         skview.showsNodeCount = false
         skview.ignoresSiblingOrder = false
-        sceneStart.scaleMode = SKSceneScaleMode.AspectFill
-        skview.presentScene(sceneStart, transition: SKTransition.flipHorizontalWithDuration(1))
+        sceneStart.scaleMode = SKSceneScaleMode.aspectFill
+        skview.presentScene(sceneStart, transition: SKTransition.flipHorizontal(withDuration: 1))
        
         sceneGame = GameScene(size:skview.bounds.size, viewController: self)
-        sceneGame.scaleMode = SKSceneScaleMode.AspectFill
+        sceneGame.scaleMode = SKSceneScaleMode.aspectFill
          
         sceneLevel = LevelScene(size:skview.bounds.size, viewController: self)
-        sceneLevel.scaleMode = SKSceneScaleMode.AspectFill
+        sceneLevel.scaleMode = SKSceneScaleMode.aspectFill
         
         addSwipe()
         addPan()
        
         // Force the device in portrait mode when the view controller gets loaded
-        UIDevice.currentDevice().setValue(UIInterfaceOrientation.Portrait.rawValue, forKey: "orientation")
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
         
     }
    
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
   
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
     
@@ -151,12 +132,12 @@ class DataViewController: UIViewController {
     }
 
     
-    func handlePanGesture(panGesture: UIPanGestureRecognizer) {
-        let translation = panGesture.translationInView(view)
-        panGesture.setTranslation(CGPoint.zero, inView: view)
-        if panGesture.state == UIGestureRecognizerState.Changed {
+    func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
+        let translation = panGesture.translation(in: view)
+        panGesture.setTranslation(CGPoint.zero, in: view)
+        if panGesture.state == UIGestureRecognizerState.changed {
         
-            let point: CGPoint = panGesture.locationInView(self.view)
+            let point: CGPoint = panGesture.location(in: self.view)
             let center = sceneLevel.centerLarge
             let deltaX1 = point.x - center.x
             let deltaY1 = point.y - center.y
@@ -175,7 +156,7 @@ class DataViewController: UIViewController {
             if  deltaGamma.isNaN {
                 return
             }
-            sceneLevel.gamma = (sceneLevel.gamma + deltaGamma) % (3.1425*2.0)
+            sceneLevel.gamma = (sceneLevel.gamma + deltaGamma).truncatingRemainder(dividingBy: (3.1425*2.0))
             sceneLevel.updateScene()
             sceneLevel.fadeOutHelpText()
         }
@@ -187,10 +168,10 @@ class DataViewController: UIViewController {
     }
     
     
-    func handleSwipe(sender:UISwipeGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.Began {
+    func handleSwipe(_ sender:UISwipeGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.began {
             isInSwipe = true
-        } else if sender.state == UIGestureRecognizerState.Ended {
+        } else if sender.state == UIGestureRecognizerState.ended {
             isInSwipe = false
         }
     }
@@ -199,7 +180,7 @@ class DataViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
   

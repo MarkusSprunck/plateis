@@ -13,13 +13,13 @@ import SpriteKit
 
 class StartScene: SKScene {
     
-    private var viewController : DataViewController
+    fileprivate var viewController : DataViewController
     
-    private var buttonStart : UIButton!
+    fileprivate var buttonStart : UIButton!
     
-    private var labelTitle  : SKLabelNode!
+    fileprivate var labelTitle  : SKLabelNode!
     
-    private var labelDescriptions : [SKLabelNode] = []
+    fileprivate var labelDescriptions : [SKLabelNode] = []
     
     init(size:CGSize, viewController:DataViewController) {
         self.viewController = viewController
@@ -35,7 +35,7 @@ class StartScene: SKScene {
         // show controls with delay
         buttonStart.fadeIn(1.0)
         for label in labelDescriptions {
-            label.runAction(SKAction.fadeAlphaTo(1.0, duration: 3.0))
+            label.run(SKAction.fadeAlpha(to: 1.0, duration: 3.0))
         }
         print("start scene init ready")
     }
@@ -44,27 +44,27 @@ class StartScene: SKScene {
         fatalError("NSCoder not supported")
     }
     
-    private func createBackground() {
+    fileprivate func createBackground() {
         let background = SKSpriteNode(imageNamed: "background-white")
         background.zPosition = -1
-        background.position = CGPoint(x: viewController.width / 2, y: viewController.height / 2)
+        background.position = CGPoint(x: Scales.width / 2, y: Scales.height / 2)
         background.setScale(2.0)
         background.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         addChild(background)
     }
     
-    private func createTitle () {
+    fileprivate func createTitle () {
         // create label
         labelTitle = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelTitle.text = "P L A T E I S "
       
         // position
-        labelTitle.position = CGPoint(x: viewController.width * 0.5, y: viewController.height * 0.80)
+        labelTitle.position = CGPoint(x: Scales.width * 0.5, y: Scales.height * 0.80)
     
         // rendering style
-        labelTitle.fontSize = 46
-        labelTitle.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-        labelTitle.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        labelTitle.fontSize = Scales.fontSizeLabel * 2
+        labelTitle.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelTitle.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelTitle.fontColor = Colors.black
         self.addChild(labelTitle)
         
@@ -72,80 +72,80 @@ class StartScene: SKScene {
         labelTitle.alpha = 1
     }
     
-    private func createDescription() {
+    fileprivate func createDescription() {
         // distance
-        let deltaY : CGFloat = 30
+        let deltaY : CGFloat = Scales.fontSizeLabel * 1.5
         
         // create first label
         labelDescriptions.append(SKLabelNode(fontNamed:"Helvetica Neue UltraLight"));
-        labelDescriptions[0].verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-        labelDescriptions[0].horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        labelDescriptions[0].verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelDescriptions[0].horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelDescriptions[0].alpha = 0
         labelDescriptions[0].fontSize = Scales.fontSizeLabel
         labelDescriptions[0].fontColor = Colors.black
         
         // line 1
-        labelDescriptions[0].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 0 * deltaY + Scales.bottom)
+        labelDescriptions[0].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.3 - 0 * deltaY + Scales.bottom)
         labelDescriptions[0].text = NSLocalizedString("DESCRIPTION_0", comment:"Finding the shortest path between");
         self.addChild(labelDescriptions[0]);
 
         // line 2
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[1].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 1 * deltaY + Scales.bottom)
+        labelDescriptions[1].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.3 - 1 * deltaY + Scales.bottom)
         labelDescriptions[1].text = NSLocalizedString("DESCRIPTION_1", comment:"some nodes is simple, but with an");
         labelDescriptions[1].alpha = 0
         self.addChild(labelDescriptions[1]);
 
         // line 3
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[2].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 2 * deltaY + Scales.bottom)
+        labelDescriptions[2].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.3 - 2 * deltaY + Scales.bottom)
         labelDescriptions[2].text = NSLocalizedString("DESCRIPTION_2", comment:"increasing number of nodes");
         labelDescriptions[2].alpha = 0
         self.addChild(labelDescriptions[2]);
 
         // line 4
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[3].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 3 * deltaY + Scales.bottom)
+        labelDescriptions[3].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.3 - 3 * deltaY + Scales.bottom)
         labelDescriptions[3].text = NSLocalizedString("DESCRIPTION_3", comment:"the task gets extremely");
         labelDescriptions[3].alpha = 0
         self.addChild(labelDescriptions[3]);
         
         // line 5
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[4].position =  CGPoint(x: size.width * 0.5, y: viewController.height * 0.3 - 4 * deltaY + Scales.bottom)
+        labelDescriptions[4].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.3 - 4 * deltaY + Scales.bottom)
         labelDescriptions[4].text = NSLocalizedString("DESCRIPTION_4", comment:"difficult to solve.");
         labelDescriptions[4].alpha = 0
         self.addChild(labelDescriptions[4]);
     }
     
-    private func getLabelYPosition(index : CGFloat) -> CGFloat {
-        return viewController.height * CGFloat(0.5) - CGFloat(40.0) * index
+    fileprivate func getLabelYPosition(_ index : CGFloat) -> CGFloat {
+        return Scales.height * CGFloat(0.5) - CGFloat(40.0) * index
     }
     
-    private func createStartButton(){
+    fileprivate func createStartButton(){
         // create
-        buttonStart = UIButton(type: UIButtonType.Custom)
+        buttonStart = UIButton(type: UIButtonType.custom)
         
         // define size
         buttonStart.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth*1.5, height : Scales.buttonHeight*1.5)
        
         // define look and feel
-        buttonStart.setTitle(NSLocalizedString("START", comment:"Start"), forState: UIControlState.Normal)
-        buttonStart.titleLabel!.font = UIFont(name: "Helvetica", size: Scales.fontSizeButton)
+        buttonStart.setTitle(NSLocalizedString("START", comment:"Start"), for: UIControlState())
+        buttonStart.titleLabel!.font = UIFont(name: "Helvetica", size: Scales.fontSizeButton * 1.5)
         buttonStart.backgroundColor = Colors.blue
         buttonStart.layer.cornerRadius = 0.5 * buttonStart.bounds.height
         buttonStart.layer.borderWidth = 0
         buttonStart.alpha = 0
-        buttonStart.center = CGPoint(x : viewController.width * 0.5, y: viewController.height * 0.4)
+        buttonStart.center = CGPoint(x : Scales.width * 0.5, y: Scales.height * 0.4)
     
         // add button to view
         viewController.view.addSubview(buttonStart)
         
         // register handler
-        buttonStart.addTarget(self, action: #selector(StartScene.actionStartButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        buttonStart.addTarget(self, action: #selector(StartScene.actionStartButton(_:)), for: UIControlEvents.touchUpInside)
     }
     
-    internal func actionStartButton(sender: UIButton!) {
+    internal func actionStartButton(_ sender: UIButton!) {
         viewController.actionStart()
     }
     

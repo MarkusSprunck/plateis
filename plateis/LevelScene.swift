@@ -10,21 +10,21 @@ import SpriteKit
 
 class LevelScene: SKScene {
     
-    private var viewController:DataViewController
+    fileprivate var viewController:DataViewController
     
     internal let PI_DIV_8 = CGFloat(M_PI / 8.0)
     
-    private let labelDistanceFromTop: CGFloat = 190.0
+    fileprivate let labelDistanceFromTop: CGFloat = 190.0
     
-    private var labelNameOfLevel: SKLabelNode!
+    fileprivate var labelNameOfLevel: SKLabelNode!
     
-    private var labelBest : SKLabelNode!
+    fileprivate var labelBest : SKLabelNode!
     
-    private var labelResult : SKLabelNode!
+    fileprivate var labelResult : SKLabelNode!
     
-    private var labelWorld : SKLabelNode!
+    fileprivate var labelWorld : SKLabelNode!
     
-    private var labelHelp : SKLabelNode!
+    fileprivate var labelHelp : SKLabelNode!
     
     internal var buttonPlayLevel : UIButton!
     
@@ -38,34 +38,34 @@ class LevelScene: SKScene {
     
     internal var gammaOffset:CGFloat = -CGFloat(M_PI_2)
     
-    private var selectedModelIndex : Int = 0
+    fileprivate var selectedModelIndex : Int = 0
     
     internal var centerLarge : CGPoint = CGPoint(x: 0.0, y: 0.0)
     
-    private var radiusLargeX : CGFloat = 0.0
+    fileprivate var radiusLargeX : CGFloat = 0.0
     
-    private var radiusLargeY : CGFloat = 0.0
+    fileprivate var radiusLargeY : CGFloat = 0.0
     
-    private var radiusLevel: CGFloat = 0.0
+    fileprivate var radiusLevel: CGFloat = 0.0
     
-    private var timerSnapToPosition = NSTimer()
+    fileprivate var timerSnapToPosition = Timer()
     
-    private var timerRenderModel = NSTimer()
+    fileprivate var timerRenderModel = Timer()
     
-    private var circles : [SKShapeNode] = []
+    fileprivate var circles : [SKShapeNode] = []
     
-    private var circlesText : [SKLabelNode] = []
+    fileprivate var circlesText : [SKLabelNode] = []
     
-    private var isTapped : Bool = false
+    fileprivate var isTapped : Bool = false
     
     init(size:CGSize, viewController:DataViewController) {
         self.viewController = viewController
         super.init(size: size)
         
-        radiusLevel = viewController.width * 0.07
-        radiusLargeX = (viewController.width -  Scales.left - Scales.right) * 0.5 - radiusLevel
-        radiusLargeY = (viewController.height -  Scales.top - Scales.bottom - Scales.bannerTop*2 - Scales.bannerBottom*2 ) * 0.5 - radiusLevel
-        centerLarge  = CGPoint(x: viewController.width * 0.5 , y:radiusLargeY + Scales.bottom + Scales.bannerBottom*2 + radiusLevel)
+        radiusLevel = Scales.width * 0.07
+        radiusLargeX = (Scales.width -  Scales.left - Scales.right) * 0.5 - radiusLevel
+        radiusLargeY = (Scales.height -  Scales.top - Scales.bottom - Scales.bannerTop*2 - Scales.bannerBottom*2 ) * 0.5 - radiusLevel
+        centerLarge  = CGPoint(x: Scales.width * 0.5 , y:radiusLargeY + Scales.bottom + Scales.bannerBottom*2 + radiusLevel)
         
         if !viewController.modelController.pageModels.isEmpty {
             createBackground()
@@ -90,94 +90,94 @@ class LevelScene: SKScene {
     
     
     func createPlayButton(){
-        buttonPlayLevel = UIButton(type: UIButtonType.Custom)
+        buttonPlayLevel = UIButton(type: UIButtonType.custom)
         buttonPlayLevel.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonPlayLevel.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonPlayLevel.backgroundColor =  Colors.blue
         buttonPlayLevel.layer.cornerRadius = 0.5 * buttonPlayLevel.bounds.size.height
         buttonPlayLevel.layer.borderWidth = 0
-        buttonPlayLevel.setTitle(NSLocalizedString("PLAY", comment:"Start game"), forState: UIControlState.Normal)
-        buttonPlayLevel.addTarget(self, action: #selector(LevelScene.actionPlayButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        buttonPlayLevel.setTitle(NSLocalizedString("PLAY", comment:"Start game"), for: UIControlState())
+        buttonPlayLevel.addTarget(self, action: #selector(LevelScene.actionPlayButton(_:)), for: UIControlEvents.touchUpInside)
         buttonPlayLevel.alpha = 0
         viewController.skview.addSubview(buttonPlayLevel)
         
         
-        buttonFeatures = UIButton(type: UIButtonType.Custom)
+        buttonFeatures = UIButton(type: UIButtonType.custom)
         buttonFeatures.frame = CGRect(x : 0, y :0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonFeatures.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonFeatures.backgroundColor =  Colors.blue
         buttonFeatures.layer.cornerRadius = 0.5 * buttonFeatures.bounds.size.height
         buttonFeatures.layer.borderWidth = 0
-        buttonFeatures.setTitle(NSLocalizedString("FEATURES", comment:"Open In-App-Purcases"), forState: UIControlState.Normal)
-        buttonFeatures.addTarget(self, action: #selector(LevelScene.actionFeaturesButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        buttonFeatures.setTitle(NSLocalizedString("FEATURES", comment:"Open In-App-Purcases"), for: UIControlState())
+        buttonFeatures.addTarget(self, action: #selector(LevelScene.actionFeaturesButton(_:)), for: UIControlEvents.touchUpInside)
         buttonFeatures.alpha = 0
         viewController.skview.addSubview(buttonFeatures)
         
         
-        buttonPreviousWorld = UIButton(type: UIButtonType.Custom)
+        buttonPreviousWorld = UIButton(type: UIButtonType.custom)
         buttonPreviousWorld.frame =   CGRect(x : Scales.left, y: Scales.top , width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonPreviousWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonPreviousWorld.backgroundColor =   Colors.grey
         buttonPreviousWorld.layer.cornerRadius = 0.5 * buttonPreviousWorld.bounds.size.height
         buttonPreviousWorld.layer.borderWidth = 0
-        buttonPreviousWorld.setTitle(NSLocalizedString("BACK", comment:"Previous world"), forState: UIControlState.Normal)
-        buttonPreviousWorld.addTarget(self, action: #selector(LevelScene.actionPreviousWorldButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        buttonPreviousWorld.setTitle(NSLocalizedString("BACK", comment:"Previous world"), for: UIControlState())
+        buttonPreviousWorld.addTarget(self, action: #selector(LevelScene.actionPreviousWorldButton(_:)), for: UIControlEvents.touchUpInside)
         buttonPreviousWorld.alpha = 0
-        buttonPreviousWorld.enabled = false
+        buttonPreviousWorld.isEnabled = false
         viewController.view.addSubview(buttonPreviousWorld)
         
         
-        buttonNextWorld = UIButton(type: UIButtonType.Custom)
-        buttonNextWorld.frame =    CGRect(x : (viewController.width - Scales.buttonWidth - Scales.right), y: Scales.top, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonNextWorld = UIButton(type: UIButtonType.custom)
+        buttonNextWorld.frame =    CGRect(x : (Scales.width - Scales.buttonWidth - Scales.right), y: Scales.top, width : Scales.buttonWidth, height : Scales.buttonHeight)
         
         buttonNextWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonNextWorld.backgroundColor =   Colors.blue
         buttonNextWorld.layer.cornerRadius = 0.5 * buttonNextWorld.bounds.size.height
         buttonNextWorld.layer.borderWidth = 0
-        buttonNextWorld.setTitle(NSLocalizedString("NEXT", comment:"Next world"), forState:UIControlState.Normal)
-        buttonNextWorld.addTarget(self, action: #selector(LevelScene.actionNextWorldButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        buttonNextWorld.setTitle(NSLocalizedString("NEXT", comment:"Next world"), for:UIControlState())
+        buttonNextWorld.addTarget(self, action: #selector(LevelScene.actionNextWorldButton(_:)), for: UIControlEvents.touchUpInside)
         buttonNextWorld.alpha = 0
         viewController.view.addSubview(buttonNextWorld)
     }
     
-    internal func actionPlayButton(sender: UIButton!) {
+    internal func actionPlayButton(_ sender: UIButton!) {
         if selectedModelIndex <= viewController.modelController.getIndexOfNextFreeLevel() ||
             PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage) {
             viewController.actionOpenGame(selectedModelIndex)
         }
     }
     
-    internal func actionFeaturesButton(sender: UIButton!) {
+    internal func actionFeaturesButton(_ sender: UIButton!) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         
-        let secondViewController = storyboard.instantiateViewControllerWithIdentifier("FeatureId") as UIViewController
+        let secondViewController = storyboard.instantiateViewController(withIdentifier: "FeatureId") as UIViewController
         
-        let window = UIApplication.sharedApplication().windows[0] as UIWindow
-        UIView.transitionFromView(
-            window.rootViewController!.view,
-            toView: secondViewController.view,
+        let window = UIApplication.shared.windows[0] as UIWindow
+        UIView.transition(
+            from: window.rootViewController!.view,
+            to: secondViewController.view,
             duration: 0.65,
-            options: .TransitionCrossDissolve,
+            options: .transitionCrossDissolve,
             completion: {
                 finished in window.rootViewController = secondViewController
         })
         
     }
     
-    func actionPreviousWorldButton(sender: UIButton!) {
+    func actionPreviousWorldButton(_ sender: UIButton!) {
         let worldCurrent : String = viewController.modelController.getCurrentWorld()
         var worldLast : ModelController.WorldKeys = ModelController.WorldKeys.allValues.first!
-        for worldNext in  ModelController.WorldKeys.allValues.reverse() {
+        for worldNext in  ModelController.WorldKeys.allValues.reversed() {
             if worldLast.rawValue == worldCurrent {
-                buttonNextWorld.enabled  = true
+                buttonNextWorld.isEnabled  = true
                 buttonNextWorld.backgroundColor =   Colors.blue
                 
                 if worldNext != ModelController.WorldKeys.allValues.first {
-                    buttonPreviousWorld.enabled  = true
+                    buttonPreviousWorld.isEnabled  = true
                     buttonPreviousWorld.backgroundColor  = Colors.blue
                 }
                 else {
-                    buttonPreviousWorld.enabled  = false
+                    buttonPreviousWorld.isEnabled  = false
                     buttonPreviousWorld.backgroundColor  = Colors.grey
                 }
                 
@@ -191,21 +191,21 @@ class LevelScene: SKScene {
         updateScene()
     }
     
-    func actionNextWorldButton(sender: UIButton!) {
+    func actionNextWorldButton(_ sender: UIButton!) {
         let worldCurrent : String = viewController.modelController.getCurrentWorld()
         var worldLast : ModelController.WorldKeys = ModelController.WorldKeys.allValues.last!
         for worldNext in  ModelController.WorldKeys.allValues {
             if worldLast.rawValue == worldCurrent {
-                buttonPreviousWorld.enabled  = true
+                buttonPreviousWorld.isEnabled  = true
                 buttonPreviousWorld.backgroundColor =   Colors.blue
                 
                 
                 if worldNext != ModelController.WorldKeys.allValues.last {
-                    buttonNextWorld.enabled  = true
+                    buttonNextWorld.isEnabled  = true
                     buttonNextWorld.backgroundColor  = Colors.blue
                 }
                 else {
-                    buttonNextWorld.enabled  = false
+                    buttonNextWorld.isEnabled  = false
                     buttonNextWorld.backgroundColor  = Colors.grey
                 }
                 
@@ -219,13 +219,13 @@ class LevelScene: SKScene {
         updateScene()
     }
     
-    func actionExitButton(sender: UIButton!) {
-        let alert = UIAlertController(title: "Do you like exit the game?", message: "Current state will not be stored.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.Default, handler: { action in
+    func actionExitButton(_ sender: UIButton!) {
+        let alert = UIAlertController(title: "Do you like exit the game?", message: "Current state will not be stored.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.default, handler: { action in
             exit(0)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-        viewController.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        viewController.present(alert, animated: true, completion: nil)
     }
     
     func createLabels() {
@@ -234,42 +234,42 @@ class LevelScene: SKScene {
         labelWorld = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelWorld.text = model.world;
         labelWorld.fontSize = Scales.fontSizeLabel
-        labelWorld.position = CGPoint(x: viewController.width/2 , y: viewController.height - Scales.top - Scales.buttonHeight / 2)
-        labelWorld.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-        labelWorld.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        labelWorld.position = CGPoint(x: Scales.width/2 , y: Scales.height - Scales.top - Scales.buttonHeight / 2)
+        labelWorld.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelWorld.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelWorld.fontColor = Colors.black
         self.addChild(labelWorld)
         
         labelNameOfLevel = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelNameOfLevel.text = NSLocalizedString("LEVEL", comment:"Level ") + model.getName();
         labelNameOfLevel.fontSize = Scales.fontSizeLabel
-        labelNameOfLevel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-        labelNameOfLevel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        labelNameOfLevel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelNameOfLevel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelNameOfLevel.fontColor = Colors.black
         self.addChild(labelNameOfLevel)
         
         labelBest = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelBest.text = "Best \(model.getDistanceBest())"
         labelBest.fontSize = Scales.fontSizeLabel
-        labelBest.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-        labelBest.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        labelBest.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelBest.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelBest.fontColor = Colors.black
         self.addChild(labelBest)
         
         labelResult = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelResult.text = (model.isComplete() || model.isReady()) ? "Result \(Model.getDistance(model.nodesSelected))" : ""
         labelResult.fontSize = Scales.fontSizeLabel
-        labelResult.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-        labelResult.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        labelResult.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelResult.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelResult.fontColor = Colors.black
         self.addChild(labelResult)
         
         labelHelp = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelHelp.text = NSLocalizedString("LEVEL_HELP", comment:"Help text for level");
         labelHelp.fontSize = Scales.fontSizeLabel
-        labelHelp.position = CGPoint(x: viewController.width / 2, y: Scales.bottom + Scales.bannerBottom)
-        labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-        labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        labelHelp.position = CGPoint(x: Scales.width / 2, y: Scales.bottom + Scales.bannerBottom)
+        labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelHelp.fontColor = Colors.darkGrey
         labelHelp.alpha = 0
         self.addChild(labelHelp)
@@ -281,10 +281,9 @@ class LevelScene: SKScene {
         while index < indexMax {
             let position = getLocation(index)
             let radius = radiusLevel
-            let lineWidth : CGFloat = 1.0
             let alpha = CGFloat(1.0)
             let animate : Bool = (index == selectedModelIndex)
-            let circle:SKShapeNode = LevelScene.createcircle(radius, position: position, color: getColorOfLevel(index), alpha: alpha, lineWidth: lineWidth, animate: animate, name : String(index))
+            let circle:SKShapeNode = LevelScene.createcircle(radius, position: position, color: getColorOfLevel(index), alpha: alpha, lineWidth: Scales.lineWidth, animate: animate, name : String(index))
             self.addChild(circle)
             circles.append(circle)
             
@@ -293,8 +292,8 @@ class LevelScene: SKScene {
             label.name = String(index)
             label.fontSize = Scales.fontSizeLabel
             label.position =  position
-            label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center
-            label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+            label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+            label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
             label.fontColor = Colors.white
             self.addChild(label)
             circlesText.append(label)
@@ -304,14 +303,14 @@ class LevelScene: SKScene {
     
     func fadeInHelpText() {
         if !isTapped {
-            let fadeAction = SKAction.fadeAlphaTo(1.0, duration: 3.0)
-            labelHelp.runAction(fadeAction)
+            let fadeAction = SKAction.fadeAlpha(to: 1.0, duration: 3.0)
+            labelHelp.run(fadeAction)
         }
     }
     
     func fadeOutHelpText() {
-        let fadeAction = SKAction.fadeAlphaTo(0.0, duration: 3.0)
-        labelHelp.runAction(fadeAction)
+        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration: 3.0)
+        labelHelp.run(fadeAction)
         isTapped = true
     }
     
@@ -356,14 +355,12 @@ class LevelScene: SKScene {
     
     func updateLabels() {
         
-        self.viewController.updateSize(self.size)
-        
         let model : Model = viewController.modelController.pageModels[selectedModelIndex]
         labelWorld.text = model.world;
         
         // Move buttons to right position
-        buttonFeatures.frame = CGRectMake( Scales.left,  getButtonYPosition() , buttonFeatures.frame.width, buttonFeatures.frame.height)
-        buttonPlayLevel.frame = CGRectMake(UIScreen.mainScreen().bounds.width  - Scales.buttonWidth - Scales.right,  getButtonYPosition() , buttonPlayLevel.frame.width, buttonPlayLevel.frame.height)
+        buttonFeatures.frame = CGRect( x: Scales.left,  y: getButtonYPosition() , width: buttonFeatures.frame.width, height: buttonFeatures.frame.height)
+        buttonPlayLevel.frame = CGRect(x: UIScreen.main.bounds.width  - Scales.buttonWidth - Scales.right,  y: getButtonYPosition() , width: buttonPlayLevel.frame.width, height: buttonPlayLevel.frame.height)
         
         // 2. row
         labelNameOfLevel.text = NSLocalizedString("LEVEL", comment:"Level") + " " + model.getName();
@@ -383,12 +380,12 @@ class LevelScene: SKScene {
         
     }
     
-    func getLabelYPosition(index : CGFloat) -> CGFloat {
+    func getLabelYPosition(_ index : CGFloat) -> CGFloat {
         return (self.size.height * (1.0 - index / 14.0 ))
     }
     
     func getButtonYPosition() -> CGFloat {
-        return UIScreen.mainScreen().bounds.height - Scales.bottom
+        return UIScreen.main.bounds.height - Scales.bottom
     }
     
     
@@ -396,11 +393,11 @@ class LevelScene: SKScene {
         return self.centerLarge.x
     }
     
-    func setSelectedModel(index: Int) {
+    func setSelectedModel(_ index: Int) {
         selectedModelIndex = index
     }
     
-    func getColorOfLevel(index : Int) -> UIColor {
+    func getColorOfLevel(_ index : Int) -> UIColor {
         var color = Colors.darkGrey
         if index <= viewController.modelController.getIndexOfNextFreeLevel() || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage)   {
             if viewController.modelController.pageModels[index].isComplete() {
@@ -421,10 +418,10 @@ class LevelScene: SKScene {
         return color
     }
     
-    internal static func createcircle(radius : CGFloat, position : CGPoint, color : SKColor, alpha: CGFloat = 1.0, lineWidth:CGFloat = 1, animate:Bool = false, name : String = "") ->  SKShapeNode {
+    internal static func createcircle(_ radius : CGFloat, position : CGPoint, color : SKColor, alpha: CGFloat = 1.0, lineWidth:CGFloat = 1, animate:Bool = false, name : String = "") ->  SKShapeNode {
         let circle = SKShapeNode(circleOfRadius: radius)
         circle.position = position
-        circle.antialiased = true
+        circle.isAntialiased = true
         circle.alpha = alpha
         circle.name = name
         circle.fillColor = color
@@ -432,7 +429,7 @@ class LevelScene: SKScene {
         return circle
     }
     
-    func updateAnimationOfCircle(circle : SKShapeNode, animate :Bool) {
+    func updateAnimationOfCircle(_ circle : SKShapeNode, animate :Bool) {
         
         // restore inital state
         circle.removeAllActions()
@@ -440,36 +437,36 @@ class LevelScene: SKScene {
         
         // add new animation
         if animate {
-            let waitAction = SKAction.waitForDuration(0.8)
-            let growAction = SKAction.scaleBy(1.3, duration: 0.3)
-            let shrinkAction = growAction.reversedAction()
+            let waitAction = SKAction.wait(forDuration: 0.8)
+            let growAction = SKAction.scale(by: 1.3, duration: 0.3)
+            let shrinkAction = growAction.reversed()
             let backAndForthSequence = SKAction.sequence([waitAction, growAction, shrinkAction])
-            circle.runAction(SKAction.repeatActionForever(backAndForthSequence))
+            circle.run(SKAction.repeatForever(backAndForthSequence))
             if selectedModelIndex <= viewController.modelController.getIndexOfNextFreeLevel()  ||
                 PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage) {
                 if Colors.darkGrey == getColorOfLevel(selectedModelIndex) {
                     circle.fillColor = Colors.blue
                     buttonPlayLevel.backgroundColor = Colors.blue
-                    buttonPlayLevel.setTitle(NSLocalizedString("PLAY", comment:"Play"), forState: UIControlState.Normal)
+                    buttonPlayLevel.setTitle(NSLocalizedString("PLAY", comment:"Play"), for: UIControlState())
                 } else if Colors.green == getColorOfLevel(selectedModelIndex) {
                     buttonPlayLevel.backgroundColor = circle.fillColor
-                    buttonPlayLevel.setTitle(NSLocalizedString("VIEW", comment: "View"), forState: UIControlState.Normal)
+                    buttonPlayLevel.setTitle(NSLocalizedString("VIEW", comment: "View"), for: UIControlState())
                 } else if Colors.red == getColorOfLevel(selectedModelIndex) {
                     buttonPlayLevel.backgroundColor = circle.fillColor
-                    buttonPlayLevel.setTitle(NSLocalizedString("COMPLETE", comment:"Complete"), forState: UIControlState.Normal)
+                    buttonPlayLevel.setTitle(NSLocalizedString("COMPLETE", comment:"Complete"), for: UIControlState())
                 }  else {
                     buttonPlayLevel.backgroundColor = circle.fillColor
-                    buttonPlayLevel.setTitle(NSLocalizedString("IMPROVE", comment: "Improve"), forState: UIControlState.Normal)
+                    buttonPlayLevel.setTitle(NSLocalizedString("IMPROVE", comment: "Improve"), for: UIControlState())
                 }
             } else {
                 circle.fillColor = Colors.lightGray
                 buttonPlayLevel.backgroundColor = Colors.lightGray
-                buttonPlayLevel.setTitle(NSLocalizedString("LOCKED", comment:"Locked"), forState: UIControlState.Normal)
+                buttonPlayLevel.setTitle(NSLocalizedString("LOCKED", comment:"Locked"), for: UIControlState())
             }
         }
     }
     
-    func getLocation(index:Int) -> CGPoint {
+    func getLocation(_ index:Int) -> CGPoint {
         let numberOfNodes = 16
         let angle : CGFloat = 3.14 * CGFloat(index) / CGFloat(numberOfNodes) * 2
         let xLocation :CGFloat =  centerLarge.x + radiusLargeX * sin(angle + gamma + gammaOffset)
@@ -482,10 +479,10 @@ class LevelScene: SKScene {
         fatalError("NSCoder not supported")
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            let location = touch.locationInNode(self)
-            let sprite:SKNode = self.nodeAtPoint(location)
+            let location = touch.location(in: self)
+            let sprite:SKNode = self.atPoint(location)
             if (sprite.name  != nil && !sprite.name!.isEmpty ) {
                 let index : Int = Int(sprite.name!)!
                 if index <= viewController.modelController.getIndexOfNextFreeLevel()  ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage) {
