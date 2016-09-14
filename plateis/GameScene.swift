@@ -8,6 +8,8 @@
 
 import SpriteKit
 
+import MessageUI
+
 class GameScene : SKScene {
     
     fileprivate var viewController : DataViewController
@@ -25,6 +27,8 @@ class GameScene : SKScene {
     fileprivate var buttonUndo : UIButton!
     
     fileprivate var buttonLevels : UIButton!
+    
+    fileprivate var buttonShare : UIButton!
     
     fileprivate var starGreen : SKShapeNode!
  
@@ -84,6 +88,15 @@ class GameScene : SKScene {
         renderModel()
         updateLabels()
     }
+    
+    internal func actionShareButton(_ sender : UIButton!) {
+        print("share")
+        UIGraphicsBeginImageContext((view?.frame.size)!)
+        view?.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+     
+        
+    }
   
     internal func actionLevelsButton(_ sender : UIButton!) {
         viewController.modelController.savePageModels()
@@ -102,10 +115,21 @@ class GameScene : SKScene {
         let model : Model = viewController.getModel()
         labelLevel.text = viewController.modelController.getCurrentWorld() + " / " + NSLocalizedString("LEVEL", comment : "Level") + " " + model.getName()
         
+        if model.isComplete() {
+            buttonShare.backgroundColor = Colors.blue
+            buttonShare.alpha = 1.0
+            buttonShare.frame = CGRect(x : (Scales.width/2 - Scales.buttonWidth/2), y : Scales.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
+   
+            buttonUndo.alpha = 0.0
+        } else {
+            buttonShare.backgroundColor = Colors.grey
+            buttonShare.alpha = 0.0
+            buttonUndo.frame = CGRect(x : (Scales.width/2 - Scales.buttonWidth/2), y : Scales.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
+            buttonUndo.alpha = 1.0
+        }
+        
         buttonUndo.backgroundColor = (model.getSelectedCount() > 0) ? Colors.blue : Colors.grey
         
-        // Move buttons to right position
-        buttonUndo.frame = CGRect(x : (Scales.width/2 - Scales.buttonWidth/2), y : Scales.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonHint.frame = CGRect(x : 10, y : Scales.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonLevels.frame = CGRect(x : (Scales.width - Scales.buttonWidth - 10), y : Scales.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
         
@@ -128,6 +152,7 @@ class GameScene : SKScene {
     
     fileprivate func showElements() {
         labelLevel.alpha = 1.0
+        buttonShare.fadeIn()
         buttonLevels.fadeIn()
         buttonHint.fadeIn()
         buttonUndo.fadeIn()
@@ -153,6 +178,16 @@ class GameScene : SKScene {
         buttonUndo.setTitle(NSLocalizedString("UNDO", comment : "Undo last selection"), for : UIControlState())
         buttonUndo.addTarget(self, action : #selector(GameScene.actionUndoButton(_ : )), for : UIControlEvents.touchUpInside)
         viewController.view.addSubview(buttonUndo)
+        
+        buttonShare = UIButton(type : UIButtonType.custom)
+        buttonShare.frame = CGRect(x : 0, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonShare.titleLabel!.font =  UIFont(name : "Helvetica", size : Scales.fontSizeButton)
+        buttonShare.backgroundColor =  Colors.blue
+        buttonShare.layer.cornerRadius = 0.5 * buttonLevels.bounds.size.height
+        buttonShare.layer.borderWidth = 0
+        buttonShare.setTitle(NSLocalizedString("SHARE", comment : "Share result"), for : UIControlState())
+        buttonShare.addTarget(self, action : #selector(GameScene.actionShareButton(_ : )), for : UIControlEvents.touchUpInside)
+        viewController.view.addSubview(buttonShare)
 
         buttonHint = UIButton(type : UIButtonType.custom)
         buttonHint.frame = CGRect(x : 0, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
@@ -459,6 +494,7 @@ class GameScene : SKScene {
         labelLevel.alpha = 0.0
         labelResult.alpha = 0.0
         
+        buttonShare.alpha = 0.0
         buttonUndo.alpha = 0.0
         buttonHint.alpha = 0.0
         buttonLevels.alpha = 0.0
@@ -470,6 +506,7 @@ class GameScene : SKScene {
         // Remove buttons to avoid not wanted clicks
         buttonHint.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonUndo.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonShare.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonLevels.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
     }
     
@@ -514,4 +551,17 @@ class GameScene : SKScene {
     }
 
 
+}
+
+
+extension UIView {
+    func screenShot() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, UIScreen.main.scale)
+        let contextRef = UIGraphicsGetCurrentContext()
+        contextRef!.translateBy(x: 0, y: 0)
+        layer.render(in: contextRef!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
 }

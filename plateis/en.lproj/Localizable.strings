@@ -6,6 +6,8 @@
  Copyright © 2016 Markus Sprunck. All rights reserved.
  */
 
+SHARE="Share";
+
 START="Start";
 
 PLAY="Play";
