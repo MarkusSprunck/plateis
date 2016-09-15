@@ -90,12 +90,13 @@ class GameScene : SKScene {
     }
     
     internal func actionShareButton(_ sender : UIButton!) {
-        print("share")
+        // Make screenshot
         UIGraphicsBeginImageContext((view?.frame.size)!)
         view?.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
-     
         
+        // Save it to the camera roll
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
     }
   
     internal func actionLevelsButton(_ sender : UIButton!) {
