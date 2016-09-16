@@ -74,7 +74,7 @@ class Scales {
     
     // Buttons
     internal static var fontSizeButton : CGFloat = 20
-    internal static var buttonHeight : CGFloat = 28
+    internal static var buttonHeight : CGFloat = 30
     internal static var buttonWidth : CGFloat = 95
     
     // Distance between grafic and contol elements

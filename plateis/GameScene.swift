@@ -92,12 +92,20 @@ class GameScene : SKScene {
     }
     
     internal func actionShareButton(_ sender : UIButton!) {
-        // Make screenshot
+        // make screenshot
         let window: UIWindow! = UIApplication.shared.keyWindow
-        let image = window.capture()
- 
-        // Save it to the camera roll
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        let image : UIImage = window.capture()
+    
+        // set up activity view controller
+        let objectsToShare: [AnyObject] = [ image ]
+        let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        // exclude some activity types from the list (optional)
+        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
+        
+        // present the view controller
+        self.viewController.present(activityViewController, animated: true, completion: nil)
     }
   
     internal func actionLevelsButton(_ sender : UIButton!) {
@@ -314,7 +322,7 @@ class GameScene : SKScene {
             } else if viewController.modelController.pageModels[index].isIncomplete() {
                 color = Colors.yellow
             } else if viewController.modelController.pageModels[index].getSelectedCount() > 0 {
-                color = Colors.red
+                color = Colors.blue
             }
             
         } else {

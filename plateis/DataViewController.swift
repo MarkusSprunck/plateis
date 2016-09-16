@@ -54,8 +54,6 @@ class DataViewController: UIViewController {
         sceneLevel.setSelectedModel(modelController.getIndexOfNextFreeLevel())
         rotateToNextModel()
         sceneLevel.updateScene()
-        
-        modelController.savePageModels()
     }
     
     internal func actionOpenGame(_ indexOfModel : Int){
@@ -120,7 +118,8 @@ class DataViewController: UIViewController {
     }
     
     override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.portrait
+        let orientation: UIInterfaceOrientationMask = [UIInterfaceOrientationMask.portrait, UIInterfaceOrientationMask.portraitUpsideDown]
+        return orientation
     }
   
     override var shouldAutorotate : Bool {
