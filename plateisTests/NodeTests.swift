@@ -36,13 +36,13 @@ class NodeTests: XCTestCase {
      
         // given
         let path = NSTemporaryDirectory() as NSString
-        let locToSave = path.stringByAppendingString("tests_node")
+        let locToSave = path.appending("tests_node")
         print("node_locToSave=\(locToSave)")
       
         // when
         let newNode = Node(x:3, y:8, active: false)
         NSKeyedArchiver.archiveRootObject([newNode], toFile: locToSave)
-        let data = NSKeyedUnarchiver.unarchiveObjectWithFile(locToSave) as? [Node]
+        let data = NSKeyedUnarchiver.unarchiveObject(withFile: locToSave) as? [Node]
    
         // then
         XCTAssertNotNil(data)

@@ -10,6 +10,8 @@ import SpriteKit
 
 import MessageUI
 
+import UIKit
+
 class GameScene : SKScene {
     
     fileprivate var viewController : DataViewController
@@ -91,16 +93,14 @@ class GameScene : SKScene {
     
     internal func actionShareButton(_ sender : UIButton!) {
         // Make screenshot
-        UIGraphicsBeginImageContext((view?.frame.size)!)
-        view?.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        
+        let window: UIWindow! = UIApplication.shared.keyWindow
+        let image = window.capture()
+ 
         // Save it to the camera roll
-        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
   
     internal func actionLevelsButton(_ sender : UIButton!) {
-        viewController.modelController.savePageModels()
         viewController.actionStart()
         hide()
     }
@@ -555,14 +555,3 @@ class GameScene : SKScene {
 }
 
 
-extension UIView {
-    func screenShot() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, UIScreen.main.scale)
-        let contextRef = UIGraphicsGetCurrentContext()
-        contextRef!.translateBy(x: 0, y: 0)
-        layer.render(in: contextRef!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image!
-    }
-}

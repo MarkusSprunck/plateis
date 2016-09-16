@@ -11,11 +11,13 @@ import UIKit
 
 class ModelSolver {
     
+    fileprivate static let VERBOSE = false
+    
     // Number of steps for simulated annealing
     fileprivate static let STEPS = 25
  
     // Number of iterations per step and node
-    fileprivate static let ITERATIONS = 100
+    fileprivate static let ITERATIONS = 50
     
     // Start temperature for simulated annealing
     fileprivate static let START_TEMPERATURE : Float = 2000.0
@@ -36,8 +38,12 @@ class ModelSolver {
         
         var activeNodes : [Node] = ModelSolver.getActiveNodes(model)
       
-        // print("step   better    worse rejected    const      cost   temperature")
-     
+        print("Level \(model.getName())")
+        if VERBOSE {
+            print("step   better    worse rejected    const      cost   temperature")
+            print("")
+        }
+        
         var currentCost = Model.getDistance(activeNodes)
         var bestCost    = currentCost
         
@@ -83,8 +89,9 @@ class ModelSolver {
             }
             
             // log state of current step
-            // print("\(String(format: "%02d", step))     \(String(format: "%6d", status_better))   \(String(format: "%6d", status_worse))   \(String(format: "%6d", status_rejected))   \(String(format: "%6d", status_const))   \(bestCost)   \(currenTemperature)")
-            
+            if VERBOSE {
+                print("\(String(format: "%02d", step))     \(String(format: "%6d", status_better))   \(String(format: "%6d", status_worse))   \(String(format: "%6d", status_rejected))   \(String(format: "%6d", status_const))   \(bestCost)   \(currenTemperature)")
+            }
         }
         
         return (activeNodes, bestCost)

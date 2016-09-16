@@ -20,8 +20,10 @@ class Scales {
     internal static func setSize(_ size : CGSize) {
         
         
-        if !Scales.initReady && size.width >= 768.0 {
+        if !Scales.initReady {
      
+            Scales.size = size
+            
             // Set size of screen
             width =  min(size.width, size.height)
             height = max(size.width, size.height)
@@ -56,6 +58,9 @@ class Scales {
         }
         
     }
+    
+    // Not scaled size
+    internal static var size : CGSize = CGSize()
  
     // Borders
     internal static var top : CGFloat = 15

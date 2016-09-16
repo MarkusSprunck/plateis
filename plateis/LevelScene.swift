@@ -360,7 +360,7 @@ class LevelScene: SKScene {
         
         // Move buttons to right position
         buttonFeatures.frame = CGRect( x: Scales.left,  y: getButtonYPosition() , width: buttonFeatures.frame.width, height: buttonFeatures.frame.height)
-        buttonPlayLevel.frame = CGRect(x: UIScreen.main.bounds.width  - Scales.buttonWidth - Scales.right,  y: getButtonYPosition() , width: buttonPlayLevel.frame.width, height: buttonPlayLevel.frame.height)
+        buttonPlayLevel.frame = CGRect(x: Scales.width  - Scales.buttonWidth - Scales.right,  y: getButtonYPosition() , width: buttonPlayLevel.frame.width, height: buttonPlayLevel.frame.height)
         
         // 2. row
         labelNameOfLevel.text = NSLocalizedString("LEVEL", comment:"Level") + " " + model.getName();
@@ -385,7 +385,7 @@ class LevelScene: SKScene {
     }
     
     func getButtonYPosition() -> CGFloat {
-        return UIScreen.main.bounds.height - Scales.bottom
+        return Scales.height - Scales.bottom
     }
     
     

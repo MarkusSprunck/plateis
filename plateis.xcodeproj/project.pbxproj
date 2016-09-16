@@ -24,6 +24,7 @@
 		283C8DE51D8352FF00AF7FBE /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 283AA9911D7235A90089C26B /* de.lproj */; };
 		283C8DF21D8354F100AF7FBE /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 283C8DF11D8354F100AF7FBE /* Base.lproj */; };
 		28517E901D5E5FC90084565F /* ModelSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28517E8F1D5E5FC90084565F /* ModelSolver.swift */; };
+		28538EB51D8C6BFE00C82058 /* UIWindowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28538EB41D8C6BFE00C82058 /* UIWindowExtension.swift */; };
 		2869B3281D83E2FF001E1D49 /* Scales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869B3271D83E2FF001E1D49 /* Scales.swift */; };
 		28943FEF1D63388500F1062D /* ModelControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28943FEE1D63388500F1062D /* ModelControllerTests.swift */; };
 		28AF987F1D44D0EB00713962 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AF987E1D44D0EB00713962 /* StartScene.swift */; };
@@ -62,7 +63,6 @@
 		280BA4891D7A41FF002830DC /* ModelDefault.binary */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = ModelDefault.binary; path = plateis/ModelDefault.binary; sourceTree = SOURCE_ROOT; };
 		28139F821D84B79900930A7F /* it.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = it.lproj; path = plateis/it.lproj; sourceTree = SOURCE_ROOT; };
 		28139F871D84BB0000930A7F /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/Main.storyboard; sourceTree = "<group>"; };
-		28139F881D84BB0600930A7F /* it */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = it; path = it.lproj/Main.storyboard; sourceTree = "<group>"; };
 		28143A471D427E5F00F48360 /* LevelScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelScene.swift; sourceTree = "<group>"; };
 		282A97C11D65FFD5002DBC9D /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		283451BC1D59CA9E00E9A00F /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
@@ -82,10 +82,8 @@
 		283AA9911D7235A90089C26B /* de.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = de.lproj; path = ../plateis/de.lproj; sourceTree = "<group>"; };
 		283AA9931D7235B80089C26B /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = ../plateis/en.lproj; sourceTree = "<group>"; };
 		283C8DF11D8354F100AF7FBE /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Base.lproj; path = ../plateis/Base.lproj; sourceTree = "<group>"; };
-		283F86B81D85788C00BBDC3D /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = es.lproj/Main.storyboard; sourceTree = "<group>"; };
-		283F86B91D85789400BBDC3D /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "es-MX"; path = "es-MX.lproj/Main.storyboard"; sourceTree = "<group>"; };
-		283F86BA1D85789D00BBDC3D /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/Main.storyboard; sourceTree = "<group>"; };
 		28517E8F1D5E5FC90084565F /* ModelSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSolver.swift; sourceTree = "<group>"; };
+		28538EB41D8C6BFE00C82058 /* UIWindowExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIWindowExtension.swift; path = plateis/UIWindowExtension.swift; sourceTree = SOURCE_ROOT; };
 		2869B3271D83E2FF001E1D49 /* Scales.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scales.swift; sourceTree = "<group>"; };
 		288535FB1D85E213004B543B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		288535FC1D85E213004B543B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -102,11 +100,7 @@
 		28F4835F1D85C16700CF833F /* es-MX.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "es-MX.lproj"; path = "plateis/es-MX.lproj"; sourceTree = SOURCE_ROOT; };
 		28F483601D85C16700CF833F /* es.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = es.lproj; path = plateis/es.lproj; sourceTree = SOURCE_ROOT; };
 		28F483611D85C16700CF833F /* ru.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ru.lproj; path = plateis/ru.lproj; sourceTree = SOURCE_ROOT; };
-		28F483661D85C89100CF833F /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		28F483691D85C89E00CF833F /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		28F4836A1D85C8A000CF833F /* it */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = it; path = it.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		28F4836B1D85C8A200CF833F /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		28F4836C1D85C8A400CF833F /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "es-MX"; path = "es-MX.lproj/LaunchScreen.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +177,7 @@
 				28DEC0FE1D67AE4B00E06EF8 /* PlateisProducts.swift */,
 				28DEC1001D67AF3C00E06EF8 /* IAPHelper.swift */,
 				28D00F241D70AC6A006279DC /* UIViewExtension.swift */,
+				28538EB41D8C6BFE00C82058 /* UIWindowExtension.swift */,
 				28139F861D84BACE00930A7F /* Main.storyboard */,
 				28F483671D85C89100CF833F /* LaunchScreen.xib */,
 				280BA4891D7A41FF002830DC /* ModelDefault.binary */,
@@ -318,10 +313,6 @@
 			knownRegions = (
 				en,
 				de,
-				it,
-				es,
-				"es-MX",
-				ru,
 				Base,
 			);
 			mainGroup = 283A5E751D2EBBA000870CF6;
@@ -389,6 +380,7 @@
 				28D00F251D70AC6A006279DC /* UIViewExtension.swift in Sources */,
 				28C86C761D30F89600D77A99 /* Model.swift in Sources */,
 				28AF987F1D44D0EB00713962 /* StartScene.swift in Sources */,
+				28538EB51D8C6BFE00C82058 /* UIWindowExtension.swift in Sources */,
 				28C85D971D7624C8008CBD36 /* ProductCell.swift in Sources */,
 				28C85D951D762475008CBD36 /* MasterViewController.swift in Sources */,
 				28143A481D427E5F00F48360 /* LevelScene.swift in Sources */,
@@ -433,10 +425,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				28139F871D84BB0000930A7F /* de */,
-				28139F881D84BB0600930A7F /* it */,
-				283F86B81D85788C00BBDC3D /* es */,
-				283F86B91D85789400BBDC3D /* es-MX */,
-				283F86BA1D85789D00BBDC3D /* ru */,
 				288535FB1D85E213004B543B /* Base */,
 			);
 			name = Main.storyboard;
@@ -446,11 +434,7 @@
 		28F483671D85C89100CF833F /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				28F483661D85C89100CF833F /* ru */,
 				28F483691D85C89E00CF833F /* de */,
-				28F4836A1D85C8A000CF833F /* it */,
-				28F4836B1D85C8A200CF833F /* es */,
-				28F4836C1D85C8A400CF833F /* es-MX */,
 				288535FC1D85E213004B543B /* Base */,
 			);
 			name = LaunchScreen.xib;

@@ -55,6 +55,7 @@ class DataViewController: UIViewController {
         rotateToNextModel()
         sceneLevel.updateScene()
         
+        modelController.savePageModels()
     }
     
     internal func actionOpenGame(_ indexOfModel : Int){

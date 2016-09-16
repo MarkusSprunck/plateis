@@ -48,7 +48,7 @@ class ModelTests: XCTestCase {
         
         // given
         let path = NSTemporaryDirectory() as NSString
-        let locToSave = path.stringByAppendingString("tests_model")
+        let locToSave = path.appending("tests_model")
         print("node_locToSave=\(locToSave)")
         
         // when
@@ -56,7 +56,7 @@ class ModelTests: XCTestCase {
         model.addNode(Node(x:1, y:7, active: false))
         model.addNode(Node(x:3, y:8, active: false))
         NSKeyedArchiver.archiveRootObject([model], toFile: locToSave)
-        let data = NSKeyedUnarchiver.unarchiveObjectWithFile(locToSave) as? [Model]
+        let data = NSKeyedUnarchiver.unarchiveObject(withFile: locToSave) as? [Model]
         
         // then
         XCTAssertNotNil(data)

@@ -19,16 +19,16 @@ class ModelControllerTests: XCTestCase {
         
             // Delete old config file
             let locToSave = "/Users/markus/git/plateis/plateis/ModelDefault.binary"
-            let filepath = NSBundle.mainBundle().pathForResource("ModelDefault", ofType: "binary")
+            let filepath = Bundle.main.path(forResource: "ModelDefault", ofType: "binary")
 
             do {
-                let fileManager = NSFileManager.defaultManager()
+                let fileManager = FileManager.default
             
-                try fileManager.removeItemAtPath(locToSave)
+                try fileManager.removeItem(atPath: locToSave)
                 print("Delete locToSave=\(locToSave)")
             
                 if filepath != nil {
-                    try fileManager.removeItemAtPath(filepath!)
+                    try fileManager.removeItem(atPath: filepath!)
                     print("Delete locToSave=\(filepath)")
                 }
             }
@@ -58,7 +58,7 @@ class ModelControllerTests: XCTestCase {
             // when
             print("locToSave=\(locToSave)")
             NSKeyedArchiver.archiveRootObject(modelController.allModels, toFile: locToSave)
-            let data = NSKeyedUnarchiver.unarchiveObjectWithFile(locToSave) as? [Model]
+            let data = NSKeyedUnarchiver.unarchiveObject(withFile: locToSave) as? [Model]
         
         
             // then
@@ -71,7 +71,7 @@ class ModelControllerTests: XCTestCase {
     func test_Calculate_Best() {
         
         let modelController : ModelController = ModelController()
-        for trial in 1...100 {
+        for trial in 1...10 {
             print("Calculate_Best trial=\(trial)")
             for model in modelController.allModels {
                 var newSelected : [Node]
@@ -84,7 +84,7 @@ class ModelControllerTests: XCTestCase {
                 
                     let locToSave = "/Users/markus/git/plateis/plateis/ModelDefault.binary"
                     NSKeyedArchiver.archiveRootObject(modelController.allModels, toFile: locToSave)
-                    NSKeyedUnarchiver.unarchiveObjectWithFile(locToSave) as? [Model]
+                    NSKeyedUnarchiver.unarchiveObject(withFile: locToSave) as? [Model]
                 }
             }
         }
