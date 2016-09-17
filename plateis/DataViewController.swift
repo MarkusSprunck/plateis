@@ -16,13 +16,13 @@ class DataViewController: UIViewController {
     
     var modelController : ModelController {
         get {
-            if _modelController == nil {
-                _modelController = ModelController()
+            if DataViewController._modelController == nil {
+                DataViewController._modelController = ModelController()
             }
-            return _modelController!
+            return DataViewController._modelController!
         }
     }
-    fileprivate var _modelController : ModelController? = nil
+    fileprivate static var  _modelController : ModelController? = nil
 
     fileprivate var sceneStart: StartScene!
     

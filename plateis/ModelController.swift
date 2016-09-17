@@ -97,9 +97,9 @@ class ModelController: NSObject {
     internal func savePageModels() {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(allModels, toFile: Model.ArchiveURL.path)
         if !isSuccessfulSave {
-            print("Failed to save models...")
+            print("   Failed to save models...")
         } else {
-            print("Succeeded to save models")
+            print("   Succeeded to save models")
         }
     }
     
