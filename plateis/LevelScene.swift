@@ -231,13 +231,13 @@ class LevelScene: SKScene {
     func createLabels() {
         let model : Model = viewController.modelController.pageModels[selectedModelIndex]
         
-        labelWorld = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
+        labelWorld = SKLabelNode(fontNamed:"Helvetica Neue")
         labelWorld.text = model.world;
         labelWorld.fontSize = Scales.fontSizeLabel
         labelWorld.position = CGPoint(x: Scales.width/2 , y: Scales.height - Scales.top - Scales.buttonHeight / 2)
         labelWorld.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
         labelWorld.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        labelWorld.fontColor = Colors.black
+        labelWorld.fontColor = Colors.darkGrey
         self.addChild(labelWorld)
         
         labelNameOfLevel = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
@@ -370,12 +370,17 @@ class LevelScene: SKScene {
         if model.getDistanceBest() == Float.infinity {
             labelBest.text = ""
         } else {
-            labelBest.text = NSLocalizedString("BEST", comment:"Best") + " \(model.getDistanceBest())"
+            let best = model.getDistanceBest()
+            let best_string = DataViewController.getFormattedString(value: best)
+            labelBest.text = NSLocalizedString("BEST", comment:"Best") + " \(best_string)"
         }
         labelBest.position = CGPoint(x: getLabelXPosition(), y:  getLabelYPosition(6.0))
         
         // 4. row
-        labelResult.text = (model.isComplete() || model.isReady()) ? NSLocalizedString("RESULT", comment:"Result") + " \(Model.getDistance(model.nodesSelected))" : ""
+        let distance = Model.getDistance(model.nodesSelected)
+        let distance_string = DataViewController.getFormattedString(value: distance)
+        
+        labelResult.text = (model.isComplete() || model.isReady()) ? NSLocalizedString("RESULT", comment:"Result") + " \(distance_string)" : ""
         labelResult.position = CGPoint(x: getLabelXPosition(), y:  getLabelYPosition(7.0))
         
     }

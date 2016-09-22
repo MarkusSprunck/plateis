@@ -184,6 +184,11 @@ class DataViewController: UIViewController {
         super.viewWillAppear(animated)
     }
   
+    public static func getFormattedString(value: Float) -> String{
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        return numberFormatter.string(from: NSNumber(value : value))!
+    }
   
 }
 

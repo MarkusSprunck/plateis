@@ -50,9 +50,9 @@ DESCRIPTION_3="задач становится чрезвычайно";
 
 DESCRIPTION_4="трудно решить.";
 
-LEVEL_HELP="swipe to select level";
+LEVEL_HELP="Swipe to switch level";
 
-GAME_HELP="tap to select node";
+GAME_HELP="Tap on the nodes";
 
 NEXT="Next";
 

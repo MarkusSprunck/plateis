@@ -97,11 +97,13 @@ class GameScene : SKScene {
         let image : UIImage = window.capture()
         
         let model : Model = viewController.getModel()
-        let myShare = "PLATEIS - Succeeded " + viewController.modelController.getCurrentWorld() + " / " + NSLocalizedString("LEVEL", comment : "Level") + " " + model.getName()
+        let title = "Succeeded in PLATEIS - " + viewController.modelController.getCurrentWorld() + " / " + NSLocalizedString("LEVEL", comment : "Level") + " " + model.getName()
+        let myShare = "https://itunes.apple.com/app/plateis/id1141912894"
     
         // set up activity view controller
-        let objectsToShare: [AnyObject] = [(image), (myShare as AnyObject)]
+        let objectsToShare = [title, image, myShare] as [Any]
         let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        activityViewController.setValue(title, forKey:  "Subject")
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         
         // exclude some activity types from the list (optional)
@@ -147,8 +149,12 @@ class GameScene : SKScene {
         
         
         let best = model.getDistanceBest()
+        let best_string = DataViewController.getFormattedString(value: best)
+      
         let distance = Model.getDistance(model.nodesSelected)
-        labelResult.text = NSLocalizedString("RESULT", comment : "Result") + " \(distance) / " + NSLocalizedString("BEST", comment : "Result") + " \(best)"
+        let distance_string = DataViewController.getFormattedString(value: distance)
+        
+        labelResult.text = NSLocalizedString("RESULT", comment : "Result") + " \(distance_string) / " + NSLocalizedString("BEST", comment : "Result") + " \(best_string)"
         if model.isReady() {
             fadeOutHelpText()
             fadeInResultText()
@@ -161,6 +167,8 @@ class GameScene : SKScene {
         
         buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " \(viewController.getModel().hints + 1)"  ,for : UIControlState())
     }
+    
+  
     
     fileprivate func showElements() {
         labelLevel.alpha = 1.0

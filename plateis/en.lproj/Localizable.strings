@@ -50,9 +50,9 @@ DESCRIPTION_3="the task gets extremely";
 
 DESCRIPTION_4="difficult to solve.";
 
-LEVEL_HELP="Swipe to select level";
+LEVEL_HELP="Swipe to switch level";
 
-GAME_HELP="Tap to select nodes";
+GAME_HELP="Tap on the nodes";
 
 NEXT="Next";
 

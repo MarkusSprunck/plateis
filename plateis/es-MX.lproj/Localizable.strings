@@ -50,9 +50,9 @@ DESCRIPTION_3="tarea se hace extremadamente";
 
 DESCRIPTION_4="difícil de resolver.";
 
-LEVEL_HELP="swipe to select level";
+LEVEL_HELP="Swipe to switch level";
 
-GAME_HELP="tap to select node";
+GAME_HELP="Tap on the nodes";
 
 NEXT="Next";
 
