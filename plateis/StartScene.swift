@@ -127,11 +127,11 @@ class StartScene: SKScene {
         buttonStart = UIButton(type: UIButtonType.custom)
         
         // define size
-        buttonStart.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonStart.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth*1.2, height : Scales.buttonHeight*1.2)
        
         // define look and feel
         buttonStart.setTitle(NSLocalizedString("START", comment:"Start"), for: UIControlState())
-        buttonStart.titleLabel!.font = UIFont(name: "Helvetica", size: Scales.fontSizeButton )
+        buttonStart.titleLabel!.font = UIFont(name: "Helvetica", size: Scales.fontSizeButton*1.2 )
         buttonStart.backgroundColor = Colors.blue
         buttonStart.layer.cornerRadius = 0.5 * buttonStart.bounds.height
         buttonStart.layer.borderWidth = 0

@@ -95,9 +95,12 @@ class GameScene : SKScene {
         // make screenshot
         let window: UIWindow! = UIApplication.shared.keyWindow
         let image : UIImage = window.capture()
+        
+        let model : Model = viewController.getModel()
+        let myShare = "PLATEIS - Succeeded " + viewController.modelController.getCurrentWorld() + " / " + NSLocalizedString("LEVEL", comment : "Level") + " " + model.getName()
     
         // set up activity view controller
-        let objectsToShare: [AnyObject] = [ image ]
+        let objectsToShare: [AnyObject] = [(image), (myShare as AnyObject)]
         let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         
@@ -387,7 +390,7 @@ class GameScene : SKScene {
         let radius = Scales.width * Scales.scaleNodes
         
         let boxWidth : CGFloat  = sizeX / CGFloat(viewController.getModel().getCols())
-        let xLocation : CGFloat =  CGFloat(node.x)  * boxWidth + Scales.left + radius*1.5
+        let xLocation : CGFloat =  CGFloat(node.x) * boxWidth + Scales.left + radius * 1.15
       
         let boxHeight : CGFloat  = sizeY / CGFloat(viewController.getModel().getRows())
         let yLocation : CGFloat =  CGFloat(node.y) * boxHeight + offsetYBottom

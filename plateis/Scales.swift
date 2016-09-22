@@ -27,15 +27,18 @@ class Scales {
             // Set size of screen
             width =  min(size.width, size.height)
             height = max(size.width, size.height)
-            print("size width=\(width) height=\(height)" )
             
             // iPhone 5s size is 320.0 x 568.0
-            let scaleFactorX = size.width / 320.0
-            let scaleFactorY = size.height / 568.0
+            let scaleFactorX = width / 320.0
+            let scaleFactorY = height / 568.0
+            let aspectRatio = height  / width
             let scaleFactor = min( scaleFactorX, scaleFactorY)
+            print("size aspectRatio=\(aspectRatio) width=\(width) height=\(height) scaleFactorX=\(scaleFactorX) scaleFactorY=\(scaleFactorY)" )
             
             // Scale 
             Scales.lineWidth *= scaleFactor
+            
+            Scales.scaleNodes = (aspectRatio < 1.5) ? 0.04 : 0.06
             
             Scales.top *= scaleFactor
             Scales.bottom *= scaleFactor
@@ -82,7 +85,7 @@ class Scales {
     internal static var bannerBottom : CGFloat = 20
     
     // Size of nodes in game view
-    internal static var scaleNodes : CGFloat = 0.04
+    internal static var scaleNodes : CGFloat = 0.06
     
     // Lines
     internal static var lineWidth : CGFloat = 2.0
