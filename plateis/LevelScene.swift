@@ -58,6 +58,8 @@ class LevelScene: SKScene {
     
     fileprivate var isTapped : Bool = false
     
+    fileprivate var allNodesReady = true
+    
     init(size:CGSize, viewController:DataViewController) {
         self.viewController = viewController
         super.init(size: size)
@@ -129,11 +131,11 @@ class LevelScene: SKScene {
         
         buttonNextWorld = UIButton(type: UIButtonType.custom)
         buttonNextWorld.frame =    CGRect(x : (Scales.width - Scales.buttonWidth - Scales.right), y: Scales.top, width : Scales.buttonWidth, height : Scales.buttonHeight)
-        
         buttonNextWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
-        buttonNextWorld.backgroundColor =   Colors.lightGray
         buttonNextWorld.layer.cornerRadius = 0.5 * buttonNextWorld.bounds.size.height
         buttonNextWorld.layer.borderWidth = 0
+        buttonNextWorld.isEnabled = allNodesReady
+        buttonNextWorld.backgroundColor = allNodesReady ? Colors.blue : Colors.lightGray
         buttonNextWorld.setTitle(NSLocalizedString("NEXT", comment:"Next world"), for:UIControlState())
         buttonNextWorld.addTarget(self, action: #selector(LevelScene.actionNextWorldButton(_:)), for: UIControlEvents.touchUpInside)
         buttonNextWorld.alpha = 0
@@ -333,9 +335,6 @@ class LevelScene: SKScene {
         }
     }
     
-    var allNodesReady = true
-    
-    
     func updateNodes() {
         let indexMax = viewController.modelController.pageModels.count
         var index = 0
@@ -367,10 +366,8 @@ class LevelScene: SKScene {
         buttonFeatures.frame = CGRect( x: Scales.left,  y: getButtonYPosition() , width: buttonFeatures.frame.width, height: buttonFeatures.frame.height)
         buttonPlayLevel.frame = CGRect(x: Scales.width  - Scales.buttonWidth - Scales.right,  y: getButtonYPosition() , width: buttonPlayLevel.frame.width, height: buttonPlayLevel.frame.height)
         
-        if allNodesReady {
-            buttonNextWorld.isEnabled  = allNodesReady
-            buttonNextWorld.backgroundColor = (allNodesReady) ? Colors.blue : Colors.lightGray
-        }
+        buttonNextWorld.isEnabled  = allNodesReady
+        buttonNextWorld.backgroundColor = allNodesReady ? Colors.blue : Colors.lightGray
         
         // 1. row
         labelNameOfLevel.text = NSLocalizedString("LEVEL", comment:"Level") + " " + model.getName();

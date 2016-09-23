@@ -96,7 +96,6 @@ class GameScene : SKScene {
         let window: UIWindow! = UIApplication.shared.keyWindow
         let image : UIImage = window.capture()
         
-        let model : Model = viewController.getModel()
         let subject = "Succeeded Level in PLATEIS"
         let link = "https://itunes.apple.com/app/plateis/id1141912894"
     
