@@ -316,7 +316,7 @@ class LevelScene: SKScene {
     func updateScene() {
         findActiveIndex()
         updateNodes()
-        updateLabels()
+        updateElements()
     }
     
     func findActiveIndex() {
@@ -351,15 +351,14 @@ class LevelScene: SKScene {
             circlesText[index].text = viewController.modelController.pageModels[index].getName();
             
             if circles[index].fillColor != Colors.green {
-                buttonNextWorld.isEnabled  = false
-                buttonNextWorld.backgroundColor = Colors.lightGray
+                allNodesReady = false
             }
             updateAnimationOfCircle(circles[index], animate: (index == selectedModelIndex))
             index += 1
         }
     }
     
-    func updateLabels() {
+    func updateElements() {
         
         let model : Model = viewController.modelController.pageModels[selectedModelIndex]
         labelWorld.text = model.world;
@@ -368,11 +367,16 @@ class LevelScene: SKScene {
         buttonFeatures.frame = CGRect( x: Scales.left,  y: getButtonYPosition() , width: buttonFeatures.frame.width, height: buttonFeatures.frame.height)
         buttonPlayLevel.frame = CGRect(x: Scales.width  - Scales.buttonWidth - Scales.right,  y: getButtonYPosition() , width: buttonPlayLevel.frame.width, height: buttonPlayLevel.frame.height)
         
-        // 2. row
+        if allNodesReady {
+            buttonNextWorld.isEnabled  = allNodesReady
+            buttonNextWorld.backgroundColor = (allNodesReady) ? Colors.blue : Colors.lightGray
+        }
+        
+        // 1. row
         labelNameOfLevel.text = NSLocalizedString("LEVEL", comment:"Level") + " " + model.getName();
         labelNameOfLevel.position = CGPoint(x: getLabelXPosition(), y:  getLabelYPosition(5.0))
         
-        // 3. row
+        // 2. row
         if model.getDistanceBest() == Float.infinity {
             labelBest.text = ""
         } else {
@@ -382,7 +386,7 @@ class LevelScene: SKScene {
         }
         labelBest.position = CGPoint(x: getLabelXPosition(), y:  getLabelYPosition(6.0))
         
-        // 4. row
+        // 3. row
         let distance = Model.getDistance(model.nodesSelected)
         let distance_string = DataViewController.getFormattedString(value: distance)
         
