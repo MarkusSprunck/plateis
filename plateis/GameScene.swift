@@ -97,13 +97,13 @@ class GameScene : SKScene {
         let image : UIImage = window.capture()
         
         let model : Model = viewController.getModel()
-        let title = "Succeeded in PLATEIS - " + viewController.modelController.getCurrentWorld() + " / " + NSLocalizedString("LEVEL", comment : "Level") + " " + model.getName()
-        let myShare = "https://itunes.apple.com/app/plateis/id1141912894"
+        let subject = "Succeeded in PLATEIS \r\n \(viewController.modelController.getCurrentWorld()) \r\n \(NSLocalizedString("LEVEL", comment : "Level")) \(model.getName()) \r\n"
+        let link = "https://itunes.apple.com/app/plateis/id1141912894"
     
         // set up activity view controller
-        let objectsToShare = [title, image, myShare] as [Any]
+        let objectsToShare = [image, subject, link] as [Any]
         let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-        activityViewController.setValue(title, forKey:  "Subject")
+        activityViewController.setValue(subject, forKey:  "Subject")
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         
         // exclude some activity types from the list (optional)

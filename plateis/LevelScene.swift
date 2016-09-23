@@ -117,7 +117,7 @@ class LevelScene: SKScene {
         buttonPreviousWorld = UIButton(type: UIButtonType.custom)
         buttonPreviousWorld.frame =   CGRect(x : Scales.left, y: Scales.top , width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonPreviousWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
-        buttonPreviousWorld.backgroundColor =   Colors.grey
+        buttonPreviousWorld.backgroundColor =   Colors.lightGray
         buttonPreviousWorld.layer.cornerRadius = 0.5 * buttonPreviousWorld.bounds.size.height
         buttonPreviousWorld.layer.borderWidth = 0
         buttonPreviousWorld.setTitle(NSLocalizedString("BACK", comment:"Previous world"), for: UIControlState())
@@ -131,7 +131,7 @@ class LevelScene: SKScene {
         buttonNextWorld.frame =    CGRect(x : (Scales.width - Scales.buttonWidth - Scales.right), y: Scales.top, width : Scales.buttonWidth, height : Scales.buttonHeight)
         
         buttonNextWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
-        buttonNextWorld.backgroundColor =   Colors.blue
+        buttonNextWorld.backgroundColor =   Colors.lightGray
         buttonNextWorld.layer.cornerRadius = 0.5 * buttonNextWorld.bounds.size.height
         buttonNextWorld.layer.borderWidth = 0
         buttonNextWorld.setTitle(NSLocalizedString("NEXT", comment:"Next world"), for:UIControlState())
@@ -169,8 +169,8 @@ class LevelScene: SKScene {
         var worldLast : ModelController.WorldKeys = ModelController.WorldKeys.allValues.first!
         for worldNext in  ModelController.WorldKeys.allValues.reversed() {
             if worldLast.rawValue == worldCurrent {
-                buttonNextWorld.isEnabled  = true
-                buttonNextWorld.backgroundColor =   Colors.blue
+                buttonNextWorld.isEnabled  = allNodesReady
+                buttonNextWorld.backgroundColor = (allNodesReady) ? Colors.blue : Colors.lightGray
                 
                 if worldNext != ModelController.WorldKeys.allValues.first {
                     buttonPreviousWorld.isEnabled  = true
@@ -178,7 +178,7 @@ class LevelScene: SKScene {
                 }
                 else {
                     buttonPreviousWorld.isEnabled  = false
-                    buttonPreviousWorld.backgroundColor  = Colors.grey
+                    buttonPreviousWorld.backgroundColor  = Colors.lightGray
                 }
                 
                 viewController.modelController.selectModel(worldNext.rawValue)
@@ -195,18 +195,17 @@ class LevelScene: SKScene {
         let worldCurrent : String = viewController.modelController.getCurrentWorld()
         var worldLast : ModelController.WorldKeys = ModelController.WorldKeys.allValues.last!
         for worldNext in  ModelController.WorldKeys.allValues {
-            if worldLast.rawValue == worldCurrent {
+            if worldLast.rawValue == worldCurrent  && allNodesReady {
                 buttonPreviousWorld.isEnabled  = true
                 buttonPreviousWorld.backgroundColor =   Colors.blue
                 
-                
                 if worldNext != ModelController.WorldKeys.allValues.last {
-                    buttonNextWorld.isEnabled  = true
-                    buttonNextWorld.backgroundColor  = Colors.blue
+                    buttonNextWorld.isEnabled  = allNodesReady
+                    buttonNextWorld.backgroundColor  = (allNodesReady) ? Colors.blue : Colors.lightGray
                 }
                 else {
                     buttonNextWorld.isEnabled  = false
-                    buttonNextWorld.backgroundColor  = Colors.grey
+                    buttonNextWorld.backgroundColor  = Colors.lightGray
                 }
                 
                 viewController.modelController.selectModel(worldNext.rawValue)
@@ -334,10 +333,13 @@ class LevelScene: SKScene {
         }
     }
     
+    var allNodesReady = true
+    
     
     func updateNodes() {
         let indexMax = viewController.modelController.pageModels.count
         var index = 0
+        allNodesReady = true
         while index < indexMax {
             circles[index].position = getLocation(index)
             circles[index].fillColor = getColorOfLevel(index)
@@ -348,6 +350,10 @@ class LevelScene: SKScene {
             circlesText[index].fontSize = Scales.fontSizeLabel
             circlesText[index].text = viewController.modelController.pageModels[index].getName();
             
+            if circles[index].fillColor != Colors.green {
+                buttonNextWorld.isEnabled  = false
+                buttonNextWorld.backgroundColor = Colors.lightGray
+            }
             updateAnimationOfCircle(circles[index], animate: (index == selectedModelIndex))
             index += 1
         }
