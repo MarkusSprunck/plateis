@@ -134,7 +134,7 @@ class LevelScene: SKScene {
         buttonNextWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonNextWorld.layer.cornerRadius = 0.5 * buttonNextWorld.bounds.size.height
         buttonNextWorld.layer.borderWidth = 0
-        buttonNextWorld.isEnabled = allNodesReady
+        buttonNextWorld.isEnabled = true
         buttonNextWorld.backgroundColor = allNodesReady ? Colors.blue : Colors.lightGray
         buttonNextWorld.setTitle(NSLocalizedString("NEXT", comment:"Next world"), for:UIControlState())
         buttonNextWorld.addTarget(self, action: #selector(LevelScene.actionNextWorldButton(_:)), for: UIControlEvents.touchUpInside)
@@ -349,7 +349,7 @@ class LevelScene: SKScene {
             circlesText[index].fontSize = Scales.fontSizeLabel
             circlesText[index].text = viewController.modelController.pageModels[index].getName();
             
-            if circles[index].fillColor != Colors.green {
+            if getColorOfLevel(index) != Colors.green {
                 allNodesReady = false
             }
             updateAnimationOfCircle(circles[index], animate: (index == selectedModelIndex))

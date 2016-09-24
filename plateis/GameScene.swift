@@ -81,7 +81,9 @@ class GameScene : SKScene {
     
     internal func actionHint(_ sender : UIButton!) {
         isSelectionBestVisible = true
-        viewController.getModel().hints = viewController.getModel().hints + 1
+        if !viewController.getModel().isComplete() {
+            viewController.getModel().hints = viewController.getModel().hints + 1
+        }
         renderModel()
     }
     
@@ -489,6 +491,9 @@ class GameScene : SKScene {
         }
     }
 
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchesBegan(touches , with: event)
+    }
     
     override func touchesBegan(_ touches : Set<UITouch>, with event : UIEvent?) {
         for touch in touches {
