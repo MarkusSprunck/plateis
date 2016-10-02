@@ -144,7 +144,7 @@ class LevelScene: SKScene {
     
     internal func actionPlayButton(_ sender: UIButton!) {
         if selectedModelIndex <= viewController.modelController.getIndexOfNextFreeLevel() ||
-            PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage) {
+            PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) {
             viewController.actionOpenGame(selectedModelIndex)
         }
     }
@@ -171,7 +171,7 @@ class LevelScene: SKScene {
         var worldLast : ModelController.WorldKeys = ModelController.WorldKeys.allValues.first!
         for worldNext in  ModelController.WorldKeys.allValues.reversed() {
             if worldLast.rawValue == worldCurrent {
-                buttonNextWorld.isEnabled  = allNodesReady
+                buttonNextWorld.isEnabled  = allNodesReady || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
                 buttonNextWorld.backgroundColor = (allNodesReady) ? Colors.blue : Colors.lightGray
                 
                 if worldNext != ModelController.WorldKeys.allValues.first {
@@ -202,7 +202,7 @@ class LevelScene: SKScene {
                 buttonPreviousWorld.backgroundColor =   Colors.blue
                 
                 if worldNext != ModelController.WorldKeys.allValues.last {
-                    buttonNextWorld.isEnabled  = allNodesReady
+                    buttonNextWorld.isEnabled  = allNodesReady || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
                     buttonNextWorld.backgroundColor  = (allNodesReady) ? Colors.blue : Colors.lightGray
                 }
                 else {
@@ -366,7 +366,7 @@ class LevelScene: SKScene {
         buttonFeatures.frame = CGRect( x: Scales.left,  y: getButtonYPosition() , width: buttonFeatures.frame.width, height: buttonFeatures.frame.height)
         buttonPlayLevel.frame = CGRect(x: Scales.width  - Scales.buttonWidth - Scales.right,  y: getButtonYPosition() , width: buttonPlayLevel.frame.width, height: buttonPlayLevel.frame.height)
         
-        buttonNextWorld.isEnabled  = allNodesReady
+        buttonNextWorld.isEnabled  = allNodesReady || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
         buttonNextWorld.backgroundColor = allNodesReady ? Colors.blue : Colors.lightGray
         
         // 1. row
@@ -411,7 +411,7 @@ class LevelScene: SKScene {
     
     func getColorOfLevel(_ index : Int) -> UIColor {
         var color = Colors.darkGrey
-        if index <= viewController.modelController.getIndexOfNextFreeLevel() || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage)   {
+        if index <= viewController.modelController.getIndexOfNextFreeLevel() || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels)   {
             if viewController.modelController.pageModels[index].isComplete() {
                 color = Colors.green
             } else if viewController.modelController.pageModels[index].isIncomplete() {
@@ -421,7 +421,7 @@ class LevelScene: SKScene {
             }
             
         } else {
-            if PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage)  {
+            if PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels)  {
                 color = Colors.darkGrey
             } else {
                 color = Colors.lightGray
@@ -455,7 +455,7 @@ class LevelScene: SKScene {
             let backAndForthSequence = SKAction.sequence([waitAction, growAction, shrinkAction])
             circle.run(SKAction.repeatForever(backAndForthSequence))
             if selectedModelIndex <= viewController.modelController.getIndexOfNextFreeLevel()  ||
-                PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage) {
+                PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) {
                 if Colors.darkGrey == getColorOfLevel(selectedModelIndex) {
                     circle.fillColor = Colors.blue
                     buttonPlayLevel.backgroundColor = Colors.blue
@@ -497,7 +497,7 @@ class LevelScene: SKScene {
             let sprite:SKNode = self.atPoint(location)
             if (sprite.name  != nil && !sprite.name!.isEmpty ) {
                 let index : Int = Int(sprite.name!)!
-                if index <= viewController.modelController.getIndexOfNextFreeLevel()  ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage) {
+                if index <= viewController.modelController.getIndexOfNextFreeLevel()  ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) {
                     viewController.actionOpenGame(index)
                     buttonFeatures.frame = CGRect(x : -Scales.buttonWidth, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
                     buttonPlayLevel.frame = CGRect(x : -Scales.buttonWidth, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)

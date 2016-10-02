@@ -10,10 +10,11 @@ import Foundation
 
 public struct PlateisProducts {
     
-    public static let SkipLevelsRage = "plateis.skip_levels"
-
+    public static let SkipLevels = "plateis.skip_levels"
+    public static let SkipWorlds = "plateis.skip_worlds"
+    
     fileprivate static let productIdentifiers: Set<ProductIdentifier> = [
-        PlateisProducts.SkipLevelsRage
+        PlateisProducts.SkipLevels, PlateisProducts.SkipWorlds
     ]
     
     public static let store = IAPHelper(productIds: PlateisProducts.productIdentifiers)

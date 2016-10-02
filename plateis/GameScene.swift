@@ -50,6 +50,8 @@ class GameScene : SKScene {
         self.viewController = viewController
         super.init(size : size)
 
+        self.view?.isMultipleTouchEnabled = true
+        
         createLabels()
         createButtons()
         createStars()
@@ -328,7 +330,7 @@ class GameScene : SKScene {
     
     func  getColorOfLevel(_ index : Int) -> UIColor {
         var color = Colors.darkGrey
-        if index <= viewController.modelController.getIndexOfNextFreeLevel() || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage)   {
+        if index <= viewController.modelController.getIndexOfNextFreeLevel() || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels)   {
             if viewController.modelController.pageModels[index].isComplete() {
                 color = Colors.green
             } else if viewController.modelController.pageModels[index].isIncomplete() {
@@ -338,7 +340,7 @@ class GameScene : SKScene {
             }
             
         } else {
-            if PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevelsRage)  {
+            if PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels)  {
                 color = Colors.darkGrey
             } else {
                 color = Colors.lightGray
@@ -492,11 +494,30 @@ class GameScene : SKScene {
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchesBegan(touches , with: event)
+        touchesHandler(touches , with: event)
+        print("touchesMoved"  )
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if hasSelectionChanged {
+            renderModel()
+            updateLabels()
+            fadeOutHelpText()
+            
+            hasSelectionChanged = false
+        }
+        print("touchesEnded"  )
     }
     
     override func touchesBegan(_ touches : Set<UITouch>, with event : UIEvent?) {
-        for touch in touches {
+        touchesHandler(touches , with: event)
+        print("touchesBegan"  )
+    }
+    
+    var hasSelectionChanged = false
+        
+    func touchesHandler(_ touches : Set<UITouch>, with event : UIEvent?) {
+       for touch in touches {
             let location = touch.location(in: self)
             let sprite : SKNode = self.atPoint(location)
             if (sprite.name  != nil && !(sprite.name?.isEmpty)!) {
@@ -506,13 +527,14 @@ class GameScene : SKScene {
                 
                 // Store last selected node for animation
                 lastSelectedNode = node
+                hasSelectionChanged = true
                 
-                renderModel()
-                updateLabels()
-                fadeOutHelpText()
+                print("    touchesHandler " +  sprite.name!)
+
             }
         }
-    }
+        
+          }
 
     internal func hide() {
         labelLevel.alpha = 0.0
