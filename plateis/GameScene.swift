@@ -148,6 +148,7 @@ class GameScene : SKScene {
         buttonUndo.backgroundColor = (model.getSelectedCount() > 0) ? Colors.blue : Colors.grey
         
         buttonHint.frame = CGRect(x : 10, y : Scales.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        
         buttonLevels.frame = CGRect(x : (Scales.width - Scales.buttonWidth - 10), y : Scales.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
         
         
@@ -563,8 +564,8 @@ class GameScene : SKScene {
     
     func starPathInRect() -> CGPath {
     
-        let rect : CGRect = CGRect( x : 0 , y : 0, width : 28, height : 28 )
-        let starExtrusion : CGFloat = 28.0
+        let rect : CGRect = CGRect( x : 0 , y : 0, width : 24, height : 24 )
+        let starExtrusion : CGFloat = 24.0
         let center = CGPoint(x : rect.width / 2.0, y : -rect.height )
         let pointsOnStar = 5
         var angle : CGFloat = -CGFloat(M_PI / 2.0)

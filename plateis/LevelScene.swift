@@ -135,7 +135,7 @@ class LevelScene: SKScene {
         buttonNextWorld.layer.cornerRadius = 0.5 * buttonNextWorld.bounds.size.height
         buttonNextWorld.layer.borderWidth = 0
         buttonNextWorld.isEnabled = true
-        buttonNextWorld.backgroundColor = allNodesReady ? Colors.blue : Colors.lightGray
+        buttonNextWorld.backgroundColor = buttonNextWorld.isEnabled ? Colors.blue : Colors.lightGray
         buttonNextWorld.setTitle(NSLocalizedString("NEXT", comment:"Next world"), for:UIControlState())
         buttonNextWorld.addTarget(self, action: #selector(LevelScene.actionNextWorldButton(_:)), for: UIControlEvents.touchUpInside)
         buttonNextWorld.alpha = 0
@@ -167,12 +167,14 @@ class LevelScene: SKScene {
     }
     
     func actionPreviousWorldButton(_ sender: UIButton!) {
+        let isSkipWorldAllowed = PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
+        let isNextWorldAllowed = allNodesReady  || isSkipWorldAllowed
         let worldCurrent : String = viewController.modelController.getCurrentWorld()
-        var worldLast : ModelController.WorldKeys = ModelController.WorldKeys.allValues.first!
+        var worldFirst : ModelController.WorldKeys = ModelController.WorldKeys.allValues.first!
         for worldNext in  ModelController.WorldKeys.allValues.reversed() {
-            if worldLast.rawValue == worldCurrent {
-                buttonNextWorld.isEnabled  = allNodesReady || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
-                buttonNextWorld.backgroundColor = (allNodesReady) ? Colors.blue : Colors.lightGray
+            if worldFirst.rawValue == worldCurrent {
+                buttonNextWorld.isEnabled  = isNextWorldAllowed
+                buttonNextWorld.backgroundColor = (isNextWorldAllowed) ? Colors.blue : Colors.lightGray
                 
                 if worldNext != ModelController.WorldKeys.allValues.first {
                     buttonPreviousWorld.isEnabled  = true
@@ -186,7 +188,7 @@ class LevelScene: SKScene {
                 viewController.modelController.selectModel(worldNext.rawValue)
                 break
             }
-            worldLast  = worldNext
+            worldFirst  = worldNext
         }
         viewController.modelController.findNextFreeLevel()
         viewController.rotateToNextModel()
@@ -195,21 +197,21 @@ class LevelScene: SKScene {
     
     func actionNextWorldButton(_ sender: UIButton!) {
         let worldCurrent : String = viewController.modelController.getCurrentWorld()
+        let isSkipWorldAllowed = PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
+        let isNextWorldAllowed = allNodesReady  || isSkipWorldAllowed
         var worldLast : ModelController.WorldKeys = ModelController.WorldKeys.allValues.last!
         for worldNext in  ModelController.WorldKeys.allValues {
-            if worldLast.rawValue == worldCurrent  && allNodesReady {
+            if worldLast.rawValue == worldCurrent && isNextWorldAllowed {
                 buttonPreviousWorld.isEnabled  = true
                 buttonPreviousWorld.backgroundColor =   Colors.blue
                 
                 if worldNext != ModelController.WorldKeys.allValues.last {
-                    buttonNextWorld.isEnabled  = allNodesReady || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
-                    buttonNextWorld.backgroundColor  = (allNodesReady) ? Colors.blue : Colors.lightGray
-                }
-                else {
+                    buttonNextWorld.isEnabled  = true
+                    buttonNextWorld.backgroundColor  = Colors.blue
+                } else {
                     buttonNextWorld.isEnabled  = false
                     buttonNextWorld.backgroundColor  = Colors.lightGray
                 }
-                
                 viewController.modelController.selectModel(worldNext.rawValue)
                 break
             }
@@ -366,8 +368,11 @@ class LevelScene: SKScene {
         buttonFeatures.frame = CGRect( x: Scales.left,  y: getButtonYPosition() , width: buttonFeatures.frame.width, height: buttonFeatures.frame.height)
         buttonPlayLevel.frame = CGRect(x: Scales.width  - Scales.buttonWidth - Scales.right,  y: getButtonYPosition() , width: buttonPlayLevel.frame.width, height: buttonPlayLevel.frame.height)
         
-        buttonNextWorld.isEnabled  = allNodesReady || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
-        buttonNextWorld.backgroundColor = allNodesReady ? Colors.blue : Colors.lightGray
+        // En/Disable skip next button
+        let isSkipWorldAllowed = PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
+        let isNextWorldAllowed = allNodesReady  || isSkipWorldAllowed
+        buttonNextWorld.isEnabled  = isNextWorldAllowed
+        buttonNextWorld.backgroundColor = isNextWorldAllowed ? Colors.blue : Colors.lightGray
         
         // 1. row
         labelNameOfLevel.text = NSLocalizedString("LEVEL", comment:"Level") + " " + model.getName();
