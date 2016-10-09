@@ -79,6 +79,7 @@ class LevelScene: SKScene {
         }
         print("level scene init ready")
         
+         
     }
     
     func createBackground() {
@@ -341,7 +342,9 @@ class LevelScene: SKScene {
         let indexMax = viewController.modelController.pageModels.count
         var index = 0
         allNodesReady = true
+        viewController.score = 0
         while index < indexMax {
+            let currentModel = viewController.modelController.pageModels[index]
             circles[index].position = getLocation(index)
             circles[index].fillColor = getColorOfLevel(index)
             circlesText[index].position = getLocation(index)
@@ -349,14 +352,18 @@ class LevelScene: SKScene {
             let font = animate ? "Helvetica Neue": "Helvetica Neue Light"
             circlesText[index].fontName = font
             circlesText[index].fontSize = Scales.fontSizeLabel
-            circlesText[index].text = viewController.modelController.pageModels[index].getName();
+            circlesText[index].text = currentModel.getName();
             
             if getColorOfLevel(index) != Colors.green {
                 allNodesReady = false
+            } else {
+                viewController.score += currentModel.getActiveNodesCount()
             }
             updateAnimationOfCircle(circles[index], animate: (index == selectedModelIndex))
             index += 1
         }
+        
+        viewController.submitScore()
     }
     
     func updateElements() {
@@ -511,5 +518,6 @@ class LevelScene: SKScene {
         }
     }
     
+     
     
 }

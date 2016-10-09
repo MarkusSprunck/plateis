@@ -10,9 +10,19 @@ import UIKit
 import SpriteKit
 import StoreKit
 import Foundation
+import GameKit
 
 
-class DataViewController: UIViewController {
+class DataViewController: UIViewController , GKGameCenterControllerDelegate {
+    
+    @available(iOS 6.0, *)
+    public func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
+    }
+    
+    public var score: Int = 0                 // Stores the score
+    var gcEnabled = Bool()              // Stores if the user has Game Center enabled
+    var gcDefaultLeaderBoard = String() // Stores the default leaderboardID
     
     var modelController : ModelController {
         get {
@@ -54,7 +64,67 @@ class DataViewController: UIViewController {
         sceneLevel.setSelectedModel(modelController.getIndexOfNextFreeLevel())
         rotateToNextModel()
         sceneLevel.updateScene()
+        
+        self.authenticateLocalPlayer()
     }
+    
+    func authenticateLocalPlayer() {
+        let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
+        
+        localPlayer.authenticateHandler = {(ViewController, error) -> Void in
+            if((ViewController) != nil) {
+                // 1 Show login if player is not logged in
+                self.present(ViewController!, animated: true, completion: nil)
+            } else if (localPlayer.isAuthenticated) {
+                // 2 Player is already euthenticated & logged in, load game center
+                self.gcEnabled = true
+                
+                // Get the default leaderboard ID
+               localPlayer.loadDefaultLeaderboardIdentifier(completionHandler:
+                { (leaderboardIdentifer: String?, error: Error?) -> Void in
+                    if error != nil {
+                        print(error)
+                    } else {
+                        self.gcDefaultLeaderBoard = leaderboardIdentifer!
+                    }
+                }
+                )
+                
+            } else {
+                // 3 Game center is not enabled on the users device
+                self.gcEnabled = false
+                print("Local player could not be authenticated, disabling game center")
+                print(error)
+            }
+            
+        }
+        
+    }
+    
+    func submitScore() {
+        let leaderboardID = "leaderboardID"
+        let sScore = GKScore(leaderboardIdentifier: leaderboardID)
+        sScore.value = Int64(score)
+        
+        GKScore.report([sScore]) {(error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print("Score \(self.score) submitted")
+                
+            }
+        }
+        
+    }
+    
+    func showLeaderboard() {
+        let gcVC: GKGameCenterViewController = GKGameCenterViewController()
+        gcVC.gameCenterDelegate = self
+        gcVC.viewState = GKGameCenterViewControllerState.leaderboards
+        gcVC.leaderboardIdentifier = "leaderboardID"
+        self.present(gcVC, animated: true, completion: nil)
+    }
+
     
     internal func actionOpenGame(_ indexOfModel : Int){
         indexOfActiveModel = indexOfModel
@@ -69,6 +139,9 @@ class DataViewController: UIViewController {
         
         skview.presentScene(sceneGame)
         sceneGame.renderModel()
+        
+        showLeaderboard()
+        
     }
     
     func rotateToNextModel() {

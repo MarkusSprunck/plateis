@@ -33,6 +33,7 @@
 		28C86C721D30BDE100D77A99 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C86C711D30BDE100D77A99 /* Node.swift */; };
 		28C86C761D30F89600D77A99 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C86C751D30F89600D77A99 /* Model.swift */; };
 		28D00F251D70AC6A006279DC /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D00F241D70AC6A006279DC /* UIViewExtension.swift */; };
+		28D33D941DAAC66A00235B7E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D33D931DAAC66A00235B7E /* GameKit.framework */; };
 		28DEC0FF1D67AE4B00E06EF8 /* PlateisProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DEC0FE1D67AE4B00E06EF8 /* PlateisProducts.swift */; };
 		28DEC1011D67AF3C00E06EF8 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DEC1001D67AF3C00E06EF8 /* IAPHelper.swift */; };
 		28E1EBEF1D6F72B5004DD1B4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E1EBEE1D6F72B5004DD1B4 /* StoreKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -94,6 +95,7 @@
 		28C86C711D30BDE100D77A99 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		28C86C751D30F89600D77A99 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		28D00F241D70AC6A006279DC /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		28D33D931DAAC66A00235B7E /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		28DEC0FE1D67AE4B00E06EF8 /* PlateisProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateisProducts.swift; sourceTree = "<group>"; };
 		28DEC1001D67AF3C00E06EF8 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		28E1EBEE1D6F72B5004DD1B4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -109,6 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28E1EBEF1D6F72B5004DD1B4 /* StoreKit.framework in Frameworks */,
+				28D33D941DAAC66A00235B7E /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +212,7 @@
 		28DEC0FB1D67AD9400E06EF8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				28D33D931DAAC66A00235B7E /* GameKit.framework */,
 				28E1EBEE1D6F72B5004DD1B4 /* StoreKit.framework */,
 			);
 			name = Frameworks;
@@ -286,6 +290,9 @@
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
