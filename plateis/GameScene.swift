@@ -119,6 +119,9 @@ class GameScene : SKScene {
     internal func actionLevelsButton(_ sender : UIButton!) {
         viewController.actionStart()
         hide()
+ 
+        GameCenterManager.calculateScore(models:viewController.modelController.allModels)
+        GameCenterManager.submitScore()
     }
     
     fileprivate func isDistanceBest() -> Bool {

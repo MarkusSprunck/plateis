@@ -15,14 +15,11 @@ import GameKit
 
 class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     
-    @available(iOS 6.0, *)
-    public func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismiss(animated: true, completion: nil)
-    }
+    // Stores if the user has Game Center enabled
+    var gcEnabled = Bool()
     
-    public var score: Int = 0                 // Stores the score
-    var gcEnabled = Bool()              // Stores if the user has Game Center enabled
-    var gcDefaultLeaderBoard = String() // Stores the default leaderboardID
+    // Stores the default leaderboardID
+    var gcDefaultLeaderBoard = String()
     
     var modelController : ModelController {
         get {
@@ -32,6 +29,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             return DataViewController._modelController!
         }
     }
+    
     fileprivate static var  _modelController : ModelController? = nil
 
     fileprivate var sceneStart: StartScene!
@@ -55,6 +53,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     
         skview.presentScene(sceneLevel)
         
+        sceneLevel.buttonGameCenter.fadeIn(0.1)
         sceneLevel.buttonPlayLevel.fadeIn(0.1)
         sceneLevel.buttonFeatures.fadeIn(0.1)
         sceneLevel.buttonNextWorld.fadeIn(0.1)
@@ -65,7 +64,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         rotateToNextModel()
         sceneLevel.updateScene()
         
-        self.authenticateLocalPlayer()
+        authenticateLocalPlayer()
     }
     
     func authenticateLocalPlayer() {
@@ -80,44 +79,31 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
                 self.gcEnabled = true
                 
                 // Get the default leaderboard ID
-               localPlayer.loadDefaultLeaderboardIdentifier(completionHandler:
-                { (leaderboardIdentifer: String?, error: Error?) -> Void in
-                    if error != nil {
-                        print(error)
-                    } else {
-                        self.gcDefaultLeaderBoard = leaderboardIdentifer!
+                localPlayer.loadDefaultLeaderboardIdentifier(completionHandler:
+                    { (leaderboardIdentifer: String?, error: Error?) -> Void in
+                        if error != nil {
+                            print(error)
+                        } else {
+                            self.gcDefaultLeaderBoard = leaderboardIdentifer!
+                        }
                     }
-                }
                 )
-                
             } else {
                 // 3 Game center is not enabled on the users device
                 self.gcEnabled = false
                 print("Local player could not be authenticated, disabling game center")
                 print(error)
             }
-            
         }
-        
     }
     
-    func submitScore() {
-        let leaderboardID = "leaderboardID"
-        let sScore = GKScore(leaderboardIdentifier: leaderboardID)
-        sScore.value = Int64(score)
-        
-        GKScore.report([sScore]) {(error) in
-            if error != nil {
-                print(error!.localizedDescription)
-            } else {
-                print("Score \(self.score) submitted")
-                
-            }
-        }
-        
+ 
+    public func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
     }
     
-    func showLeaderboard() {
+      
+    public func showLeaderboard() {
         let gcVC: GKGameCenterViewController = GKGameCenterViewController()
         gcVC.gameCenterDelegate = self
         gcVC.viewState = GKGameCenterViewControllerState.leaderboards
@@ -132,6 +118,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         // rotate so that the active model is at 9am
         sceneLevel.gamma = -(CGFloat(M_PI / 8.0) * CGFloat(indexOfModel))
         
+        sceneLevel.buttonGameCenter.fadeOut(0.1)
         sceneLevel.buttonFeatures.fadeOut(0.1)
         sceneLevel.buttonPlayLevel.fadeOut(0.1)
         sceneLevel.buttonNextWorld.fadeOut(0.1)
@@ -139,9 +126,6 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         
         skview.presentScene(sceneGame)
         sceneGame.renderModel()
-        
-        showLeaderboard()
-        
     }
     
     func rotateToNextModel() {
@@ -203,7 +187,6 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         let panGesture = UIPanGestureRecognizer(target: self, action:(#selector(DataViewController.handlePanGesture(_:))))
         self.view.addGestureRecognizer(panGesture)
     }
-
     
     func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
         let translation = panGesture.translation(in: view)
@@ -239,7 +222,6 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(DataViewController.handleSwipe(_:)))
         self.view.addGestureRecognizer(panRecognizer)
     }
-    
     
     func handleSwipe(_ sender:UISwipeGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.began {

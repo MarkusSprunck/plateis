@@ -28,6 +28,8 @@ class LevelScene: SKScene {
     
     internal var buttonPlayLevel : UIButton!
     
+    internal var buttonGameCenter : UIButton!
+    
     internal var buttonFeatures : UIButton!
     
     internal var buttonPreviousWorld : UIButton!
@@ -78,8 +80,6 @@ class LevelScene: SKScene {
             fadeInHelpText()
         }
         print("level scene init ready")
-        
-         
     }
     
     func createBackground() {
@@ -103,6 +103,18 @@ class LevelScene: SKScene {
         buttonPlayLevel.addTarget(self, action: #selector(LevelScene.actionPlayButton(_:)), for: UIControlEvents.touchUpInside)
         buttonPlayLevel.alpha = 0
         viewController.skview.addSubview(buttonPlayLevel)
+        
+        
+        buttonGameCenter = UIButton(type : UIButtonType.custom)
+        buttonGameCenter.frame = CGRect(x : 0, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonGameCenter.titleLabel!.font =  UIFont(name : "Helvetica", size : Scales.fontSizeButton)
+        buttonGameCenter.backgroundColor =  Colors.blue
+        buttonGameCenter.layer.cornerRadius = 0.5 * buttonPlayLevel.bounds.size.height
+        buttonGameCenter.layer.borderWidth = 0
+        buttonGameCenter.setTitle(NSLocalizedString("GAMECENTER", comment:"Game center"), for: UIControlState())
+        buttonGameCenter.addTarget(self, action : #selector(LevelScene.actionGameCenterButton(_ : )), for : UIControlEvents.touchUpInside)
+        buttonGameCenter.alpha = 0
+        viewController.view.addSubview(buttonGameCenter)
         
         
         buttonFeatures = UIButton(type: UIButtonType.custom)
@@ -149,7 +161,11 @@ class LevelScene: SKScene {
             viewController.actionOpenGame(selectedModelIndex)
         }
     }
-    
+
+    internal func actionGameCenterButton(_ sender: UIButton!) {
+        viewController.showLeaderboard()
+    }
+
     internal func actionFeaturesButton(_ sender: UIButton!) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         
@@ -342,7 +358,7 @@ class LevelScene: SKScene {
         let indexMax = viewController.modelController.pageModels.count
         var index = 0
         allNodesReady = true
-        viewController.score = 0
+   
         while index < indexMax {
             let currentModel = viewController.modelController.pageModels[index]
             circles[index].position = getLocation(index)
@@ -356,14 +372,11 @@ class LevelScene: SKScene {
             
             if getColorOfLevel(index) != Colors.green {
                 allNodesReady = false
-            } else {
-                viewController.score += currentModel.getActiveNodesCount()
             }
+            
             updateAnimationOfCircle(circles[index], animate: (index == selectedModelIndex))
             index += 1
         }
-        
-        viewController.submitScore()
     }
     
     func updateElements() {
@@ -373,6 +386,7 @@ class LevelScene: SKScene {
         
         // Move buttons to right position
         buttonFeatures.frame = CGRect( x: Scales.left,  y: getButtonYPosition() , width: buttonFeatures.frame.width, height: buttonFeatures.frame.height)
+        buttonGameCenter.frame = CGRect(x : (Scales.width/2 - Scales.buttonWidth/2), y : Scales.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonPlayLevel.frame = CGRect(x: Scales.width  - Scales.buttonWidth - Scales.right,  y: getButtonYPosition() , width: buttonPlayLevel.frame.width, height: buttonPlayLevel.frame.height)
         
         // En/Disable skip next button
