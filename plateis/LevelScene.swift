@@ -24,7 +24,7 @@ class LevelScene: SKScene {
     
     fileprivate var labelWorld : SKLabelNode!
     
-    fileprivate var labelHelp : SKLabelNode!
+    internal var labelHelp : SKLabelNode!
     
     internal var buttonPlayLevel : UIButton!
     
@@ -80,6 +80,8 @@ class LevelScene: SKScene {
             fadeInHelpText()
         }
         print("level scene init ready")
+        
+        GameCenterManager.calculateScore(models:viewController.modelController.allModels)
     }
     
     func createBackground() {
@@ -322,16 +324,18 @@ class LevelScene: SKScene {
     }
     
     func fadeInHelpText() {
-        if !isTapped {
+        if !isTapped || GameCenterManager.score > 0 {
             let fadeAction = SKAction.fadeAlpha(to: 1.0, duration: 3.0)
             labelHelp.run(fadeAction)
         }
     }
     
     func fadeOutHelpText() {
-        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration: 3.0)
-        labelHelp.run(fadeAction)
-        isTapped = true
+        if GameCenterManager.score < 0 {
+            let fadeAction = SKAction.fadeAlpha(to: 0.0, duration: 3.0)
+            labelHelp.run(fadeAction)
+            isTapped = true
+        }
     }
     
     func updateScene() {
@@ -379,7 +383,7 @@ class LevelScene: SKScene {
         }
     }
     
-    func updateElements() {
+    internal func updateElements() {
         
         let model : Model = viewController.modelController.pageModels[selectedModelIndex]
         labelWorld.text = model.world;
@@ -416,6 +420,11 @@ class LevelScene: SKScene {
         labelResult.text = (model.isComplete() || model.isReady()) ? NSLocalizedString("RESULT", comment:"Result") + " \(distance_string)" : ""
         labelResult.position = CGPoint(x: getLabelXPosition(), y:  getLabelYPosition(7.0))
         
+        if  GameCenterManager.score > 0 {
+            labelHelp.text =  "Total Score \(GameCenterManager.score)"
+            labelHelp.fontColor = Colors.black
+            fadeInHelpText()
+        }
     }
     
     func getLabelYPosition(_ index : CGFloat) -> CGFloat {

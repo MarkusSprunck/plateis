@@ -34,7 +34,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
 
     fileprivate var sceneStart: StartScene!
     
-    fileprivate var sceneLevel: LevelScene!
+    internal var sceneLevel: LevelScene!
     
     internal var sceneGame:  GameScene!
     

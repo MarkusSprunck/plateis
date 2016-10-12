@@ -122,6 +122,7 @@ class GameScene : SKScene {
  
         GameCenterManager.calculateScore(models:viewController.modelController.allModels)
         GameCenterManager.submitScore()
+        viewController.sceneLevel.updateElements()
     }
     
     fileprivate func isDistanceBest() -> Bool {
