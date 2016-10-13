@@ -43,12 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         storeModel()
     }
     
-   
+    
     func storeModel() {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let viewController : DataViewController = storyboard.instantiateViewController(withIdentifier: "PlateisId") as! DataViewController
         viewController.modelController.savePageModels()
     }
-  
+    
 }
 

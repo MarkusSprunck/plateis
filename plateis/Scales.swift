@@ -1,6 +1,6 @@
 //
 //  Scaling.swift
-//  plateis
+//  PLATEIS
 //
 //  Created by Markus Sprunck on 10/09/16.
 //  Copyright © 2016 Markus Sprunck. All rights reserved.
@@ -8,37 +8,30 @@
 
 import SpriteKit
 
-
+///
+/// The class provides scaled values to render the grafic on all possible devices
+///
 class Scales {
     
     fileprivate static var initReady = false
     
-    internal static var width : CGFloat = 320.0
-
-    internal static var height : CGFloat = 568.0
-
-    internal static func setSize(_ size : CGSize) {
-        
-        
+    internal static func setSize(size : CGSize) {
         if !Scales.initReady {
-     
-            Scales.size = size
             
             // Set size of screen
             width =  min(size.width, size.height)
             height = max(size.width, size.height)
             
             // iPhone 5s size is 320.0 x 568.0
-            let scaleFactorX = width / 320.0
-            let scaleFactorY = height / 568.0
-            let aspectRatio = height  / width
-            let scaleFactor = min( scaleFactorX, scaleFactorY)
-            print("size aspectRatio=\(aspectRatio) width=\(width) height=\(height) scaleFactorX=\(scaleFactorX) scaleFactorY=\(scaleFactorY)" )
+            let scaleX = width / 320.0
+            let scaleY = height / 568.0
+            let aspect = height  / width
+            let scaleFactor = min( scaleX, scaleY)
+            print("size aspect=\(aspect) width=\(width) height=\(height) scaleX=\(scaleX) scaleY=\(scaleY)")
             
-            // Scale 
+            // Scale
             Scales.lineWidth *= scaleFactor
-            
-            Scales.scaleNodes = (aspectRatio < 1.5) ? 0.04 : 0.06
+            Scales.scaleNodes = (aspect < 1.5) ? 0.04 : 0.06
             
             Scales.top *= scaleFactor
             Scales.bottom *= scaleFactor
@@ -47,7 +40,7 @@ class Scales {
             
             Scales.scaleStars *= scaleFactor
             Scales.fontSizeLabel *= scaleFactor
-  
+            
             Scales.fontSizeButton *= scaleFactor
             Scales.buttonHeight *= scaleFactor
             Scales.buttonWidth *= scaleFactor
@@ -59,12 +52,12 @@ class Scales {
             
             Scales.initReady = true
         }
-        
     }
+  
+    // Default aspect ratio
+    internal static var width : CGFloat = 320.0
+    internal static var height : CGFloat = 568.0
     
-    // Not scaled size
-    internal static var size : CGSize = CGSize()
- 
     // Borders
     internal static var top : CGFloat = 15
     internal static var bottom : CGFloat = buttonHeight + 10
@@ -90,8 +83,7 @@ class Scales {
     // Lines
     internal static var lineWidth : CGFloat = 2.0
     
-    // Stars 
+    // Stars
     internal static var starDistance : CGFloat = 30
-
- 
+    
 }

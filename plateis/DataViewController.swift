@@ -12,7 +12,9 @@ import StoreKit
 import Foundation
 import GameKit
 
-
+///
+///
+///
 class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     
     // Stores if the user has Game Center enabled
@@ -44,20 +46,16 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     
     fileprivate var products : [SKProduct] = []
     
-    var skview: SKView!
+    fileprivate var skview: SKView!
     
     internal func actionStart() {
         
         sceneStart.hide()
-        sceneGame.hide()
+        sceneGame.hideElements()
     
         skview.presentScene(sceneLevel)
         
-        sceneLevel.buttonGameCenter.fadeIn(0.1)
-        sceneLevel.buttonPlayLevel.fadeIn(0.1)
-        sceneLevel.buttonFeatures.fadeIn(0.1)
-        sceneLevel.buttonNextWorld.fadeIn(0.1)
-        sceneLevel.buttonPreviousWorld.fadeIn(0.1)
+        sceneLevel.showButtons()
         
         modelController.findNextFreeLevel()
         sceneLevel.setSelectedModel(modelController.getIndexOfNextFreeLevel())
@@ -118,11 +116,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         // rotate so that the active model is at 9am
         sceneLevel.gamma = -(CGFloat(M_PI / 8.0) * CGFloat(indexOfModel))
         
-        sceneLevel.buttonGameCenter.fadeOut(0.1)
-        sceneLevel.buttonFeatures.fadeOut(0.1)
-        sceneLevel.buttonPlayLevel.fadeOut(0.1)
-        sceneLevel.buttonNextWorld.fadeOut(0.1)
-        sceneLevel.buttonPreviousWorld.fadeOut(0.1)
+        sceneLevel.hideButtons()
         
         skview.presentScene(sceneGame)
         sceneGame.renderModel()
@@ -144,7 +138,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Scales.setSize(UIScreen.main.bounds.size)
+        Scales.setSize(size: UIScreen.main.bounds.size)
         
         skview = SKView(frame: CGRect(x: 0, y: 0, width: Scales.width, height: Scales.height));
         self.view.addSubview(skview);

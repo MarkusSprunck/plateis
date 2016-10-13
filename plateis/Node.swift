@@ -11,7 +11,7 @@ import UIKit
 open class Node : NSObject, NSCoding {
     
     var x:Int!
-
+    
     var y:Int!
     
     var active:Bool!
@@ -21,7 +21,7 @@ open class Node : NSObject, NSCoding {
         static let yKey = "y"
         static let activeKey = "active"
     }
-
+    
     required convenience public init(coder aDecoder: NSCoder) {
         let x = aDecoder.decodeObject(forKey: PropertyKey.xKey) as! Int
         let y = aDecoder.decodeObject(forKey: PropertyKey.yKey) as! Int

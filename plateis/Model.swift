@@ -49,7 +49,7 @@ open class Model : NSObject, NSCoding {
         aCoder.encode(cols, forKey: PropertyKey.colsKey)
         aCoder.encode(hints, forKey: PropertyKey.hintsKey)
     }
-
+    
     public init?(nodes : [Node], nodesSelected : [Node], nodesSelectedBest : [Node], name : String, rows: Int, cols: Int, world : String, hints : Int) {
         // Initialize stored properties.
         self.nodes = nodes
@@ -125,7 +125,7 @@ open class Model : NSObject, NSCoding {
     
     open func undoLastSelected() {
         if nodesSelected.count == 1 {
-             startTime = CFAbsoluteTimeGetCurrent() as Double
+            startTime = CFAbsoluteTimeGetCurrent() as Double
         }
         
         if !nodesSelected.isEmpty {
@@ -139,7 +139,7 @@ open class Model : NSObject, NSCoding {
             startTime = CFAbsoluteTimeGetCurrent() as Double
         }
     }
-
+    
     open func getNode(_ index : Int) -> Node {
         return nodes[index]
     }

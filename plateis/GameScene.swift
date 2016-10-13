@@ -15,9 +15,9 @@ import UIKit
 class GameScene : SKScene {
     
     fileprivate var viewController : DataViewController
- 
+    
     fileprivate var background : SKSpriteNode!
-
+    
     fileprivate var labelLevel : SKLabelNode!
     
     fileprivate var labelResult : SKLabelNode!
@@ -25,7 +25,7 @@ class GameScene : SKScene {
     fileprivate var labelHelp : SKLabelNode!
     
     fileprivate var buttonHint : UIButton!
-
+    
     fileprivate var buttonUndo : UIButton!
     
     fileprivate var buttonLevels : UIButton!
@@ -33,30 +33,30 @@ class GameScene : SKScene {
     fileprivate var buttonShare : UIButton!
     
     fileprivate var starGreen : SKShapeNode!
- 
+    
     fileprivate var starYellow : SKShapeNode!
- 
+    
     fileprivate var starRed : SKShapeNode!
     
     fileprivate var circles : [SKShapeNode] = []
     
     fileprivate static var isTapped : Bool = false
- 
+    
     fileprivate var isSelectionBestVisible : Bool = false
     
     fileprivate var lastSelectedNode : Node!
     
+    fileprivate var hasSelectionChanged = false
+    
     init(size : CGSize, viewController : DataViewController) {
         self.viewController = viewController
         super.init(size : size)
-
         self.view?.isMultipleTouchEnabled = true
         
         createLabels()
         createButtons()
         createStars()
-        
-        hide()
+        hideElements()
     }
     
     required init(coder aDecoder : NSCoder) {
@@ -75,13 +75,33 @@ class GameScene : SKScene {
         createLinesBest()
         createLabels()
         createStars()
-    
+        
+        // update user interface
         showElements()
         updateLabels()
         fadeInHelpText()
     }
     
-    internal func actionHint(_ sender : UIButton!) {
+    internal func hideElements() {
+        // make all elements transparent
+        labelLevel.alpha = 0.0
+        labelResult.alpha = 0.0
+        buttonShare.alpha = 0.0
+        buttonUndo.alpha = 0.0
+        buttonHint.alpha = 0.0
+        buttonLevels.alpha = 0.0
+        starYellow.alpha = 0.0
+        starGreen.alpha = 0.0
+        starRed.alpha = 0.0
+        
+        // move buttons out of screen to avoid not wanted clicks
+        buttonHint.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonUndo.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonShare.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonLevels.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+    }
+    
+    @objc fileprivate func actionHint(_ sender : UIButton!) {
         isSelectionBestVisible = true
         if !viewController.getModel().isComplete() {
             viewController.getModel().hints = viewController.getModel().hints + 1
@@ -89,20 +109,20 @@ class GameScene : SKScene {
         renderModel()
     }
     
-    internal func actionUndoButton(_ sender : UIButton!) {
+    @objc fileprivate func actionUndoButton(_ sender : UIButton!) {
         viewController.getModel().undoLastSelected()
         renderModel()
         updateLabels()
     }
     
-    internal func actionShareButton(_ sender : UIButton!) {
+    @objc fileprivate func actionShareButton(_ sender : UIButton!) {
         // make screenshot
         let window: UIWindow! = UIApplication.shared.keyWindow
         let image : UIImage = window.capture()
         
-        let subject = "Succeeded Level in PLATEIS"
+        let subject = "Succeeded in PLATEIS"
         let link = "https://itunes.apple.com/app/plateis/id1141912894"
-    
+        
         // set up activity view controller
         let objectsToShare = [image, link] as [Any]
         let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
@@ -115,11 +135,11 @@ class GameScene : SKScene {
         // present the view controller
         self.viewController.present(activityViewController, animated: true, completion: nil)
     }
-  
-    internal func actionLevelsButton(_ sender : UIButton!) {
+    
+    @objc fileprivate func actionLevelsButton(_ sender : UIButton!) {
         viewController.actionStart()
-        hide()
- 
+        hideElements()
+        
         GameCenterManager.calculateScore(models:viewController.modelController.allModels)
         GameCenterManager.submitScore()
         viewController.sceneLevel.updateElements()
@@ -140,7 +160,6 @@ class GameScene : SKScene {
             buttonShare.backgroundColor = Colors.blue
             buttonShare.alpha = 1.0
             buttonShare.frame = CGRect(x : (Scales.width/2 - Scales.buttonWidth/2), y : Scales.height -  Scales.bottom, width : Scales.buttonWidth, height : Scales.buttonHeight)
-   
             buttonUndo.alpha = 0.0
         } else {
             buttonShare.backgroundColor = Colors.grey
@@ -158,7 +177,7 @@ class GameScene : SKScene {
         
         let best = model.getDistanceBest()
         let best_string = DataViewController.getFormattedString(value: best)
-      
+        
         let distance = Model.getDistance(model.nodesSelected)
         let distance_string = DataViewController.getFormattedString(value: distance)
         
@@ -176,8 +195,6 @@ class GameScene : SKScene {
         buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " \(viewController.getModel().hints + 1)"  ,for : UIControlState())
     }
     
-  
-    
     fileprivate func showElements() {
         labelLevel.alpha = 1.0
         buttonShare.fadeIn()
@@ -194,9 +211,9 @@ class GameScene : SKScene {
         buttonLevels.layer.cornerRadius = 0.5 * buttonLevels.bounds.size.height
         buttonLevels.layer.borderWidth = 0
         buttonLevels.setTitle(NSLocalizedString("LEVELS", comment : "Levels"), for : UIControlState())
-        buttonLevels.addTarget(self, action : #selector(GameScene.actionLevelsButton(_ : )), for : UIControlEvents.touchUpInside)
+        buttonLevels.addTarget(self, action : #selector(self.actionLevelsButton(_ : )), for : UIControlEvents.touchUpInside)
         viewController.view.addSubview(buttonLevels)
-    
+        
         buttonUndo = UIButton(type : UIButtonType.custom)
         buttonUndo.frame = CGRect(x : 0, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonUndo.titleLabel!.font =  UIFont(name : "Helvetica", size : Scales.fontSizeButton)
@@ -216,7 +233,7 @@ class GameScene : SKScene {
         buttonShare.setTitle(NSLocalizedString("SHARE", comment : "Share result"), for : UIControlState())
         buttonShare.addTarget(self, action : #selector(GameScene.actionShareButton(_ : )), for : UIControlEvents.touchUpInside)
         viewController.view.addSubview(buttonShare)
-
+        
         buttonHint = UIButton(type : UIButtonType.custom)
         buttonHint.frame = CGRect(x : 0, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonHint.titleLabel!.font =  UIFont(name : "Helvetica", size : Scales.fontSizeButton )
@@ -229,7 +246,6 @@ class GameScene : SKScene {
     }
     
     fileprivate func createStars(){
-        
         let starPath : CGPath = starPathInRect()
         let model : Model = viewController.getModel()
         
@@ -246,7 +262,7 @@ class GameScene : SKScene {
         starGreen.lineWidth = Scales.lineWidth
         starGreen.fillColor = isGreen ? Colors.green : Colors.white
         addChild(starGreen)
-
+        
         starYellow = SKShapeNode(path : starPath)
         starYellow.position = CGPoint(x : 2 * Scales.left + Scales.starDistance, y : Scales.height - Scales.top )
         starYellow.zPosition = 10
@@ -255,7 +271,7 @@ class GameScene : SKScene {
         starYellow.lineWidth = Scales.lineWidth
         starYellow.fillColor = isYellow ? Colors.yellow : Colors.white
         addChild(starYellow)
-
+        
         starRed = SKShapeNode(path : starPath)
         starRed.position = CGPoint(x : 2 * Scales.left , y : Scales.height - Scales.top )
         starRed.zPosition = 10
@@ -265,7 +281,7 @@ class GameScene : SKScene {
         starRed.fillColor = isRed ? Colors.red : Colors.white
         addChild(starRed)
     }
-
+    
     fileprivate func createLabels() {
         labelLevel = SKLabelNode(fontNamed : "Helvetica Neue UltraLight")
         labelLevel.fontSize = Scales.fontSizeLabel
@@ -295,27 +311,26 @@ class GameScene : SKScene {
         self.addChild(labelHelp)
     }
     
-    
-    func fadeInHelpText() {
+    fileprivate func fadeInHelpText() {
         if !GameScene.isTapped {
             let fadeAction = SKAction.fadeAlpha(to: 1.0, duration : 3.0)
             labelHelp.run(fadeAction)
         }
     }
     
-    func fadeOutHelpText() {
+    fileprivate func fadeOutHelpText() {
         let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 3.0)
         labelHelp.run(fadeAction)
         GameScene.isTapped = true
     }
-
     
-    func fadeInResultText() {
+    
+    fileprivate func fadeInResultText() {
         let fadeAction = SKAction.fadeAlpha(to: 1.0, duration : 2.0)
         labelResult.run(fadeAction)
     }
     
-    func fadeOutResultText() {
+    fileprivate func fadeOutResultText() {
         let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 2.0)
         labelResult.run(fadeAction)
     }
@@ -328,12 +343,13 @@ class GameScene : SKScene {
             background.setScale(2.0)
             background.anchorPoint = CGPoint(x : 0.5, y : 0.5)
         }
+        
         if nil != self.background {
             addChild(background.copy() as! SKNode)
         }
     }
     
-    func  getColorOfLevel(_ index : Int) -> UIColor {
+    fileprivate func  getColorOfLevel(_ index : Int) -> UIColor {
         var color = Colors.darkGrey
         if index <= viewController.modelController.getIndexOfNextFreeLevel() || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels)   {
             if viewController.modelController.pageModels[index].isComplete() {
@@ -353,7 +369,6 @@ class GameScene : SKScene {
         }
         return color
     }
-
     
     fileprivate func createNodes() {
         let indexMax = viewController.getModel().count()
@@ -365,14 +380,14 @@ class GameScene : SKScene {
             if viewController.getModel().isSelected(node) {
                 let color = getColorOfLevel(viewController.getModelIndex())
                 let circle : SKShapeNode = LevelScene.createcircle(Scales.width * Scales.scaleNodes, position : position, color : color
-                , alpha : alpha, lineWidth : Scales.lineWidth, animate : false, name : String(index))
+                    , alpha : alpha, lineWidth : Scales.lineWidth, animate : false, name : String(index))
                 circle.lineWidth =  Scales.lineWidth
                 circle.strokeColor = Colors.black
                 circle.name = String(index)
                 self.addChild(circle)
                 circles.append(circle)
                 circle.zPosition = 1000
-        
+                
                 if !viewController.getModel().isReady() && viewController.getModel().getNodeSelected(viewController.getModel().getSelectedCount()-1) == node {
                     let waitAction = SKAction.wait(forDuration: 0.8)
                     let growAction = SKAction.scale(by: 1.1, duration: 0.3)
@@ -380,7 +395,7 @@ class GameScene : SKScene {
                     let backAndForthSequence = SKAction.sequence([waitAction, growAction, shrinkAction])
                     circle.run(SKAction.repeatForever(backAndForthSequence))
                 }
-
+                
                 
             } else if node.isActive() {
                 let circle : SKShapeNode = LevelScene.createcircle(Scales.width * Scales.scaleNodes, position : position, color : Colors.white, alpha : alpha, lineWidth : Scales.lineWidth, animate : false, name : String(index))
@@ -394,10 +409,8 @@ class GameScene : SKScene {
             index += 1
         }
     }
-  
     
     fileprivate func getLocation(_ node : Node) -> CGPoint {
-        
         let offsetYTop = Scales.top + Scales.bannerTop * 0.5
         let offsetYBottom = Scales.bottom + Scales.bannerBottom * 3.0
         let sizeY = Scales.height - offsetYBottom - offsetYTop
@@ -407,13 +420,12 @@ class GameScene : SKScene {
         
         let boxWidth : CGFloat  = sizeX / CGFloat(viewController.getModel().getCols())
         let xLocation : CGFloat =  CGFloat(node.x) * boxWidth + Scales.left + radius * 1.15
-      
+        
         let boxHeight : CGFloat  = sizeY / CGFloat(viewController.getModel().getRows())
         let yLocation : CGFloat =  CGFloat(node.y) * boxHeight + offsetYBottom
         
         return CGPoint(x : CGFloat(xLocation), y : CGFloat(yLocation))
     }
-    
     
     fileprivate func createLines() {
         var firstNodeLocation : CGPoint!
@@ -426,9 +438,9 @@ class GameScene : SKScene {
             let location = getLocation(node)
             
             if  nil == firstNodeLocation  {
-                    firstNodeLocation = location
-                    path.move(to: firstNodeLocation)
-             }  else {
+                firstNodeLocation = location
+                path.move(to: firstNodeLocation)
+            }  else {
                 path.addLine(to: location)
             }
             
@@ -451,26 +463,26 @@ class GameScene : SKScene {
         if self.isSelectionBestVisible {
             var firstNodeLocation : CGPoint!
             let path : CGMutablePath = CGMutablePath()
-        
+            
             let indexMax = viewController.getModel().nodesSelectedBest.count
             var index = 0
             while index < indexMax {
                 let node = viewController.getModel().nodesSelectedBest[index]
                 let location = getLocation(node)
-            
+                
                 if  nil == firstNodeLocation  {
                     firstNodeLocation = location
                     path.move(to: location)
                 }  else {
                     path.addLine(to: location)
                 }
-            
+                
                 if index + 1 == indexMax {
                     path.addLine(to: firstNodeLocation)
-                 }
+                }
                 index += 1
             }
-        
+            
             let shape = SKShapeNode()
             shape.path = path
             shape.strokeColor = Colors.green
@@ -485,22 +497,25 @@ class GameScene : SKScene {
             
             UIView.animate(withDuration: 2.0, delay : 0.0, options : UIViewAnimationOptions.curveEaseOut,
                            animations : {
-                                self.buttonHint.backgroundColor = Colors.blue
-                                self.buttonLevels.backgroundColor  = Colors.blue
-                            },
+                            self.buttonHint.backgroundColor = Colors.blue
+                            self.buttonLevels.backgroundColor  = Colors.blue
+                },
                            completion : {
-                                (value : Bool) in
-                                self.isSelectionBestVisible = false
-                                self.buttonLevels.isEnabled = true
-                                self.renderModel()
-                           })
+                            (value : Bool) in
+                            self.isSelectionBestVisible = false
+                            self.buttonLevels.isEnabled = true
+                            self.renderModel()
+            })
             
         }
     }
-
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchesHandler(touches , with: event)
-        print("touchesMoved"  )
+    }
+    
+    override func touchesBegan(_ touches : Set<UITouch>, with event : UIEvent?) {
+        touchesHandler(touches , with: event)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -508,21 +523,12 @@ class GameScene : SKScene {
             renderModel()
             updateLabels()
             fadeOutHelpText()
-            
             hasSelectionChanged = false
         }
-        print("touchesEnded"  )
     }
     
-    override func touchesBegan(_ touches : Set<UITouch>, with event : UIEvent?) {
-        touchesHandler(touches , with: event)
-        print("touchesBegan"  )
-    }
-    
-    var hasSelectionChanged = false
-        
-    func touchesHandler(_ touches : Set<UITouch>, with event : UIEvent?) {
-       for touch in touches {
+    fileprivate func touchesHandler(_ touches : Set<UITouch>, with event : UIEvent?) {
+        for touch in touches {
             let location = touch.location(in: self)
             let sprite : SKNode = self.atPoint(location)
             if (sprite.name  != nil && !(sprite.name?.isEmpty)!) {
@@ -535,39 +541,15 @@ class GameScene : SKScene {
                 hasSelectionChanged = true
                 
                 print("    touchesHandler " +  sprite.name!)
-
             }
         }
-        
-          }
-
-    internal func hide() {
-        labelLevel.alpha = 0.0
-        labelResult.alpha = 0.0
-        
-        buttonShare.alpha = 0.0
-        buttonUndo.alpha = 0.0
-        buttonHint.alpha = 0.0
-        buttonLevels.alpha = 0.0
-        
-        starYellow.alpha = 0.0
-        starGreen.alpha = 0.0
-        starRed.alpha = 0.0
-        
-        // Remove buttons to avoid not wanted clicks
-        buttonHint.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
-        buttonUndo.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
-        buttonShare.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
-        buttonLevels.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
     }
     
-    func pointFrom(_ angle : CGFloat, radius : CGFloat, offset : CGPoint) -> CGPoint {
+    fileprivate func pointFrom(_ angle : CGFloat, radius : CGFloat, offset : CGPoint) -> CGPoint {
         return CGPoint(x : radius * cos(angle) + offset.x, y : radius * sin(angle) + offset.y)
     }
     
-    
-    func starPathInRect() -> CGPath {
-    
+    fileprivate func starPathInRect() -> CGPath {
         let rect : CGRect = CGRect( x : 0 , y : 0, width : 24, height : 24 )
         let starExtrusion : CGFloat = 24.0
         let center = CGPoint(x : rect.width / 2.0, y : -rect.height )
@@ -600,8 +582,8 @@ class GameScene : SKScene {
         
         return path.cgPath
     }
-
-
+    
+    
 }
 
 

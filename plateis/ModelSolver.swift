@@ -15,7 +15,7 @@ class ModelSolver {
     
     // Number of steps for simulated annealing
     fileprivate static let STEPS = 25
- 
+    
     // Number of iterations per step and node
     fileprivate static let ITERATIONS = 50
     
@@ -37,7 +37,7 @@ class ModelSolver {
     class func run(_ model : Model) -> ([Node], Float) {
         
         var activeNodes : [Node] = ModelSolver.getActiveNodes(model)
-      
+        
         print("Level \(model.getName())")
         if VERBOSE {
             print("step   better    worse rejected    const      cost   temperature")
@@ -52,7 +52,7 @@ class ModelSolver {
             var status_better = 0
             var status_worse = 0
             var status_rejected = 0
-         
+            
             let currenTemperature = START_TEMPERATURE / Float(step*step*step)
             
             for _ in 1...ITERATIONS*activeNodes.count {
@@ -64,7 +64,7 @@ class ModelSolver {
                     secondIndex = Int(arc4random_uniform(UInt32(activeNodes.count)))
                 } while firstIndex == secondIndex
                 (activeNodes[secondIndex], activeNodes[firstIndex] ) = (activeNodes[firstIndex], activeNodes[secondIndex] )
-           
+                
                 // calculate cost
                 let currentCostOLD = currentCost;
                 currentCost = Model.getDistance(activeNodes)
@@ -96,5 +96,5 @@ class ModelSolver {
         
         return (activeNodes, bestCost)
     }
-        
+    
 }

@@ -1,14 +1,16 @@
 //
 //  GameCenterManager.swift
-//  plateis
+//  PLATEIS
 //
 //  Created by Markus Sprunck on 11.10.16.
 //  Copyright © 2016 Markus Sprunck. All rights reserved.
 //
 
-
 import GameKit
 
+///
+/// The class helps to handle Game Center
+///
 class GameCenterManager {
     
     // Stores the score
@@ -32,7 +34,7 @@ class GameCenterManager {
         var numberModels = 0
         GameCenterManager.score = 0
         for model in models {
-             if model.isComplete() {
+            if model.isComplete() {
                 print("    calculateScore nodes=\(model.getActiveNodesCount()) hints=\(model.hints)")
                 GameCenterManager.score +=  model.getActiveNodesCount()
                 GameCenterManager.score -= model.hints
@@ -42,5 +44,5 @@ class GameCenterManager {
         print("Score=\(GameCenterManager.score) of models \(numberModels)")
     }
     
-
+    
 }
