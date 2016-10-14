@@ -22,7 +22,7 @@ class Scales {
             width =  min(size.width, size.height)
             height = max(size.width, size.height)
             
-            // iPhone 5s size is 320.0 x 568.0
+            // iPhone 5s size
             let scaleX = width / 320.0
             let scaleY = height / 568.0
             let aspect = height  / width
@@ -50,6 +50,11 @@ class Scales {
             
             Scales.starDistance *= scaleFactor
             
+            Scales.radiusLevel = Scales.width * 0.07
+            Scales.radiusLargeX = (Scales.width -  Scales.left - Scales.right ) * 0.5 - radiusLevel
+            Scales.radiusLargeY = (Scales.height -  Scales.top - Scales.bottom - Scales.bannerTop*2 - Scales.bannerBottom*2 ) * 0.5 - radiusLevel
+            Scales.centerLarge  = CGPoint(x: Scales.width * 0.5 , y:radiusLargeY + Scales.bottom + Scales.bannerBottom*2 + radiusLevel)
+            
             Scales.initReady = true
         }
     }
@@ -57,6 +62,12 @@ class Scales {
     // Default aspect ratio
     internal static var width : CGFloat = 320.0
     internal static var height : CGFloat = 568.0
+    
+    // Center of large circle of nodes in level scene
+    internal static var centerLarge : CGPoint = CGPoint(x: 0.0, y: 0.0)
+    internal static var radiusLevel : CGFloat = 0.0
+    internal static var radiusLargeX : CGFloat = 0.0
+    internal static var radiusLargeY : CGFloat = 0.0
     
     // Borders
     internal static var top : CGFloat = 15

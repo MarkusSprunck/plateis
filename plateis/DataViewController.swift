@@ -13,7 +13,7 @@ import Foundation
 import GameKit
 
 ///
-///
+/// The class is the central view controller which managages all scenes
 ///
 class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     
@@ -114,7 +114,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         indexOfActiveModel = indexOfModel
         
         // rotate so that the active model is at 9am
-        sceneLevel.gamma = -(CGFloat(M_PI / 8.0) * CGFloat(indexOfModel))
+        sceneLevel.setGamma(-(CGFloat(M_PI / 8.0) * CGFloat(indexOfModel)))
         
         sceneLevel.hideButtons()
         
@@ -123,8 +123,8 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     }
     
     func rotateToNextModel() {
-        sceneLevel.gamma =  -self.sceneLevel.PI_DIV_8 * CGFloat(4 + modelController.getIndexOfNextFreeLevel())
-        sceneLevel.gammaOffset = 0
+        sceneLevel.setGamma( -CGFloat(M_PI / 8.0) * CGFloat(4 + modelController.getIndexOfNextFreeLevel()))
+        sceneLevel.setGammaOffset(0)
     }
   
     func getModel() -> Model {
@@ -188,7 +188,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         if panGesture.state == UIGestureRecognizerState.changed {
         
             let point: CGPoint = panGesture.location(in: self.view)
-            let center = sceneLevel.centerLarge
+            let center = Scales.centerLarge
             let deltaX1 = point.x - center.x
             let deltaY1 = point.y - center.y
             let m1      = deltaY1 / deltaX1
@@ -206,7 +206,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             if  deltaGamma.isNaN {
                 return
             }
-            sceneLevel.gamma = (sceneLevel.gamma + deltaGamma).truncatingRemainder(dividingBy: (3.1425*2.0))
+            sceneLevel.setGamma((sceneLevel.getGamma() + deltaGamma).truncatingRemainder(dividingBy: (3.1425*2.0)))
             sceneLevel.updateScene()
             sceneLevel.fadeOutHelpText()
         }

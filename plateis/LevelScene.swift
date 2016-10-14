@@ -12,8 +12,6 @@ class LevelScene: SKScene {
     
     fileprivate var viewController:DataViewController
     
-    fileprivate let labelDistanceFromTop: CGFloat = 190.0
-    
     fileprivate var labelNameOfLevel: SKLabelNode!
     
     fileprivate var labelBest : SKLabelNode!
@@ -36,12 +34,6 @@ class LevelScene: SKScene {
     
     fileprivate var selectedModelIndex : Int = 0
     
-    fileprivate var radiusLargeX : CGFloat = 0.0
-    
-    fileprivate var radiusLargeY : CGFloat = 0.0
-    
-    fileprivate var radiusLevel: CGFloat = 0.0
-    
     fileprivate var timerSnapToPosition = Timer()
     
     fileprivate var timerRenderModel = Timer()
@@ -54,22 +46,13 @@ class LevelScene: SKScene {
     
     fileprivate var allNodesReady = true
     
-    internal let PI_DIV_8 = CGFloat(M_PI / 8.0)
+    fileprivate var gamma:CGFloat = 0.0
     
-    internal var gamma:CGFloat = 0.0
-    
-    internal var gammaOffset:CGFloat = -CGFloat(M_PI_2)
-    
-    internal var centerLarge : CGPoint = CGPoint(x: 0.0, y: 0.0)
+    fileprivate var gammaOffset:CGFloat = -CGFloat(M_PI_2)
     
     init(size:CGSize, viewController:DataViewController) {
         self.viewController = viewController
         super.init(size: size)
-        
-        radiusLevel = Scales.width * 0.07
-        radiusLargeX = (Scales.width -  Scales.left - Scales.right) * 0.5 - radiusLevel
-        radiusLargeY = (Scales.height -  Scales.top - Scales.bottom - Scales.bannerTop*2 - Scales.bannerBottom*2 ) * 0.5 - radiusLevel
-        centerLarge  = CGPoint(x: Scales.width * 0.5 , y:radiusLargeY + Scales.bottom + Scales.bannerBottom*2 + radiusLevel)
         
         if !viewController.modelController.pageModels.isEmpty {
             createBackground()
@@ -113,6 +96,19 @@ class LevelScene: SKScene {
         updateNodes()
         updateElements()
     }
+    
+    internal func getGamma() -> CGFloat {
+        return gamma;
+    }
+    
+    internal func setGamma(_ value:CGFloat)  {
+        gamma = value;
+    }
+    
+    internal func setGammaOffset(_ value:CGFloat)  {
+        gammaOffset = value;
+    }
+
     
     fileprivate func createBackground() {
         let background = SKSpriteNode(imageNamed: "background-white")
@@ -331,7 +327,7 @@ class LevelScene: SKScene {
         var index = 0
         while index < indexMax {
             let position = getLocation(index)
-            let radius = radiusLevel
+            let radius = Scales.radiusLevel
             let alpha = CGFloat(1.0)
             let animate : Bool = (index == selectedModelIndex)
             let circle:SKShapeNode = LevelScene.createcircle(radius, position: position, color: getColorOfLevel(index), alpha: alpha, lineWidth: Scales.lineWidth, animate: animate, name : String(index))
@@ -453,7 +449,7 @@ class LevelScene: SKScene {
     
     
     fileprivate func getLabelXPosition() -> CGFloat {
-        return self.centerLarge.x
+        return Scales.centerLarge.x
     }
     
     internal func setSelectedModel(_ index: Int) {
@@ -532,11 +528,10 @@ class LevelScene: SKScene {
     fileprivate func getLocation(_ index:Int) -> CGPoint {
         let numberOfNodes = 16
         let angle : CGFloat = 3.14 * CGFloat(index) / CGFloat(numberOfNodes) * 2
-        let xLocation :CGFloat =  centerLarge.x + radiusLargeX * sin(angle + gamma + gammaOffset)
-        let yLocation :CGFloat =  centerLarge.y + radiusLargeY * cos(angle + gamma + gammaOffset)
+        let xLocation :CGFloat =  Scales.centerLarge.x + Scales.radiusLargeX * sin(angle + gamma + gammaOffset)
+        let yLocation :CGFloat =  Scales.centerLarge.y + Scales.radiusLargeY * cos(angle + gamma + gammaOffset)
         return CGPoint(x: Int(xLocation), y: Int(yLocation))
     }
-    
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoder not supported")
@@ -556,7 +551,5 @@ class LevelScene: SKScene {
             }
         }
     }
-    
-    
-    
+
 }
