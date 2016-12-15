@@ -50,6 +50,8 @@ class LevelScene: SKScene {
     
     fileprivate var gammaOffset:CGFloat = -CGFloat(M_PI_2)
     
+    let defaults = UserDefaults.standard
+    
     init(size:CGSize, viewController:DataViewController) {
         self.viewController = viewController
         super.init(size: size)
@@ -63,6 +65,12 @@ class LevelScene: SKScene {
             fadeInHelpText()
         }
         print("level scene init ready")
+        
+        // Receive
+        if let name = defaults.string(forKey: "selectedModelIndex") {
+            print("restored setting selectedModelIndex \(name)")
+            viewController.modelController.selectModel("\(name)")
+        }
         
         GameCenterManager.calculateScore(models:viewController.modelController.allModels)
     }
@@ -230,6 +238,9 @@ class LevelScene: SKScene {
                 }
                 
                 viewController.modelController.selectModel(worldNext.rawValue)
+                defaults.set("\(worldNext.rawValue)", forKey: "selectedModelIndex")
+                print("store setting selected model \(worldNext.rawValue)")
+                
                 break
             }
             worldFirst  = worldNext
@@ -257,6 +268,9 @@ class LevelScene: SKScene {
                     buttonNextWorld.backgroundColor  = Colors.lightGray
                 }
                 viewController.modelController.selectModel(worldNext.rawValue)
+                defaults.set("\(worldNext.rawValue)", forKey: "selectedModelIndex")
+                print("store setting selected model \(worldNext.rawValue)")
+                
                 break
             }
             worldLast  = worldNext
