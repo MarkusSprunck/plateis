@@ -37,7 +37,7 @@ class GameCenterManager {
             if model.isComplete() {
                 print("    calculateScore nodes=\(model.getActiveNodesCount()) hints=\(model.hints)")
                 GameCenterManager.score +=  model.getActiveNodesCount()
-                GameCenterManager.score -= model.hints
+                GameCenterManager.score -= (model.getActiveNodesCount() >= model.hints) ? model.hints : model.getActiveNodesCount()
                 numberModels += 1
             }
         }

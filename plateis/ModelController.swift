@@ -15,7 +15,7 @@ class ModelController: NSObject {
 
     internal var pageModels: [Model] = []
     
-    enum WorldKeys : String {
+    public enum WorldKeys : String {
         case random01 = "World I", random02 = "World II", random03 = "World III", random04 = "World IV", random05 = "World V",random06 = "World VI", random07 = "World VII", random08 = "World VIII", random09 = "World IX", random10 = "World X"
         static let allValues = [random01, random02, random03, random04, random05, random06, random07, random08, random09, random10]
     }

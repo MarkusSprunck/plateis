@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "LevelScene.createPlayButton() -&gt; ():LevelScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "buttonNextWorld.isEnabled">
+            </PersistentString>
+            <PersistentString
+               value = "buttonPreviousWorld.isEnabled">
+            </PersistentString>
+            <PersistentString
+               value = "viewController.modelController.getCurrentWorld() != ModelController.WorldKeys.random01.rawValue">
+            </PersistentString>
+            <PersistentString
+               value = "viewController.modelController.getCurrentWorld() != ModelController.WorldKeys.random10.rawValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

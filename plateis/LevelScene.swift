@@ -55,6 +55,12 @@ class LevelScene: SKScene {
     init(size:CGSize, viewController:DataViewController) {
         self.viewController = viewController
         super.init(size: size)
+       
+        // Receive
+        if let name = defaults.string(forKey: "selectedModelIndex") {
+            print("restored setting selectedModelIndex \(name)")
+            viewController.modelController.selectModel("\(name)")
+        }
         
         if !viewController.modelController.pageModels.isEmpty {
             createBackground()
@@ -66,11 +72,6 @@ class LevelScene: SKScene {
         }
         print("level scene init ready")
         
-        // Receive
-        if let name = defaults.string(forKey: "selectedModelIndex") {
-            print("restored setting selectedModelIndex \(name)")
-            viewController.modelController.selectModel("\(name)")
-        }
         
         GameCenterManager.calculateScore(models:viewController.modelController.allModels)
     }
@@ -128,6 +129,9 @@ class LevelScene: SKScene {
     }
     
     fileprivate func createPlayButton(){
+        
+        print("current world = \(viewController.modelController.getCurrentWorld())")
+        
         buttonPlayLevel = UIButton(type: UIButtonType.custom)
         buttonPlayLevel.frame = CGRect(x : 0, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonPlayLevel.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
@@ -173,7 +177,8 @@ class LevelScene: SKScene {
         buttonPreviousWorld.setTitle(NSLocalizedString("BACK", comment:"Previous world"), for: UIControlState())
         buttonPreviousWorld.addTarget(self, action: #selector(LevelScene.actionPreviousWorldButton(_:)), for: UIControlEvents.touchUpInside)
         buttonPreviousWorld.alpha = 0
-        buttonPreviousWorld.isEnabled = false
+        buttonPreviousWorld.isEnabled = viewController.modelController.getCurrentWorld() != ModelController.WorldKeys.random01.rawValue
+        buttonPreviousWorld.backgroundColor = buttonPreviousWorld.isEnabled ? Colors.blue : Colors.lightGray
         viewController.view.addSubview(buttonPreviousWorld)
         
         
@@ -182,7 +187,7 @@ class LevelScene: SKScene {
         buttonNextWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
         buttonNextWorld.layer.cornerRadius = 0.5 * buttonNextWorld.bounds.size.height
         buttonNextWorld.layer.borderWidth = 0
-        buttonNextWorld.isEnabled = true
+        buttonNextWorld.isEnabled = viewController.modelController.getCurrentWorld() != ModelController.WorldKeys.random10.rawValue
         buttonNextWorld.backgroundColor = buttonNextWorld.isEnabled ? Colors.blue : Colors.lightGray
         buttonNextWorld.setTitle(NSLocalizedString("NEXT", comment:"Next world"), for:UIControlState())
         buttonNextWorld.addTarget(self, action: #selector(LevelScene.actionNextWorldButton(_:)), for: UIControlEvents.touchUpInside)
@@ -422,8 +427,9 @@ class LevelScene: SKScene {
         // En/Disable skip next button
         let isSkipWorldAllowed = PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
         let isNextWorldAllowed = allNodesReady  || isSkipWorldAllowed
-        buttonNextWorld.isEnabled  = isNextWorldAllowed
-        buttonNextWorld.backgroundColor = isNextWorldAllowed ? Colors.blue : Colors.lightGray
+        let isNotLast = viewController.modelController.getCurrentWorld() != ModelController.WorldKeys.random10.rawValue
+        buttonNextWorld.isEnabled  = isNextWorldAllowed && isNotLast
+        buttonNextWorld.backgroundColor = buttonNextWorld.isEnabled ? Colors.blue : Colors.lightGray
         
         // 1. row
         labelNameOfLevel.text = NSLocalizedString("LEVEL", comment:"Level") + " " + model.getName();
