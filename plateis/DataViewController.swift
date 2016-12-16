@@ -80,7 +80,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
                 localPlayer.loadDefaultLeaderboardIdentifier(completionHandler:
                     { (leaderboardIdentifer: String?, error: Error?) -> Void in
                         if error != nil {
-                            print(error)
+                            print("\(error.debugDescription)")
                         } else {
                             self.gcDefaultLeaderBoard = leaderboardIdentifer!
                         }
@@ -89,9 +89,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             } else {
                 // 3 Game center is not enabled on the users device
                 self.gcEnabled = false
-                print("Local player could not be authenticated, disabling game center")
-                print(error)
-            }
+                print("Local player could not be authenticated, disabling game center")            }
         }
     }
     
