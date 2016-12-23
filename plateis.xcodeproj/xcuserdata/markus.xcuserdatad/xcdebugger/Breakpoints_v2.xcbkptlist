@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PLATEIS/GameScene.swift"
-            timestampString = "498082109.473179"
+            timestampString = "504211624.651646"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
+            startingLineNumber = "567"
+            endingLineNumber = "567"
             landmarkName = "touchesHandler(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -288,6 +288,22 @@
             startingLineNumber = "149"
             endingLineNumber = "149"
             landmarkName = "actionStartButton(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PLATEIS/GameScene.swift"
+            timestampString = "504207904.791198"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
+            landmarkName = "createBackground()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

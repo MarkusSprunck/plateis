@@ -347,6 +347,38 @@ class GameScene : SKScene {
         if nil != self.background {
             addChild(background.copy() as! SKNode)
         }
+        
+        let size = Scales.width * Scales.scaleNodes
+        for indexX in 0...6  {
+            for indexY in 0...9  {
+                var position = getLocation(nodeX: CGFloat(indexX), nodeY: CGFloat(indexY))
+                
+                let path : CGMutablePath = CGMutablePath()
+                
+                path.move(to: position)
+                position.x += size
+                path.addLine(to: position)
+                position.x -= size * 2
+                path.addLine(to: position)
+                position.x += size
+                path.move(to: position)
+                position.y += size
+                path.addLine(to: position)
+                position.y -= size * 2
+                path.addLine(to: position)
+                position.y += size
+                
+                let shape = SKShapeNode()
+                shape.path = path
+                shape.strokeColor = Colors.blue
+                shape.lineWidth = 0.1
+                shape.lineCap =  CGLineCap.round
+                shape.zPosition = 1
+                shape.alpha = 1.0
+                addChild(shape)
+            }
+        }
+        
     }
     
     fileprivate func  getColorOfLevel(_ index : Int) -> UIColor {
@@ -411,6 +443,10 @@ class GameScene : SKScene {
     }
     
     fileprivate func getLocation(_ node : Node) -> CGPoint {
+        return getLocation( nodeX : CGFloat(node.x), nodeY : CGFloat(node.y))
+    }
+    
+    fileprivate func getLocation( nodeX : CGFloat, nodeY : CGFloat) -> CGPoint {
         let offsetYTop = Scales.top + Scales.bannerTop * 0.5
         let offsetYBottom = Scales.bottom + Scales.bannerBottom * 3.0
         let sizeY = Scales.height - offsetYBottom - offsetYTop
@@ -419,10 +455,10 @@ class GameScene : SKScene {
         let radius = Scales.width * Scales.scaleNodes
         
         let boxWidth : CGFloat  = sizeX / CGFloat(viewController.getModel().getCols())
-        let xLocation : CGFloat =  CGFloat(node.x) * boxWidth + Scales.left + radius * 1.15
+        let xLocation : CGFloat =  nodeX * boxWidth + Scales.left + radius * 1.15
         
         let boxHeight : CGFloat  = sizeY / CGFloat(viewController.getModel().getRows())
-        let yLocation : CGFloat =  CGFloat(node.y) * boxHeight + offsetYBottom
+        let yLocation : CGFloat =  nodeY * boxHeight + offsetYBottom
         
         return CGPoint(x : CGFloat(xLocation), y : CGFloat(yLocation))
     }
