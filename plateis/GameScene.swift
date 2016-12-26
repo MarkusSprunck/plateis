@@ -337,46 +337,46 @@ class GameScene : SKScene {
     
     fileprivate func createBackground() {
         if nil == self.background {
-            background = SKSpriteNode(imageNamed : "background-white")
+            
+            self.backgroundColor = Colors.white
+            
+            background = SKSpriteNode()
             background.zPosition = -1
-            background.position = CGPoint(x : Scales.width / 2, y : Scales.height / 2)
-            background.setScale(2.0)
-            background.anchorPoint = CGPoint(x : 0.5, y : 0.5)
+            background.position = CGPoint(x : 0, y : 0)
+            
+            let size = Scales.width * Scales.scaleNodes
+            for indexX in 0...6  {
+                for indexY in 0...9  {
+                    var position = getLocation(nodeX: CGFloat(indexX), nodeY: CGFloat(indexY))
+                    
+                    let path : CGMutablePath = CGMutablePath()
+                    path.move(to: position)
+                    position.x += size
+                    path.addLine(to: position)
+                    position.x -= size * 2
+                    path.addLine(to: position)
+                    position.x += size
+                    path.move(to: position)
+                    position.y += size
+                    path.addLine(to: position)
+                    position.y -= size * 2
+                    path.addLine(to: position)
+                    position.y += size
+                    
+                    let shape = SKShapeNode()
+                    shape.path = path
+                    shape.strokeColor = Colors.blue
+                    shape.lineWidth = 0.2
+                    shape.lineCap =  CGLineCap.round
+                    shape.zPosition = 1
+                    shape.alpha = 1.0
+                    background.addChild(shape)
+                }
+            }
         }
         
         if nil != self.background {
             addChild(background.copy() as! SKNode)
-        }
-        
-        let size = Scales.width * Scales.scaleNodes
-        for indexX in 0...6  {
-            for indexY in 0...9  {
-                var position = getLocation(nodeX: CGFloat(indexX), nodeY: CGFloat(indexY))
-                
-                let path : CGMutablePath = CGMutablePath()
-                
-                path.move(to: position)
-                position.x += size
-                path.addLine(to: position)
-                position.x -= size * 2
-                path.addLine(to: position)
-                position.x += size
-                path.move(to: position)
-                position.y += size
-                path.addLine(to: position)
-                position.y -= size * 2
-                path.addLine(to: position)
-                position.y += size
-                
-                let shape = SKShapeNode()
-                shape.path = path
-                shape.strokeColor = Colors.blue
-                shape.lineWidth = 0.1
-                shape.lineCap =  CGLineCap.round
-                shape.zPosition = 1
-                shape.alpha = 1.0
-                addChild(shape)
-            }
         }
         
     }
