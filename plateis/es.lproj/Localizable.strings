@@ -52,7 +52,7 @@ DESCRIPTION_4="difícil de resolver.";
 
 LEVEL_HELP="Swipe to switch level";
 
-GAME_HELP_TAP="Tap on the nodes";
+GAME_HELP_TAP="Tap on all nodes";
 
 GAME_HELP_SWIPE="Swipe to change level";
 

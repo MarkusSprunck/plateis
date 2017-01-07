@@ -52,7 +52,7 @@ DESCRIPTION_4="extrem schwer.";
 
 LEVEL_HELP="Ebenenwechsel durch wischen";
 
-GAME_HELP_TAP="Tippe auf die Knoten";
+GAME_HELP_TAP="Tippe auf alle Knoten";
 
 GAME_HELP_SWIPE="Ebenenwechsel durch wischen";
 

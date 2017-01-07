@@ -316,7 +316,7 @@ class GameScene : SKScene {
         labelHelp.fontSize = Scales.fontSizeLabel
         labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.bottom
         labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        labelHelp.fontColor = Colors.red
+        labelHelp.fontColor = Colors.black
         labelHelp.text = "🔂 " + NSLocalizedString("GAME_HELP_TAP", comment : "Tap to select node")
         labelHelp.position = CGPoint(x : Scales.width/2, y :  Scales.bottom + Scales.bannerBottom * 0.5)
         labelHelp.alpha = GameScene.isTapped || viewController.getModel().isReady() ? 0.0 : 1.0
@@ -326,7 +326,7 @@ class GameScene : SKScene {
         labelHelpSwipe.fontSize = Scales.fontSizeLabel
         labelHelpSwipe.verticalAlignmentMode = SKLabelVerticalAlignmentMode.bottom
         labelHelpSwipe.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        labelHelpSwipe.fontColor = Colors.red
+        labelHelpSwipe.fontColor = Colors.black
         labelHelpSwipe.text = "🔁 " + NSLocalizedString("GAME_HELP_SWIPE", comment : "Tap to select node")
         labelHelpSwipe.position = CGPoint(x : Scales.width/2, y :  Scales.bottom + Scales.bannerBottom * 0.5)
         labelHelpSwipe.alpha = 0.0

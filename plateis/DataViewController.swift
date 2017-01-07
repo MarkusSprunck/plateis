@@ -48,9 +48,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     
     fileprivate var skview: SKView!
     
-    
     fileprivate var timeLastScroll = NSDate().timeIntervalSince1970
-    
     
     internal func actionStart() {
         
@@ -93,7 +91,8 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             } else {
                 // 3 Game center is not enabled on the users device
                 self.gcEnabled = false
-                print("Local player could not be authenticated, disabling game center")            }
+                print("Local player could not be authenticated, disabling game center")
+            }
         }
     }
     
@@ -248,8 +247,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             sceneLevel.updateScene()
             sceneLevel.fadeOutHelpText()
         }
-        
-           }
+    }
   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -56,7 +56,7 @@ class LevelScene: SKScene {
         self.viewController = viewController
         super.init(size: size)
        
-        // Receive
+        // Restore default settings
         if let name = defaults.string(forKey: "selectedModelIndex") {
             print("restored setting selectedModelIndex \(name)")
             viewController.modelController.selectModel("\(name)")
