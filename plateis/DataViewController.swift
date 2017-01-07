@@ -214,7 +214,8 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             }
             
             // change level
-            if index <= modelController.getIndexOfNextFreeLevel()  ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) {
+            modelController.findNextFreeLevel()
+            if index <= modelController.getIndexOfNextFreeLevel() ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) {
                 actionOpenGame(index)
                 sceneGame.fadeOutHelpTextSwipe()
                 return

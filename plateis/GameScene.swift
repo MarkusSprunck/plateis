@@ -194,8 +194,9 @@ class GameScene : SKScene {
         labelResult.text = NSLocalizedString("RESULT", comment : "Result") + " \(distance_string) / " + NSLocalizedString("BEST", comment : "Result") + " \(best_string)"
         if model.isReady() {
             fadeOutHelpText()
-            fadeInResultText()
             fadeInHelpTextSwipe()
+       //     fadeOutHelpTextSwipe()
+       //     fadeInResultText()
         } else {
             fadeOutResultText()
             fadeInHelpText()
@@ -311,26 +312,23 @@ class GameScene : SKScene {
         labelResult.position = CGPoint(x : Scales.width/2, y :Scales.bottom + Scales.bannerBottom * 0.5)
         self.addChild(labelResult)
         
-        labelHelp = SKLabelNode(fontNamed : "Helvetica Neue Light")
+        labelHelp = SKLabelNode(fontNamed : "Helvetica Neue UltraLight")
         labelHelp.fontSize = Scales.fontSizeLabel
-        labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.bottom
         labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelHelp.fontColor = Colors.red
-        labelHelp.zPosition = 2000
         labelHelp.text = "🔂 " + NSLocalizedString("GAME_HELP_TAP", comment : "Tap to select node")
-        labelHelp.position =  CGPoint(x : Scales.width/2, y :  Scales.height/2 + Scales.fontSizeLabel * 0.8)
-        // CGPoint(x : Scales.width/2, y :  Scales.bottom + Scales.bannerBottom * 0.5)
+        labelHelp.position = CGPoint(x : Scales.width/2, y :  Scales.bottom + Scales.bannerBottom * 0.5)
         labelHelp.alpha = GameScene.isTapped || viewController.getModel().isReady() ? 0.0 : 1.0
         self.addChild(labelHelp)
         
-        labelHelpSwipe = SKLabelNode(fontNamed : "Helvetica Neue Light")
+        labelHelpSwipe = SKLabelNode(fontNamed : "Helvetica Neue UltraLight")
         labelHelpSwipe.fontSize = Scales.fontSizeLabel
-        labelHelpSwipe.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelHelpSwipe.verticalAlignmentMode = SKLabelVerticalAlignmentMode.bottom
         labelHelpSwipe.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelHelpSwipe.fontColor = Colors.red
-        labelHelpSwipe.zPosition = 2000
         labelHelpSwipe.text = "🔁 " + NSLocalizedString("GAME_HELP_SWIPE", comment : "Tap to select node")
-        labelHelpSwipe.position = CGPoint(x : Scales.width/2, y :  Scales.height/2 + Scales.fontSizeLabel * 0.8)
+        labelHelpSwipe.position = CGPoint(x : Scales.width/2, y :  Scales.bottom + Scales.bannerBottom * 0.5)
         labelHelpSwipe.alpha = 0.0
         self.addChild(labelHelpSwipe)
     }
@@ -349,6 +347,7 @@ class GameScene : SKScene {
     
     fileprivate func fadeInHelpTextSwipe() {
         if !GameScene.isSwiped {
+            fadeOutResultText()
             let fadeAction = SKAction.fadeAlpha(to: 1.0, duration : 3.0)
             labelHelpSwipe.run(fadeAction)
         }
