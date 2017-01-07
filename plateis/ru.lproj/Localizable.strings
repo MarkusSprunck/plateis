@@ -54,6 +54,8 @@ LEVEL_HELP="Swipe to switch level";
 
 GAME_HELP="Tap on the nodes";
 
+GAME_HELP_SWIPE="Swipe to change level";
+
 NEXT="Next";
 
 BACK="Back";

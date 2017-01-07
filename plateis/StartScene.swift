@@ -45,12 +45,7 @@ class StartScene: SKScene {
     }
     
     fileprivate func createBackground() {
-        let background = SKSpriteNode(imageNamed: "background-white")
-        background.zPosition = -1
-        background.position = CGPoint(x: Scales.width / 2, y: Scales.height / 2)
-        background.setScale(2.0)
-        background.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        addChild(background)
+        self.backgroundColor = Colors.white
     }
     
     fileprivate func createTitle () {

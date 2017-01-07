@@ -20,6 +20,8 @@ class GameScene : SKScene {
     
     fileprivate var labelLevel : SKLabelNode!
     
+    fileprivate var labelHelpSwipe : SKLabelNode!
+    
     fileprivate var labelResult : SKLabelNode!
     
     fileprivate var labelHelp : SKLabelNode!
@@ -42,11 +44,15 @@ class GameScene : SKScene {
     
     fileprivate static var isTapped : Bool = false
     
+    fileprivate static var isSwiped : Bool = false
+    
     fileprivate var isSelectionBestVisible : Bool = false
     
     fileprivate var lastSelectedNode : Node!
     
     fileprivate var hasSelectionChanged = false
+    
+    public var isGameVisible = false
     
     init(size : CGSize, viewController : DataViewController) {
         self.viewController = viewController
@@ -80,6 +86,8 @@ class GameScene : SKScene {
         showElements()
         updateLabels()
         fadeInHelpText()
+        
+        isGameVisible = true
     }
     
     internal func hideElements() {
@@ -99,6 +107,8 @@ class GameScene : SKScene {
         buttonUndo.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonShare.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonLevels.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        
+        isGameVisible = false
     }
     
     @objc fileprivate func actionHint(_ sender : UIButton!) {
@@ -185,6 +195,7 @@ class GameScene : SKScene {
         if model.isReady() {
             fadeOutHelpText()
             fadeInResultText()
+            fadeInHelpTextSwipe()
         } else {
             fadeOutResultText()
             fadeInHelpText()
@@ -302,13 +313,26 @@ class GameScene : SKScene {
         
         labelHelp = SKLabelNode(fontNamed : "Helvetica Neue Light")
         labelHelp.fontSize = Scales.fontSizeLabel
-        labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.bottom
+        labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
         labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        labelHelp.fontColor = Colors.darkGrey
-        labelHelp.text = NSLocalizedString("GAME_HELP", comment : "Tap to select node")
-        labelHelp.position = CGPoint(x : Scales.width/2, y :  Scales.bottom + Scales.bannerBottom * 0.5)
+        labelHelp.fontColor = Colors.red
+        labelHelp.zPosition = 2000
+        labelHelp.text = "🔂 " + NSLocalizedString("GAME_HELP_TAP", comment : "Tap to select node")
+        labelHelp.position =  CGPoint(x : Scales.width/2, y :  Scales.height/2 + Scales.fontSizeLabel * 0.8)
+        // CGPoint(x : Scales.width/2, y :  Scales.bottom + Scales.bannerBottom * 0.5)
         labelHelp.alpha = GameScene.isTapped || viewController.getModel().isReady() ? 0.0 : 1.0
         self.addChild(labelHelp)
+        
+        labelHelpSwipe = SKLabelNode(fontNamed : "Helvetica Neue Light")
+        labelHelpSwipe.fontSize = Scales.fontSizeLabel
+        labelHelpSwipe.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelHelpSwipe.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
+        labelHelpSwipe.fontColor = Colors.red
+        labelHelpSwipe.zPosition = 2000
+        labelHelpSwipe.text = "🔁 " + NSLocalizedString("GAME_HELP_SWIPE", comment : "Tap to select node")
+        labelHelpSwipe.position = CGPoint(x : Scales.width/2, y :  Scales.height/2 + Scales.fontSizeLabel * 0.8)
+        labelHelpSwipe.alpha = 0.0
+        self.addChild(labelHelpSwipe)
     }
     
     fileprivate func fadeInHelpText() {
@@ -317,14 +341,25 @@ class GameScene : SKScene {
             labelHelp.run(fadeAction)
         }
     }
-    
     fileprivate func fadeOutHelpText() {
         let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 3.0)
         labelHelp.run(fadeAction)
         GameScene.isTapped = true
     }
     
+    fileprivate func fadeInHelpTextSwipe() {
+        if !GameScene.isSwiped {
+            let fadeAction = SKAction.fadeAlpha(to: 1.0, duration : 3.0)
+            labelHelpSwipe.run(fadeAction)
+        }
+    }
     
+    func fadeOutHelpTextSwipe() {
+        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 3.0)
+        labelHelpSwipe.run(fadeAction)
+        GameScene.isSwiped = true
+    }
+
     fileprivate func fadeInResultText() {
         let fadeAction = SKAction.fadeAlpha(to: 1.0, duration : 2.0)
         labelResult.run(fadeAction)
@@ -619,7 +654,13 @@ class GameScene : SKScene {
         return path.cgPath
     }
     
+    public func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
+        print("pan ")
+    }
     
+    public func getModelName() -> String {
+        return viewController.getModel().getName()
+    }
 }
 
 

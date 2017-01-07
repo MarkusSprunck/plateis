@@ -48,6 +48,10 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     
     fileprivate var skview: SKView!
     
+    
+    fileprivate var timeLastScroll = NSDate().timeIntervalSince1970
+    
+    
     internal func actionStart() {
         
         sceneStart.hide()
@@ -150,18 +154,18 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
        
         sceneGame = GameScene(size:skview.bounds.size, viewController: self)
         sceneGame.scaleMode = SKSceneScaleMode.aspectFill
-         
+        
         sceneLevel = LevelScene(size:skview.bounds.size, viewController: self)
         sceneLevel.scaleMode = SKSceneScaleMode.aspectFill
         
-        addSwipe()
         addPan()
-       
+        
         // Force the device in portrait mode when the view controller gets loaded
         UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
         
     }
-   
+    
+      
     override var prefersStatusBarHidden : Bool {
         return true
     }
@@ -179,11 +183,46 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         let panGesture = UIPanGestureRecognizer(target: self, action:(#selector(DataViewController.handlePanGesture(_:))))
         self.view.addGestureRecognizer(panGesture)
     }
-    
+   
     func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
         let translation = panGesture.translation(in: view)
         panGesture.setTranslation(CGPoint.zero, in: view)
-        if panGesture.state == UIGestureRecognizerState.changed {
+        if panGesture.state == UIGestureRecognizerState.changed && sceneGame.isGameVisible {
+            
+            // it must be significant translation
+            if abs(translation.x) < 10 {
+                return
+            }
+            
+            // manage a waiting time to avoid to skip levels
+            let timeCurrentScroll = NSDate().timeIntervalSince1970
+            if timeCurrentScroll - timeLastScroll < 0.25 {
+                return
+            }
+            timeLastScroll = timeCurrentScroll
+            
+            // calculate index of new level
+            var index : Int = Int(sceneGame.getModelName())! - 1
+            if (translation.x < 0 && ( getModel().isComplete() ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) )) {
+                index = min(index + 1, 15)
+                print("next     level...\(index)  \(translation.x)  \(panGesture.numberOfTouches)")
+                
+            }
+            if translation.x > 0  {
+                index = max(index - 1, 0)
+                print("previous level...\(index)  \(translation.x)  \(panGesture.numberOfTouches)")
+            }
+            
+            // change level
+            if index <= modelController.getIndexOfNextFreeLevel()  ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) {
+                actionOpenGame(index)
+                sceneGame.fadeOutHelpTextSwipe()
+                return
+            }
+            
+        }
+
+        if panGesture.state == UIGestureRecognizerState.changed && panGesture.numberOfTouches == 1 {
         
             let point: CGPoint = panGesture.location(in: self.view)
             let center = Scales.centerLarge
@@ -208,21 +247,9 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             sceneLevel.updateScene()
             sceneLevel.fadeOutHelpText()
         }
-    }
-    
-    func addSwipe() {
-        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(DataViewController.handleSwipe(_:)))
-        self.view.addGestureRecognizer(panRecognizer)
-    }
-    
-    func handleSwipe(_ sender:UISwipeGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.began {
-            isInSwipe = true
-        } else if sender.state == UIGestureRecognizerState.ended {
-            isInSwipe = false
-        }
-    }
-    
+        
+           }
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

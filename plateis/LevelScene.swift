@@ -120,12 +120,7 @@ class LevelScene: SKScene {
 
     
     fileprivate func createBackground() {
-        let background = SKSpriteNode(imageNamed: "background-white")
-        background.zPosition = -1
-        background.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
-        background.setScale(2.0)
-        background.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        addChild(background)
+        self.backgroundColor = Colors.white
     }
     
     fileprivate func createPlayButton(){
@@ -331,7 +326,7 @@ class LevelScene: SKScene {
         self.addChild(labelResult)
         
         labelHelp = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
-        labelHelp.text = NSLocalizedString("LEVEL_HELP", comment:"Help text for level");
+        labelHelp.text = "🔄 " + NSLocalizedString("LEVEL_HELP", comment:"Help text for level");
         labelHelp.fontSize = Scales.fontSizeLabel
         labelHelp.position = CGPoint(x: Scales.width / 2, y: Scales.bottom + Scales.bannerBottom)
         labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
