@@ -35,7 +35,7 @@ class ModelController: NSObject {
             print("Load stored worlds")
             allModels += savedMeals
         } else {
-            let filepath = Bundle.main.path(forResource: "ModelDefault", ofType: "binary")
+            let filepath = Bundle.main.path(forResource: "ModelDefaultEasy", ofType: "binary")
             if filepath != nil {
                 allModels = (NSKeyedUnarchiver.unarchiveObject(withFile: filepath!) as? [Model])!
                 print("Load \(allModels.count) default worlds from filepath=\(filepath ?? "not defined")")
@@ -45,7 +45,7 @@ class ModelController: NSObject {
                 for world in ModelController.WorldKeys.allValues {
                     print("Create default world \(world.rawValue)")
                     self.createModelRandomLevel(world.rawValue, start_number: start_number)
-                    start_number += 2
+                    start_number += 1
                 }
                 
                 for model in self.allModels {
@@ -111,7 +111,7 @@ class ModelController: NSObject {
     internal func createModelRandomLevel(_ world : String, start_number : Int) {
         for index in 1...16 {
             let model = createModel(world,  name: String(index))
-            for _ in 1...(start_number + index)  {
+            for _ in 1...(start_number + index / 2)  {
                 model.getNode(getRandomIndex(model)).setActive(true)
             }
             allModels.append(model)

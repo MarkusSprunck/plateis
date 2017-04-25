@@ -14,7 +14,7 @@ class ModelSolver {
     fileprivate static let VERBOSE = false
     
     // Number of steps for simulated annealing
-    fileprivate static let STEPS = 25
+    fileprivate static let STEPS = 50
     
     // Number of iterations per step and node
     fileprivate static let ITERATIONS = 50
@@ -38,7 +38,7 @@ class ModelSolver {
         
         var activeNodes : [Node] = ModelSolver.getActiveNodes(model)
         
-        print("Level \(model.getName())")
+        print("\(model.world.padding(toLength: 10, withPad: " ", startingAt: 0) ) level=\(model.getName())  \tnodes=\(model.getActiveNodesCount())")
         if VERBOSE {
             print("step   better    worse rejected    const      cost   temperature")
             print("")

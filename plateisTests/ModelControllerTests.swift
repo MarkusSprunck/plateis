@@ -18,8 +18,8 @@ class ModelControllerTests: XCTestCase {
         if generate {
         
             // Delete old config file
-            let locToSave = "/Users/markus/git/plateis/plateis/ModelDefault.binary"
-            let filepath = Bundle.main.path(forResource: "ModelDefault", ofType: "binary")
+            let locToSave = "/Users/markus/git/plateis/plateis/ModelDefaultEasy.binary"
+            let filepath = Bundle.main.path(forResource: "ModelDefaultEasy", ofType: "binary")
 
             do {
                 let fileManager = FileManager.default
@@ -44,7 +44,7 @@ class ModelControllerTests: XCTestCase {
             for world in ModelController.WorldKeys.allValues {
                 print("Create default world \(world.rawValue)")
                 modelController.createModelRandomLevel(world.rawValue, start_number: start_number)
-                start_number += 2
+                start_number += 1
             }
         
             for model in modelController.allModels {
@@ -71,8 +71,8 @@ class ModelControllerTests: XCTestCase {
     func test_Calculate_Best() {
         
         let modelController : ModelController = ModelController()
-        for trial in 1...10 {
-            print("Calculate_Best trial=\(trial)")
+        for trial in 1...3 {
+            print("\nCalculate_Best trial=\(trial)")
             for model in modelController.allModels {
                 var newSelected : [Node]
                 var newBest : Float
@@ -82,7 +82,7 @@ class ModelControllerTests: XCTestCase {
                     print("   found a better solution for world=\(model.world) model=\(model.name) old=\(model.getDistanceBest()) new=\(newBest)")
                     model.nodesSelectedBest = newSelected
                 
-                    let locToSave = "/Users/markus/git/plateis/plateis/ModelDefault.binary"
+                    let locToSave = "/Users/markus/git/plateis/plateis/ModelDefaultEasy.binary"
                     NSKeyedArchiver.archiveRootObject(modelController.allModels, toFile: locToSave)
                     NSKeyedUnarchiver.unarchiveObject(withFile: locToSave) as? [Model]
                 }

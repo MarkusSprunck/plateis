@@ -27,6 +27,7 @@
 		28538EB51D8C6BFE00C82058 /* UIWindowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28538EB41D8C6BFE00C82058 /* UIWindowExtension.swift */; };
 		2869B3281D83E2FF001E1D49 /* Scales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869B3271D83E2FF001E1D49 /* Scales.swift */; };
 		287F38E21DAD730A002888B9 /* GameCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F38E11DAD730A002888B9 /* GameCenterManager.swift */; };
+		289249431EAFFEBE002324C3 /* ModelDefaultEasy.binary in Resources */ = {isa = PBXBuildFile; fileRef = 289249421EAFFEBE002324C3 /* ModelDefaultEasy.binary */; };
 		28943FEF1D63388500F1062D /* ModelControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28943FEE1D63388500F1062D /* ModelControllerTests.swift */; };
 		28AF987F1D44D0EB00713962 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AF987E1D44D0EB00713962 /* StartScene.swift */; };
 		28C85D951D762475008CBD36 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C85D941D762475008CBD36 /* MasterViewController.swift */; };
@@ -90,6 +91,7 @@
 		287F38E11DAD730A002888B9 /* GameCenterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameCenterManager.swift; path = plateis/GameCenterManager.swift; sourceTree = SOURCE_ROOT; };
 		288535FB1D85E213004B543B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		288535FC1D85E213004B543B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		289249421EAFFEBE002324C3 /* ModelDefaultEasy.binary */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = ModelDefaultEasy.binary; path = plateis/ModelDefaultEasy.binary; sourceTree = SOURCE_ROOT; };
 		28943FEE1D63388500F1062D /* ModelControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelControllerTests.swift; sourceTree = "<group>"; };
 		28AF987E1D44D0EB00713962 /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		28C85D941D762475008CBD36 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				28139F861D84BACE00930A7F /* Main.storyboard */,
 				28F483671D85C89100CF833F /* LaunchScreen.xib */,
 				280BA4891D7A41FF002830DC /* ModelDefault.binary */,
+				289249421EAFFEBE002324C3 /* ModelDefaultEasy.binary */,
 				283A5E911D2EBBA000870CF6 /* Info.plist */,
 			);
 			path = PLATEIS;
@@ -343,6 +346,7 @@
 			files = (
 				28139F841D84BACE00930A7F /* Main.storyboard in Resources */,
 				28F483621D85C16700CF833F /* es-MX.lproj in Resources */,
+				289249431EAFFEBE002324C3 /* ModelDefaultEasy.binary in Resources */,
 				283C8DE51D8352FF00AF7FBE /* de.lproj in Resources */,
 				28F483631D85C16700CF833F /* es.lproj in Resources */,
 				28139F831D84B79900930A7F /* it.lproj in Resources */,
@@ -493,7 +497,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -536,7 +540,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -2,4 +2,54 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PLATEIS/ModelController.swift"
+            timestampString = "514850361.64187"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "init()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PLATEIS.ModelController.init () -&gt; PLATEIS.ModelController"
+                  moduleName = "PLATEIS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/markus/git/plateis/PLATEIS/ModelController.swift"
+                  timestampString = "514850361.668275"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "1579">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PLATEIS.ModelController.init () -&gt; PLATEIS.ModelController"
+                  moduleName = "PLATEIS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/markus/git/plateis/PLATEIS/ModelController.swift"
+                  timestampString = "514850361.671458"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "5412">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
