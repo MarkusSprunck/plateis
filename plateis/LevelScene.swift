@@ -48,7 +48,7 @@ class LevelScene: SKScene {
     
     fileprivate var gamma:CGFloat = 0.0
     
-    fileprivate var gammaOffset:CGFloat = -CGFloat(M_PI_2)
+    fileprivate var gammaOffset:CGFloat = -CGFloat(Double.pi/2)
     
     let defaults = UserDefaults.standard
     

@@ -115,7 +115,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         indexOfActiveModel = indexOfModel
         
         // rotate so that the active model is at 9am
-        sceneLevel.setGamma(-(CGFloat(M_PI / 8.0) * CGFloat(indexOfModel)))
+        sceneLevel.setGamma(-(CGFloat(Double.pi / 8.0) * CGFloat(indexOfModel)))
         
         sceneLevel.hideButtons()
         
@@ -124,7 +124,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     }
     
     func rotateToNextModel() {
-        sceneLevel.setGamma( -CGFloat(M_PI / 8.0) * CGFloat(4 + modelController.getIndexOfNextFreeLevel()))
+        sceneLevel.setGamma( -CGFloat(Double.pi / 8.0) * CGFloat(4 + modelController.getIndexOfNextFreeLevel()))
         sceneLevel.setGammaOffset(0)
     }
   

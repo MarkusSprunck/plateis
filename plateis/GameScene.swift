@@ -340,7 +340,7 @@ class GameScene : SKScene {
         }
     }
     fileprivate func fadeOutHelpText() {
-        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 3.0)
+        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 1.0)
         labelHelp.run(fadeAction)
         GameScene.isTapped = true
     }
@@ -354,7 +354,7 @@ class GameScene : SKScene {
     }
     
     func fadeOutHelpTextSwipe() {
-        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 3.0)
+        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 0.0)
         labelHelpSwipe.run(fadeAction)
         GameScene.isSwiped = true
     }
@@ -365,7 +365,7 @@ class GameScene : SKScene {
     }
     
     fileprivate func fadeOutResultText() {
-        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 2.0)
+        let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 0.0)
         labelResult.run(fadeAction)
     }
     
@@ -624,8 +624,8 @@ class GameScene : SKScene {
         let starExtrusion : CGFloat = 24.0
         let center = CGPoint(x : rect.width / 2.0, y : -rect.height )
         let pointsOnStar = 5
-        var angle : CGFloat = -CGFloat(M_PI / 2.0)
-        let angleIncrement = CGFloat(M_PI * 2.0 / Double(pointsOnStar))
+        var angle : CGFloat = -CGFloat(Double.pi / 2.0)
+        let angleIncrement = CGFloat(Double.pi * 2.0 / Double(pointsOnStar))
         let radius = rect.width / 2.0
         
         var firstPoint = true

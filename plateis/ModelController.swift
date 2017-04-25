@@ -38,7 +38,7 @@ class ModelController: NSObject {
             let filepath = Bundle.main.path(forResource: "ModelDefault", ofType: "binary")
             if filepath != nil {
                 allModels = (NSKeyedUnarchiver.unarchiveObject(withFile: filepath!) as? [Model])!
-                print("Load \(allModels.count) default worlds from filepath=\(filepath)")
+                print("Load \(allModels.count) default worlds from filepath=\(filepath ?? "not defined")")
             } else {
                 print("File not found")
                 var start_number : Int = 5
