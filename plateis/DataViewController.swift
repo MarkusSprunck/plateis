@@ -244,7 +244,6 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             }
             sceneLevel.setGamma((sceneLevel.getGamma() + deltaGamma).truncatingRemainder(dividingBy: (3.1425*2.0)))
             sceneLevel.updateScene()
-            sceneLevel.fadeOutHelpText()
         }
     }
   
