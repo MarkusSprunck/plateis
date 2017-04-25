@@ -20,8 +20,6 @@ class LevelScene: SKScene {
     
     fileprivate var labelWorld : SKLabelNode!
     
-    fileprivate  var labelHelp : SKLabelNode!
-    
     fileprivate  var buttonPlayLevel : UIButton!
     
     fileprivate  var buttonGameCenter : UIButton!
@@ -68,7 +66,6 @@ class LevelScene: SKScene {
             createLabels()
             createNodes()
             updateScene()
-            fadeInHelpText()
         }
         print("level scene init ready")
         
@@ -90,14 +87,6 @@ class LevelScene: SKScene {
         buttonFeatures.fadeOut(0.1)
         buttonNextWorld.fadeOut(0.1)
         buttonPreviousWorld.fadeOut(0.1)
-    }
-    
-    internal func fadeOutHelpText() {
-        if GameCenterManager.score < 0 {
-            let fadeAction = SKAction.fadeAlpha(to: 0.0, duration: 3.0)
-            labelHelp.run(fadeAction)
-            isTapped = true
-        }
     }
     
     internal func updateScene() {
@@ -325,15 +314,6 @@ class LevelScene: SKScene {
         labelResult.fontColor = Colors.black
         self.addChild(labelResult)
         
-        labelHelp = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
-        labelHelp.text = "🔄 " + NSLocalizedString("LEVEL_HELP", comment:"Help text for level");
-        labelHelp.fontSize = Scales.fontSizeLabel
-        labelHelp.position = CGPoint(x: Scales.width / 2, y: Scales.bottom + Scales.bannerBottom)
-        labelHelp.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
-        labelHelp.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        labelHelp.fontColor = Colors.darkGrey
-        labelHelp.alpha = 0
-        self.addChild(labelHelp)
     }
     
     fileprivate func createNodes() {
@@ -359,13 +339,6 @@ class LevelScene: SKScene {
             self.addChild(label)
             circlesText.append(label)
             index += 1
-        }
-    }
-    
-    fileprivate func fadeInHelpText() {
-        if !isTapped || GameCenterManager.score > 0 {
-            let fadeAction = SKAction.fadeAlpha(to: 1.0, duration: 3.0)
-            labelHelp.run(fadeAction)
         }
     }
     
@@ -446,12 +419,6 @@ class LevelScene: SKScene {
         
         labelResult.text = (model.isComplete() || model.isReady()) ? NSLocalizedString("RESULT", comment:"Result") + " \(distance_string)" : ""
         labelResult.position = CGPoint(x: getLabelXPosition(), y:  getLabelYPosition(7.0))
-        
-        if  GameCenterManager.score > 0 {
-            labelHelp.text =  "Total Score \(GameCenterManager.score)"
-            labelHelp.fontColor = Colors.black
-            fadeInHelpText()
-        }
     }
     
     fileprivate func getLabelYPosition(_ index : CGFloat) -> CGFloat {
