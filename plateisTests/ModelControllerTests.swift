@@ -29,7 +29,7 @@ class ModelControllerTests: XCTestCase {
             
                 if filepath != nil {
                     try fileManager.removeItem(atPath: filepath!)
-                    print("Delete locToSave=\(filepath)")
+                    print("Delete locToSave=\(filepath ?? "")")
                 }
             }
             catch let error as NSError {
@@ -71,7 +71,7 @@ class ModelControllerTests: XCTestCase {
     func test_Calculate_Best() {
         
         let modelController : ModelController = ModelController()
-        for trial in 1...3 {
+        for trial in 1...1 {
             print("\nCalculate_Best trial=\(trial)")
             for model in modelController.allModels {
                 var newSelected : [Node]
@@ -84,7 +84,9 @@ class ModelControllerTests: XCTestCase {
                 
                     let locToSave = "/Users/markus/git/plateis/plateis/ModelDefaultEasy.binary"
                     NSKeyedArchiver.archiveRootObject(modelController.allModels, toFile: locToSave)
-                    NSKeyedUnarchiver.unarchiveObject(withFile: locToSave) as? [Model]
+                    
+                    let objects = NSKeyedUnarchiver.unarchiveObject(withFile: locToSave) as? [Model]
+                    assert(objects != nil)
                 }
             }
         }

@@ -462,11 +462,13 @@ class LevelScene: SKScene {
     internal static func createcircle(_ radius : CGFloat, position : CGPoint, color : SKColor, alpha: CGFloat = 1.0, lineWidth:CGFloat = 1, animate:Bool = false, name : String = "") ->  SKShapeNode {
         let circle = SKShapeNode(circleOfRadius: radius)
         circle.position = position
-        circle.isAntialiased = true
+        circle.isAntialiased = false
         circle.alpha = alpha
         circle.name = name
         circle.fillColor = color
+        circle.strokeColor = color
         circle.glowWidth = 0.0
+        circle.lineWidth = 0.0
         return circle
     }
     
