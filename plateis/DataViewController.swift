@@ -202,7 +202,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             
             // calculate index of new level
             var index : Int = Int(sceneGame.getModelName())! - 1
-            if (translation.x < 0 && ( getModel().isComplete() ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) )) {
+            if (translation.x < 0) {
                 index = min(index + 1, 15)
                 print("next     level...\(index)  \(translation.x)  \(panGesture.numberOfTouches)")
                 
@@ -214,11 +214,8 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             
             // change level
             modelController.findNextFreeLevel()
-            if index <= modelController.getIndexOfNextFreeLevel() ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) {
-                actionOpenGame(index)
-                return
-            }
-            
+            actionOpenGame(index)
+            return
         }
 
         if panGesture.state == UIGestureRecognizerState.changed && panGesture.numberOfTouches == 1 {

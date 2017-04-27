@@ -180,10 +180,7 @@ class LevelScene: SKScene {
     }
     
     internal func actionPlayButton(_ sender: UIButton!) {
-        if selectedModelIndex <= viewController.modelController.getIndexOfNextFreeLevel() ||
-            PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) {
-            viewController.actionOpenGame(selectedModelIndex)
-        }
+        viewController.actionOpenGame(selectedModelIndex)
     }
     
     internal func actionGameCenterButton(_ sender: UIButton!) {
@@ -287,7 +284,7 @@ class LevelScene: SKScene {
         labelWorld.position = CGPoint(x: Scales.width/2 , y: Scales.height - Scales.top - Scales.buttonHeight / 2)
         labelWorld.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
         labelWorld.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-        labelWorld.fontColor = Colors.darkGrey
+        labelWorld.fontColor = Colors.lightGray
         self.addChild(labelWorld)
         
         labelNameOfLevel = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
@@ -440,21 +437,12 @@ class LevelScene: SKScene {
     
     fileprivate func getColorOfLevel(_ index : Int) -> UIColor {
         var color = Colors.darkGrey
-        if index <= viewController.modelController.getIndexOfNextFreeLevel() || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels)   {
-            if viewController.modelController.pageModels[index].isComplete() {
-                color = Colors.green
-            } else if viewController.modelController.pageModels[index].isIncomplete() {
-                color = Colors.yellow
-            } else if viewController.modelController.pageModels[index].getSelectedCount() > 0 {
-                color = Colors.red
-            }
-            
-        } else {
-            if PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels)  {
-                color = Colors.darkGrey
-            } else {
-                color = Colors.lightGray
-            }
+        if viewController.modelController.pageModels[index].isComplete() {
+            color = Colors.green
+        } else if viewController.modelController.pageModels[index].isIncomplete() {
+            color = Colors.yellow
+        } else if viewController.modelController.pageModels[index].getSelectedCount() > 0 {
+            color = Colors.red
         }
         return color
     }
@@ -485,26 +473,19 @@ class LevelScene: SKScene {
             let shrinkAction = growAction.reversed()
             let backAndForthSequence = SKAction.sequence([waitAction, growAction, shrinkAction])
             circle.run(SKAction.repeatForever(backAndForthSequence))
-            if selectedModelIndex <= viewController.modelController.getIndexOfNextFreeLevel()  ||
-                PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) {
-                if Colors.darkGrey == getColorOfLevel(selectedModelIndex) {
-                    circle.fillColor = Colors.blue
-                    buttonPlayLevel.backgroundColor = Colors.blue
-                    buttonPlayLevel.setTitle(NSLocalizedString("PLAY", comment:"Play"), for: UIControlState())
-                } else if Colors.green == getColorOfLevel(selectedModelIndex) {
-                    buttonPlayLevel.backgroundColor = circle.fillColor
-                    buttonPlayLevel.setTitle(NSLocalizedString("VIEW", comment: "View"), for: UIControlState())
-                } else if Colors.red == getColorOfLevel(selectedModelIndex) {
-                    buttonPlayLevel.backgroundColor = circle.fillColor
-                    buttonPlayLevel.setTitle(NSLocalizedString("COMPLETE", comment:"Complete"), for: UIControlState())
-                }  else {
-                    buttonPlayLevel.backgroundColor = circle.fillColor
-                    buttonPlayLevel.setTitle(NSLocalizedString("IMPROVE", comment: "Improve"), for: UIControlState())
-                }
-            } else {
-                circle.fillColor = Colors.lightGray
-                buttonPlayLevel.backgroundColor = Colors.lightGray
-                buttonPlayLevel.setTitle(NSLocalizedString("LOCKED", comment:"Locked"), for: UIControlState())
+            if Colors.darkGrey == getColorOfLevel(selectedModelIndex) {
+                circle.fillColor = Colors.blue
+                buttonPlayLevel.backgroundColor = Colors.blue
+                buttonPlayLevel.setTitle(NSLocalizedString("PLAY", comment:"Play"), for: UIControlState())
+            } else if Colors.green == getColorOfLevel(selectedModelIndex) {
+                buttonPlayLevel.backgroundColor = circle.fillColor
+                buttonPlayLevel.setTitle(NSLocalizedString("VIEW", comment: "View"), for: UIControlState())
+            } else if Colors.red == getColorOfLevel(selectedModelIndex) {
+                buttonPlayLevel.backgroundColor = circle.fillColor
+                buttonPlayLevel.setTitle(NSLocalizedString("COMPLETE", comment:"Complete"), for: UIControlState())
+            }  else {
+                buttonPlayLevel.backgroundColor = circle.fillColor
+                buttonPlayLevel.setTitle(NSLocalizedString("IMPROVE", comment: "Improve"), for: UIControlState())
             }
         }
     }
@@ -527,11 +508,9 @@ class LevelScene: SKScene {
             let sprite:SKNode = self.atPoint(location)
             if (sprite.name  != nil && !sprite.name!.isEmpty ) {
                 let index : Int = Int(sprite.name!)!
-                if index <= viewController.modelController.getIndexOfNextFreeLevel()  ||  PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels) {
-                    viewController.actionOpenGame(index)
-                    buttonFeatures.frame = CGRect(x : -Scales.buttonWidth, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
-                    buttonPlayLevel.frame = CGRect(x : -Scales.buttonWidth, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
-                }
+                viewController.actionOpenGame(index)
+                buttonFeatures.frame = CGRect(x : -Scales.buttonWidth, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+                buttonPlayLevel.frame = CGRect(x : -Scales.buttonWidth, y: 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
             }
         }
     }

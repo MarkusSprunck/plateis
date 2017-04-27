@@ -362,22 +362,13 @@ class GameScene : SKScene {
     }
     
     fileprivate func  getColorOfLevel(_ index : Int) -> UIColor {
-        var color = Colors.darkGrey
-        if index <= viewController.modelController.getIndexOfNextFreeLevel() || PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels)   {
-            if viewController.modelController.pageModels[index].isComplete() {
-                color = Colors.green
-            } else if viewController.modelController.pageModels[index].isIncomplete() {
-                color = Colors.yellow
-            } else if viewController.modelController.pageModels[index].getSelectedCount() > 0 {
-                color = Colors.blue
-            }
-            
-        } else {
-            if PlateisProducts.store.isProductPurchased(PlateisProducts.SkipLevels)  {
-                color = Colors.darkGrey
-            } else {
-                color = Colors.lightGray
-            }
+        var color = Colors.lightGray
+        if viewController.modelController.pageModels[index].isComplete() {
+            color = Colors.green
+        } else if viewController.modelController.pageModels[index].isIncomplete() {
+            color = Colors.yellow
+        } else if viewController.modelController.pageModels[index].getSelectedCount() > 0 {
+            color = Colors.blue
         }
         return color
     }
