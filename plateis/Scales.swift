@@ -1,9 +1,8 @@
 //
-//  Scaling.swift
+//  Scales.swift
 //  PLATEIS
 //
-//  Created by Markus Sprunck on 10/09/16.
-//  Copyright © 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
 //
 
 import SpriteKit

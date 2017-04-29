@@ -2,7 +2,6 @@
 //  GameScene.swift
 //  SprunckOne
 //
-//  Created by Markus Sprunck on 01/07/16.
 //  Copyright (c) 2016 Markus Sprunck. All rights reserved.
 //
 

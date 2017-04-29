@@ -1,14 +1,14 @@
 //
-//  PLATEISUITests.swift
-//  PLATEISUITests
+//  PlateisUISimple.swift
+//  plateis
 //
-//  Created by Markus Sprunck on 07/07/16.
-//  Copyright © 2016 Markus Sprunck. All rights reserved.
+//  Created by Markus Sprunck on 29.04.17.
+//  Copyright © 2017 Markus Sprunck. All rights reserved.
 //
 
 import XCTest
 
-class PlateisUITests: XCTestCase {
+class PlateisUISimple: XCTestCase {
         
     override func setUp() {
         super.setUp()
@@ -29,8 +29,21 @@ class PlateisUITests: XCTestCase {
     }
     
     func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        
+        let app = XCUIApplication()
+        app.buttons["Start"].tap()
+        app.buttons["Play"].tap()
+    
+        XCTAssertTrue(app.buttons["Hint 1"].exists)
+        app.buttons["Hint 1"].tap()
+    
+        XCTAssertTrue(app.buttons["Hint 2"].exists)
+        app.buttons["Hint 2"].tap()
+  
+        app.buttons["Levels"].tap()
+        
+        
     }
     
 }

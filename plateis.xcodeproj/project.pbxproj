@@ -18,7 +18,6 @@
 		283A5E861D2EBBA000870CF6 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A5E851D2EBBA000870CF6 /* DataViewController.swift */; };
 		283A5E881D2EBBA000870CF6 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A5E871D2EBBA000870CF6 /* ModelController.swift */; };
 		283A5E8D1D2EBBA000870CF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 283A5E8C1D2EBBA000870CF6 /* Assets.xcassets */; };
-		283A5EA61D2EBBA000870CF6 /* PLATEISUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A5EA51D2EBBA000870CF6 /* PLATEISUITests.swift */; };
 		283A5EB51D2EBC7D00870CF6 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A5EB31D2EBC7D00870CF6 /* GameScene.swift */; };
 		283C8DE41D8352F800AF7FBE /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 283AA9931D7235B80089C26B /* en.lproj */; };
 		283C8DE51D8352FF00AF7FBE /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 283AA9911D7235A90089C26B /* de.lproj */; };
@@ -27,6 +26,7 @@
 		28538EB51D8C6BFE00C82058 /* UIWindowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28538EB41D8C6BFE00C82058 /* UIWindowExtension.swift */; };
 		2869B3281D83E2FF001E1D49 /* Scales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869B3271D83E2FF001E1D49 /* Scales.swift */; };
 		287F38E21DAD730A002888B9 /* GameCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F38E11DAD730A002888B9 /* GameCenterManager.swift */; };
+		288F1B831EB507CC002503AE /* PlateisUISimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288F1B821EB507CC002503AE /* PlateisUISimple.swift */; };
 		289249431EAFFEBE002324C3 /* ModelDefaultEasy.binary in Resources */ = {isa = PBXBuildFile; fileRef = 289249421EAFFEBE002324C3 /* ModelDefaultEasy.binary */; };
 		28943FEF1D63388500F1062D /* ModelControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28943FEE1D63388500F1062D /* ModelControllerTests.swift */; };
 		28AF987F1D44D0EB00713962 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AF987E1D44D0EB00713962 /* StartScene.swift */; };
@@ -79,7 +79,6 @@
 		283A5E961D2EBBA000870CF6 /* PLATEISTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PLATEISTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		283A5E9C1D2EBBA000870CF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		283A5EA11D2EBBA000870CF6 /* PLATEISUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PLATEISUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		283A5EA51D2EBBA000870CF6 /* PLATEISUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLATEISUITests.swift; sourceTree = "<group>"; };
 		283A5EA71D2EBBA000870CF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		283A5EB31D2EBC7D00870CF6 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GameScene.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		283AA9911D7235A90089C26B /* de.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = de.lproj; path = ../plateis/de.lproj; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		287F38E11DAD730A002888B9 /* GameCenterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameCenterManager.swift; path = plateis/GameCenterManager.swift; sourceTree = SOURCE_ROOT; };
 		288535FB1D85E213004B543B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		288535FC1D85E213004B543B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		288F1B821EB507CC002503AE /* PlateisUISimple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlateisUISimple.swift; path = plateisUITests/PlateisUISimple.swift; sourceTree = SOURCE_ROOT; };
 		289249421EAFFEBE002324C3 /* ModelDefaultEasy.binary */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = ModelDefaultEasy.binary; path = plateis/ModelDefaultEasy.binary; sourceTree = SOURCE_ROOT; };
 		28943FEE1D63388500F1062D /* ModelControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelControllerTests.swift; sourceTree = "<group>"; };
 		28AF987E1D44D0EB00713962 /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
@@ -160,37 +160,37 @@
 		283A5E801D2EBBA000870CF6 /* PLATEIS */ = {
 			isa = PBXGroup;
 			children = (
-				283A5E8C1D2EBBA000870CF6 /* Assets.xcassets */,
-				283AA9911D7235A90089C26B /* de.lproj */,
-				28F4835F1D85C16700CF833F /* es-MX.lproj */,
-				28F483601D85C16700CF833F /* es.lproj */,
-				28F483611D85C16700CF833F /* ru.lproj */,
-				283C8DF11D8354F100AF7FBE /* Base.lproj */,
-				283AA9931D7235B80089C26B /* en.lproj */,
-				28139F821D84B79900930A7F /* it.lproj */,
-				2869B3271D83E2FF001E1D49 /* Scales.swift */,
+				283A5E811D2EBBA000870CF6 /* AppDelegate.swift */,
 				282A97C11D65FFD5002DBC9D /* Colors.swift */,
-				287F38E11DAD730A002888B9 /* GameCenterManager.swift */,
-				28C85D961D7624C8008CBD36 /* ProductCell.swift */,
-				28C85D941D762475008CBD36 /* MasterViewController.swift */,
 				283A5E851D2EBBA000870CF6 /* DataViewController.swift */,
-				28AF987E1D44D0EB00713962 /* StartScene.swift */,
-				28143A471D427E5F00F48360 /* LevelScene.swift */,
+				287F38E11DAD730A002888B9 /* GameCenterManager.swift */,
 				283A5EB31D2EBC7D00870CF6 /* GameScene.swift */,
+				28DEC1001D67AF3C00E06EF8 /* IAPHelper.swift */,
+				28143A471D427E5F00F48360 /* LevelScene.swift */,
+				28C85D941D762475008CBD36 /* MasterViewController.swift */,
 				28C86C751D30F89600D77A99 /* Model.swift */,
 				283A5E871D2EBBA000870CF6 /* ModelController.swift */,
 				28517E8F1D5E5FC90084565F /* ModelSolver.swift */,
 				28C86C711D30BDE100D77A99 /* Node.swift */,
-				283A5E811D2EBBA000870CF6 /* AppDelegate.swift */,
 				28DEC0FE1D67AE4B00E06EF8 /* PlateisProducts.swift */,
-				28DEC1001D67AF3C00E06EF8 /* IAPHelper.swift */,
+				28C85D961D7624C8008CBD36 /* ProductCell.swift */,
+				2869B3271D83E2FF001E1D49 /* Scales.swift */,
+				28AF987E1D44D0EB00713962 /* StartScene.swift */,
 				28D00F241D70AC6A006279DC /* UIViewExtension.swift */,
 				28538EB41D8C6BFE00C82058 /* UIWindowExtension.swift */,
-				28139F861D84BACE00930A7F /* Main.storyboard */,
-				28F483671D85C89100CF833F /* LaunchScreen.xib */,
+				283A5E8C1D2EBBA000870CF6 /* Assets.xcassets */,
 				280BA4891D7A41FF002830DC /* ModelDefault.binary */,
 				289249421EAFFEBE002324C3 /* ModelDefaultEasy.binary */,
+				283C8DF11D8354F100AF7FBE /* Base.lproj */,
+				283AA9911D7235A90089C26B /* de.lproj */,
+				283AA9931D7235B80089C26B /* en.lproj */,
+				28F4835F1D85C16700CF833F /* es-MX.lproj */,
+				28F483601D85C16700CF833F /* es.lproj */,
+				28139F821D84B79900930A7F /* it.lproj */,
+				28F483611D85C16700CF833F /* ru.lproj */,
 				283A5E911D2EBBA000870CF6 /* Info.plist */,
+				28F483671D85C89100CF833F /* LaunchScreen.xib */,
+				28139F861D84BACE00930A7F /* Main.storyboard */,
 			);
 			path = PLATEIS;
 			sourceTree = "<group>";
@@ -209,7 +209,7 @@
 		283A5EA41D2EBBA000870CF6 /* PLATEISUITests */ = {
 			isa = PBXGroup;
 			children = (
-				283A5EA51D2EBBA000870CF6 /* PLATEISUITests.swift */,
+				288F1B821EB507CC002503AE /* PlateisUISimple.swift */,
 				283A5EA71D2EBBA000870CF6 /* Info.plist */,
 			);
 			path = PLATEISUITests;
@@ -305,8 +305,8 @@
 					};
 					283A5E951D2EBBA000870CF6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = X3YW8NNL5Q;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 283A5E7D1D2EBBA000870CF6;
 					};
 					283A5EA01D2EBBA000870CF6 = {
@@ -415,7 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				283A5EA61D2EBBA000870CF6 /* PLATEISUITests.swift in Sources */,
+				288F1B831EB507CC002503AE /* PlateisUISimple.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,7 +497,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -540,7 +540,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -556,7 +556,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = L3966DJ8ZC;
 				INFOPLIST_FILE = PLATEIS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = PLATEIS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -576,7 +576,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = L3966DJ8ZC;
 				INFOPLIST_FILE = PLATEIS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = PLATEIS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -593,11 +593,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = X3YW8NNL5Q;
 				INFOPLIST_FILE = PLATEISTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sw-engineering-candies.PLATEISTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PLATEIS.app/PLATEIS";
 			};
@@ -607,11 +609,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = X3YW8NNL5Q;
 				INFOPLIST_FILE = PLATEISTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sw-engineering-candies.PLATEISTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PLATEIS.app/PLATEIS";

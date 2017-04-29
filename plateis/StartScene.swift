@@ -2,7 +2,6 @@
 //  StartScene.swift
 //  PLATEIS
 //
-//  Created by Markus Sprunck on 01/07/16.
 //  Copyright (c) 2016 Markus Sprunck. All rights reserved.
 //
 // This class shows the start scene and the inital start button.

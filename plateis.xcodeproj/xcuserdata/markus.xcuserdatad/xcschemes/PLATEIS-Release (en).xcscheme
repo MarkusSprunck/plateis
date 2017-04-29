@@ -20,6 +20,34 @@
                ReferencedContainer = "container:plateis.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "283A5E951D2EBBA000870CF6"
+               BuildableName = "PLATEISTests.xctest"
+               BlueprintName = "PLATEISTests"
+               ReferencedContainer = "container:plateis.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "283A5EA01D2EBBA000870CF6"
+               BuildableName = "PLATEISUITests.xctest"
+               BlueprintName = "PLATEISUITests"
+               ReferencedContainer = "container:plateis.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

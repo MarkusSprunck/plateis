@@ -1,9 +1,8 @@
 //
-//  ModelTests.swift
+//  ModelControllerTests.swift
 //  PLATEISTests
 //
-//  Created by Markus Sprunck on 07/07/16.
-//  Copyright © 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
 //
 
 import XCTest

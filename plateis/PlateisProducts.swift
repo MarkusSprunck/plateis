@@ -2,7 +2,6 @@
 //  PlateisProducts.swift
 //  PLATEIS
 //
-//  Created by Markus Sprunck on 19/08/16.
 //  Copyright (c) 2016 Markus Sprunck. All rights reserved.
 //
 

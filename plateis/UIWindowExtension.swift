@@ -2,8 +2,7 @@
 //  UIWindowExtension.swift
 //  plateis
 //
-//  Created by Markus Sprunck on 16/09/16.
-//  Copyright © 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
 //
 
 import UIKit

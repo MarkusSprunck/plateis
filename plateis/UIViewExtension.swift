@@ -2,8 +2,7 @@
 //  UIViewExtension.swift
 //  PLATEIS
 //
-//  Created by Markus Sprunck on 26/08/16.
-//  Copyright © 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
 //
 
 import Foundation
