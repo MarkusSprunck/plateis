@@ -2,7 +2,6 @@
 //  PlateisUISimple.swift
 //  plateis
 //
-//  Created by Markus Sprunck on 29.04.17.
 //  Copyright © 2017 Markus Sprunck. All rights reserved.
 //
 
@@ -13,37 +12,82 @@ class PlateisUISimple: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
+    
         XCUIApplication().launch()
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testExample() {
+    func testStartButtonExists() {
+     
+        // given
+        let app = XCUIApplication()
         
+        // then
+        XCTAssertTrue(app.buttons["Start"].exists)
+   
+    }
+    
+    func testIncrementOfHintButton() {
         
+        // given
         let app = XCUIApplication()
         app.buttons["Start"].tap()
         app.buttons["Play"].tap()
     
+        // then
         XCTAssertTrue(app.buttons["Hint 1"].exists)
+        
+        // when
         app.buttons["Hint 1"].tap()
     
+        // then
         XCTAssertTrue(app.buttons["Hint 2"].exists)
+        
+        // when
         app.buttons["Hint 2"].tap()
   
+        // then
+        XCTAssertTrue(app.buttons["Hint 3"].exists)
+        
+        // when
         app.buttons["Levels"].tap()
-        
-        
+    
+        // then
+        XCTAssertTrue(app.buttons["Play"].exists)
+        XCTAssertTrue(app.buttons["Best"].exists)
+        XCTAssertTrue(app.buttons["Shop"].exists)
     }
     
+    func testSelectGame() {
+        
+        // given
+        let app = XCUIApplication()
+        app.buttons["Start"].tap()
+        let element = app.otherElements.containing(.button, identifier:"Back").children(matching: .other).element.children(matching: .other).element
+        
+        // when
+        element.children(matching: .other).matching(identifier: "1").element(boundBy: 1).tap()
+        
+        // then
+        XCTAssertTrue(app.otherElements["World I / Level 1"].exists)
+        
+        // when
+        app.buttons["Levels"].tap()
+        element.children(matching: .other).matching(identifier: "2").element(boundBy: 1).tap()
+   
+        // then
+        XCTAssertTrue(app.otherElements["World I / Level 2"].exists)
+        
+        // when
+        app.buttons["Levels"].tap()
+        element.children(matching: .other).matching(identifier: "3").element(boundBy: 1).tap()
+      
+        // then
+        XCTAssertTrue(app.otherElements["World I / Level 3"].exists)
+        
+    }
 }

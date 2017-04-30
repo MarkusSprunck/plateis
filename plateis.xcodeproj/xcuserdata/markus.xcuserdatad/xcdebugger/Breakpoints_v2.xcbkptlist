@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "plateisUITests/PlateisUISimple.swift"
-            timestampString = "515181265.387571"
+            timestampString = "515238809.63108"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "testExample()"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "testIncrementOfHintButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
