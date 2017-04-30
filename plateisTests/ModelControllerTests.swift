@@ -70,7 +70,7 @@ class ModelControllerTests: XCTestCase {
     func test_Calculate_Best() {
         
         let modelController : ModelController = ModelController()
-        for trial in 1...1 {
+        for trial in 1...3 {
             print("\nCalculate_Best trial=\(trial)")
             for model in modelController.allModels {
                 var newSelected : [Node]

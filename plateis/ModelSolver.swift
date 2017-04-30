@@ -13,7 +13,7 @@ class ModelSolver {
     fileprivate static let VERBOSE = false
     
     // Number of steps for simulated annealing
-    fileprivate static let STEPS = 50
+    fileprivate static let STEPS = 32
     
     // Number of iterations per step and node
     fileprivate static let ITERATIONS = 50
