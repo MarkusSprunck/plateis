@@ -37,6 +37,8 @@ class GameScene : SKScene {
     
     fileprivate var circles : [SKShapeNode] = []
     
+    fileprivate var circlesText : [SKLabelNode] = []
+    
     fileprivate static var isTapped : Bool = false
     
     fileprivate static var isSwiped : Bool = false
@@ -407,6 +409,19 @@ class GameScene : SKScene {
                 self.addChild(circle)
                 circles.append(circle)
                 circle.zPosition = 2000
+           
+                // this label is just needed for UI Tests
+                let label = SKLabelNode(fontNamed:"Helvetica Neue Light")
+                label.text = String(index)
+                label.name = String(index)
+                label.fontSize = Scales.fontSizeLabel
+                label.position =  position
+                label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+                label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
+                label.fontColor = Colors.white
+                self.addChild(label)
+                label.zPosition = 2001
+                circlesText.append(label)
             }
             index += 1
         }
