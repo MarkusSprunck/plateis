@@ -18,6 +18,10 @@ class StartScene: SKScene {
     
     fileprivate var labelTitle  : SKLabelNode!
     
+    fileprivate var labelSwitch: SKLabelNode!
+    
+    fileprivate var switchButton : UISwitch!
+    
     fileprivate var labelDescriptions : [SKLabelNode] = []
     
     init(size:CGSize, viewController:DataViewController) {
@@ -30,6 +34,7 @@ class StartScene: SKScene {
         createStartButton()
         createTitle()
         createDescription()
+        createSwitchControl()
         
         // show controls with delay
         buttonStart.fadeIn(1.0)
@@ -43,6 +48,7 @@ class StartScene: SKScene {
         fatalError("NSCoder not supported")
     }
     
+    
     fileprivate func createBackground() {
         self.backgroundColor = Colors.white
     }
@@ -53,7 +59,7 @@ class StartScene: SKScene {
         labelTitle.text = "P L A T E I S "
         
         // position
-        labelTitle.position = CGPoint(x: Scales.width * 0.5, y: Scales.height * 0.80)
+        labelTitle.position = CGPoint(x: Scales.width * 0.5, y: Scales.height * 0.83)
         
         // rendering style
         labelTitle.fontSize = Scales.fontSizeLabel * 2
@@ -79,34 +85,34 @@ class StartScene: SKScene {
         labelDescriptions[0].fontColor = Colors.black
         
         // line 1
-        labelDescriptions[0].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.3 - 0 * deltaY + Scales.bottom)
+        labelDescriptions[0].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.4 - 0 * deltaY + Scales.bottom)
         labelDescriptions[0].text = NSLocalizedString("DESCRIPTION_0", comment:"Finding the shortest path between");
         self.addChild(labelDescriptions[0]);
         
         // line 2
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[1].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.3 - 1 * deltaY + Scales.bottom)
+        labelDescriptions[1].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.4 - 1 * deltaY + Scales.bottom)
         labelDescriptions[1].text = NSLocalizedString("DESCRIPTION_1", comment:"some nodes is simple, but with an");
         labelDescriptions[1].alpha = 0
         self.addChild(labelDescriptions[1]);
         
         // line 3
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[2].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.3 - 2 * deltaY + Scales.bottom)
+        labelDescriptions[2].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.4 - 2 * deltaY + Scales.bottom)
         labelDescriptions[2].text = NSLocalizedString("DESCRIPTION_2", comment:"increasing number of nodes");
         labelDescriptions[2].alpha = 0
         self.addChild(labelDescriptions[2]);
         
         // line 4
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[3].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.3 - 3 * deltaY + Scales.bottom)
+        labelDescriptions[3].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.4 - 3 * deltaY + Scales.bottom)
         labelDescriptions[3].text = NSLocalizedString("DESCRIPTION_3", comment:"the task gets extremely");
         labelDescriptions[3].alpha = 0
         self.addChild(labelDescriptions[3]);
         
         // line 5
         labelDescriptions.append(labelDescriptions[0].copy() as! SKLabelNode)
-        labelDescriptions[4].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.3 - 4 * deltaY + Scales.bottom)
+        labelDescriptions[4].position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.4 - 4 * deltaY + Scales.bottom)
         labelDescriptions[4].text = NSLocalizedString("DESCRIPTION_4", comment:"difficult to solve.");
         labelDescriptions[4].alpha = 0
         self.addChild(labelDescriptions[4]);
@@ -130,13 +136,32 @@ class StartScene: SKScene {
         buttonStart.layer.cornerRadius = 0.5 * buttonStart.bounds.height
         buttonStart.layer.borderWidth = 0
         buttonStart.alpha = 0
-        buttonStart.center = CGPoint(x : Scales.width * 0.5, y: Scales.height * 0.4)
+        buttonStart.center = CGPoint(x : Scales.width * 0.5, y: Scales.height * 0.35)
         
         // add button to view
         viewController.view.addSubview(buttonStart)
         
         // register handler
         buttonStart.addTarget(self, action: #selector(StartScene.actionStartButton(_:)), for: UIControlEvents.touchUpInside)
+    }
+    
+    fileprivate func createSwitchControl(){
+        switchButton = UISwitch(frame: CGRect(x: size.width * 0.5 - Scales.fontSizeLabel, y: Scales.height * 0.83,  width:Scales.fontSizeLabel, height:Scales.fontSizeLabel))
+        
+        switchButton.isOn  = UserDefaults.standard.bool(forKey: "expertMode")
+        switchButton.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
+        viewController.view.addSubview(switchButton)
+        
+        labelSwitch = SKLabelNode(fontNamed:"Helvetica Neue Light")
+        labelSwitch.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+        labelSwitch.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
+        labelSwitch.alpha = 1.0
+        labelSwitch.fontSize = Scales.fontSizeLabel
+        labelSwitch.fontColor = Colors.darkGrey
+        labelSwitch.position =  CGPoint(x: size.width * 0.5, y: Scales.height * 0.07)
+        labelSwitch.text = NSLocalizedString("SWITCH", comment:"Select model");
+        self.addChild(labelSwitch);
+        
     }
     
     internal func actionStartButton(_ sender: UIButton!) {
@@ -149,6 +174,23 @@ class StartScene: SKScene {
         for label in labelDescriptions {
             label.alpha = 0
         }
+        switchButton.alpha = 0
+    }
+    
+    internal func switchChanged(sender: UISwitch!){
+        
+        if (sender.isOn) {
+            labelSwitch.fontColor =  Colors.darkGrey ;
+        } else {
+            labelSwitch.fontColor = Colors.lightGray;
+        }
+        
+        viewController.modelController.savePageModels()
+        
+        UserDefaults.standard.set(sender.isOn, forKey: "expertMode")
+        UserDefaults.standard.synchronize()
+        
+        viewController.modelController.loadModel()
     }
     
 }

@@ -10,8 +10,10 @@ import UIKit
 
 class ModelController: NSObject {
     
+    internal let FILE_NAME_DEFAULT_MODEL = UserDefaults.standard.bool(forKey: "expertMode") ? "ModelDefault" : "ModelDefaultEasy"
+    
     internal var allModels: [Model] = []
-
+    
     internal var pageModels: [Model] = []
     
     public enum WorldKeys : String {
@@ -26,15 +28,21 @@ class ModelController: NSObject {
     fileprivate let MAX_NUMBER_OF_ROWS = 10
     
     fileprivate let MAX_NUMBER_OF_COLUMNS = 7
-
+    
     override init() {
         super.init()
-        
-        if let savedMeals = loadPageModels() {
-            print("Load stored worlds")
-            allModels += savedMeals
+        loadModel()
+    }
+    
+    
+    internal func loadModel() {
+        if let models = loadPageModels() {
+            print("Load stored model \(models.count)")
+            allModels = models
         } else {
-            let filepath = Bundle.main.path(forResource: "ModelDefaultEasy", ofType: "binary")
+            let filepath = Bundle.main.path(forResource: FILE_NAME_DEFAULT_MODEL, ofType: "binary")
+            print("Load \(String(describing: filepath))")
+            
             if filepath != nil {
                 allModels = (NSKeyedUnarchiver.unarchiveObject(withFile: filepath!) as? [Model])!
                 print("Load \(allModels.count) default worlds from filepath=\(filepath ?? "not defined")")
@@ -54,10 +62,10 @@ class ModelController: NSObject {
                     model.nodesSelectedBest = newSelected
                     print("Find best for world=\(model.world) model=\(model.name) best=\(newBest)")
                 }
-
+                
             }
         }
-       
+        
         selectModel(WorldKeys.random01.rawValue)
     }
     
@@ -81,7 +89,7 @@ class ModelController: NSObject {
     internal func getCurrentWorld() -> String {
         return self.currentWorld
     }
-
+    
     internal func selectModel(_ world : String) {
         print ("Select '\(world)'" )
         currentWorld = world
@@ -94,7 +102,14 @@ class ModelController: NSObject {
     }
     
     internal func savePageModels() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(allModels, toFile: Model.ArchiveURL.path)
+        let isSuccessfulSave:Bool!
+        
+        if UserDefaults.standard.bool(forKey: "expertMode") {
+            isSuccessfulSave  = NSKeyedArchiver.archiveRootObject(allModels, toFile: Model.ArchiveURL.path)
+        } else {
+            isSuccessfulSave  = NSKeyedArchiver.archiveRootObject(allModels, toFile: Model.ArchiveURLEasy.path)
+        }
+        
         if !isSuccessfulSave {
             print("   Failed to save models...")
         } else {
@@ -103,7 +118,13 @@ class ModelController: NSObject {
     }
     
     fileprivate func loadPageModels() -> [Model]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Model.ArchiveURL.path) as? [Model]
+        if UserDefaults.standard.bool(forKey: "expertMode") {
+            print("Load page model:\n\(Model.ArchiveURL.path)")
+            return NSKeyedUnarchiver.unarchiveObject(withFile: Model.ArchiveURL.path) as? [Model]
+        } else {
+            print("Load page model:\n\(Model.ArchiveURLEasy.path)")
+            return NSKeyedUnarchiver.unarchiveObject(withFile: Model.ArchiveURLEasy.path) as? [Model]
+        }
     }
     
     
@@ -125,7 +146,7 @@ class ModelController: NSObject {
         return dice
     }
     
-  
+    
     fileprivate func createModel(_ world: String, name: String) -> Model{
         let model1 = Model(world: world, name: name, rows: MAX_NUMBER_OF_ROWS, cols: MAX_NUMBER_OF_COLUMNS)
         var rowIndex : Int = 0
@@ -147,6 +168,6 @@ class ModelController: NSObject {
             index = index + 1
         }
     }
-
+    
 }
 

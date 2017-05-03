@@ -16,6 +16,8 @@ import GameKit
 ///
 class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     
+    //  let defaults = UserDefaults.standard
+    
     // Stores if the user has Game Center enabled
     var gcEnabled = Bool()
     
@@ -32,7 +34,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     }
     
     fileprivate static var  _modelController : ModelController? = nil
-
+    
     fileprivate var sceneStart: StartScene!
     
     internal var sceneLevel: LevelScene!
@@ -52,15 +54,19 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     internal func actionStart() {
         
         sceneStart.hide()
+        
         sceneGame.hideElements()
-    
+        
         skview.presentScene(sceneLevel)
         
         sceneLevel.showButtons()
         
         modelController.findNextFreeLevel()
+        
         sceneLevel.setSelectedModel(modelController.getIndexOfNextFreeLevel())
+        
         rotateToNextModel()
+        
         sceneLevel.updateScene()
         
         authenticateLocalPlayer()
@@ -85,7 +91,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
                         } else {
                             self.gcDefaultLeaderBoard = leaderboardIdentifer!
                         }
-                    }
+                }
                 )
             } else {
                 // 3 Game center is not enabled on the users device
@@ -95,12 +101,12 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         }
     }
     
- 
+    
     public func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismiss(animated: true, completion: nil)
     }
     
-      
+    
     public func showLeaderboard() {
         let gcVC: GKGameCenterViewController = GKGameCenterViewController()
         gcVC.gameCenterDelegate = self
@@ -108,7 +114,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         gcVC.leaderboardIdentifier = "leaderboardID"
         self.present(gcVC, animated: true, completion: nil)
     }
-
+    
     
     internal func actionOpenGame(_ indexOfModel : Int){
         indexOfActiveModel = indexOfModel
@@ -126,7 +132,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         sceneLevel.setGamma( -CGFloat(Double.pi / 8.0) * CGFloat(4 + modelController.getIndexOfNextFreeLevel()))
         sceneLevel.setGammaOffset(0)
     }
-  
+    
     func getModel() -> Model {
         return modelController.pageModels[indexOfActiveModel]
     }
@@ -149,7 +155,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         skview.ignoresSiblingOrder = false
         sceneStart.scaleMode = SKSceneScaleMode.aspectFill
         skview.presentScene(sceneStart, transition: SKTransition.flipHorizontal(withDuration: 1))
-       
+        
         sceneGame = GameScene(size:skview.bounds.size, viewController: self)
         sceneGame.scaleMode = SKSceneScaleMode.aspectFill
         
@@ -163,7 +169,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         
     }
     
-      
+    
     override var prefersStatusBarHidden : Bool {
         return true
     }
@@ -172,7 +178,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         let orientation: UIInterfaceOrientationMask = [UIInterfaceOrientationMask.portrait, UIInterfaceOrientationMask.portraitUpsideDown]
         return orientation
     }
-  
+    
     override var shouldAutorotate : Bool {
         return true
     }
@@ -181,7 +187,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         let panGesture = UIPanGestureRecognizer(target: self, action:(#selector(DataViewController.handlePanGesture(_:))))
         self.view.addGestureRecognizer(panGesture)
     }
-   
+    
     func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
         let translation = panGesture.translation(in: view)
         panGesture.setTranslation(CGPoint.zero, in: view)
@@ -216,9 +222,9 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             actionOpenGame(index)
             return
         }
-
-        if panGesture.state == UIGestureRecognizerState.changed && panGesture.numberOfTouches == 1 {
         
+        if panGesture.state == UIGestureRecognizerState.changed && panGesture.numberOfTouches == 1 {
+            
             let point: CGPoint = panGesture.location(in: self.view)
             let center = Scales.centerLarge
             let deltaX1 = point.x - center.x
@@ -242,20 +248,20 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
             sceneLevel.updateScene()
         }
     }
-  
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-  
+    
     public static func getFormattedString(value: Float) -> String{
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
         return numberFormatter.string(from: NSNumber(value : value))!
     }
-  
+    
 }
 

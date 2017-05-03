@@ -47,14 +47,12 @@ class LevelScene: SKScene {
     
     fileprivate var gammaOffset:CGFloat = -CGFloat(Double.pi/2)
     
-    let defaults = UserDefaults.standard
-    
     init(size:CGSize, viewController:DataViewController) {
         self.viewController = viewController
         super.init(size: size)
        
         // Restore default settings
-        if let name = defaults.string(forKey: "selectedModelIndex") {
+        if let name = UserDefaults.standard.string(forKey: "selectedModelIndex") {
             print("restored setting selectedModelIndex \(name)")
             viewController.modelController.selectModel("\(name)")
         }
@@ -223,7 +221,7 @@ class LevelScene: SKScene {
                 }
                 
                 viewController.modelController.selectModel(worldNext.rawValue)
-                defaults.set("\(worldNext.rawValue)", forKey: "selectedModelIndex")
+                UserDefaults.standard.set("\(worldNext.rawValue)", forKey: "selectedModelIndex")
                 print("store setting selected model \(worldNext.rawValue)")
                 
                 break
@@ -253,7 +251,7 @@ class LevelScene: SKScene {
                     buttonNextWorld.backgroundColor  = Colors.lightGray
                 }
                 viewController.modelController.selectModel(worldNext.rawValue)
-                defaults.set("\(worldNext.rawValue)", forKey: "selectedModelIndex")
+                UserDefaults.standard.set("\(worldNext.rawValue)", forKey: "selectedModelIndex")
                 print("store setting selected model \(worldNext.rawValue)")
                 
                 break

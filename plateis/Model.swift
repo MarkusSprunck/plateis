@@ -23,7 +23,10 @@ open class Model : NSObject, NSCoding {
     
     // MARK: Archiving Paths
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    
     open static let ArchiveURL = DocumentsDirectory.appendingPathComponent("model")
+    
+    open static let ArchiveURLEasy = DocumentsDirectory.appendingPathComponent("modelEasy")
     
     // MARK: Types
     public struct PropertyKey {
