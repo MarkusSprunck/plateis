@@ -46,23 +46,6 @@ class ModelController: NSObject {
             if filepath != nil {
                 allModels = (NSKeyedUnarchiver.unarchiveObject(withFile: filepath!) as? [Model])!
                 print("Load \(allModels.count) default worlds from filepath=\(filepath ?? "not defined")")
-            } else {
-                print("File not found")
-                var start_number : Int = 5
-                for world in ModelController.WorldKeys.allValues {
-                    print("Create default world \(world.rawValue)")
-                    self.createModelRandomLevel(world.rawValue, start_number: start_number)
-                    start_number += 1
-                }
-                
-                for model in self.allModels {
-                    var newSelected : [Node]
-                    var newBest : Float
-                    (newSelected, newBest)  = ModelSolver.run( model)
-                    model.nodesSelectedBest = newSelected
-                    print("Find best for world=\(model.world) model=\(model.name) best=\(newBest)")
-                }
-                
             }
         }
         
@@ -131,7 +114,8 @@ class ModelController: NSObject {
     internal func createModelRandomLevel(_ world : String, start_number : Int) {
         for index in 1...16 {
             let model = createModel(world,  name: String(index))
-            for _ in 1...(start_number + index / 2)  {
+            let range = lround( 2.0 + Double(start_number) + sqrt( Double(index * 3 ) ) )
+            for _ in 1...range  {
                 model.getNode(getRandomIndex(model)).setActive(true)
             }
             allModels.append(model)

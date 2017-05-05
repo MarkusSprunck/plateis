@@ -180,7 +180,7 @@ class StartScene: SKScene {
     internal func switchChanged(sender: UISwitch!){
         
         if (sender.isOn) {
-            labelSwitch.fontColor =  Colors.darkGrey ;
+            labelSwitch.fontColor =  Colors.black ;
         } else {
             labelSwitch.fontColor = Colors.lightGray;
         }

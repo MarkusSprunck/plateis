@@ -37,7 +37,7 @@ class ModelSolver {
         
         var activeNodes : [Node] = ModelSolver.getActiveNodes(model)
         
-        print("\(model.world.padding(toLength: 10, withPad: " ", startingAt: 0) ) level=\(model.getName())  \tnodes=\(model.getActiveNodesCount())")
+       // print("\(model.world.padding(toLength: 10, withPad: " ", startingAt: 0) ) level=\(model.getName())  \tnodes=\(model.getActiveNodesCount())")
         if VERBOSE {
             print("step   better    worse rejected    const      cost   temperature")
             print("")

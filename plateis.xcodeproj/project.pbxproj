@@ -27,13 +27,13 @@
 		2869B3281D83E2FF001E1D49 /* Scales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2869B3271D83E2FF001E1D49 /* Scales.swift */; };
 		287F38E21DAD730A002888B9 /* GameCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287F38E11DAD730A002888B9 /* GameCenterManager.swift */; };
 		288F1B831EB507CC002503AE /* PlateisUISimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288F1B821EB507CC002503AE /* PlateisUISimple.swift */; };
-		289249431EAFFEBE002324C3 /* ModelDefaultEasy.binary in Resources */ = {isa = PBXBuildFile; fileRef = 289249421EAFFEBE002324C3 /* ModelDefaultEasy.binary */; };
 		28943FEF1D63388500F1062D /* ModelControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28943FEE1D63388500F1062D /* ModelControllerTests.swift */; };
 		28AF987F1D44D0EB00713962 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AF987E1D44D0EB00713962 /* StartScene.swift */; };
 		28C85D951D762475008CBD36 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C85D941D762475008CBD36 /* MasterViewController.swift */; };
 		28C85D971D7624C8008CBD36 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C85D961D7624C8008CBD36 /* ProductCell.swift */; };
 		28C86C721D30BDE100D77A99 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C86C711D30BDE100D77A99 /* Node.swift */; };
 		28C86C761D30F89600D77A99 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C86C751D30F89600D77A99 /* Model.swift */; };
+		28C8C6F41EBD0C9A0033C8CC /* ModelDefaultEasy.binary in Resources */ = {isa = PBXBuildFile; fileRef = 289249421EAFFEBE002324C3 /* ModelDefaultEasy.binary */; };
 		28D00F251D70AC6A006279DC /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D00F241D70AC6A006279DC /* UIViewExtension.swift */; };
 		28D33D941DAAC66A00235B7E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D33D931DAAC66A00235B7E /* GameKit.framework */; };
 		28DEC0FF1D67AE4B00E06EF8 /* PlateisProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DEC0FE1D67AE4B00E06EF8 /* PlateisProducts.swift */; };
@@ -344,9 +344,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28C8C6F41EBD0C9A0033C8CC /* ModelDefaultEasy.binary in Resources */,
 				28139F841D84BACE00930A7F /* Main.storyboard in Resources */,
 				28F483621D85C16700CF833F /* es-MX.lproj in Resources */,
-				289249431EAFFEBE002324C3 /* ModelDefaultEasy.binary in Resources */,
 				283C8DE51D8352FF00AF7FBE /* de.lproj in Resources */,
 				28F483631D85C16700CF833F /* es.lproj in Resources */,
 				28139F831D84B79900930A7F /* it.lproj in Resources */,
