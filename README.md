@@ -6,6 +6,8 @@ You will play in ten worlds with sixteen levels each and the challenge is increa
 
 Maybe you can beat the algorithm. If yes, please send a screen shot of your personal best solution to plateis@mnet-online.de. Please feel free to send me proposals for new features.
 
+## Look & Feel
+
 <table>
   <col width="20%">
   <col width="20%">
