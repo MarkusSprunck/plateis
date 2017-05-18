@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28081DDF1ECE0EC800DDA48E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 28081DDE1ECE0EC800DDA48E /* README.md */; };
 		280BA48A1D7A41FF002830DC /* ModelDefault.binary in Resources */ = {isa = PBXBuildFile; fileRef = 280BA4891D7A41FF002830DC /* ModelDefault.binary */; };
 		28139F831D84B79900930A7F /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 28139F821D84B79900930A7F /* it.lproj */; };
 		28139F841D84BACE00930A7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28139F861D84BACE00930A7F /* Main.storyboard */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28081DDE1ECE0EC800DDA48E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		280BA4891D7A41FF002830DC /* ModelDefault.binary */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = ModelDefault.binary; path = plateis/ModelDefault.binary; sourceTree = SOURCE_ROOT; };
 		28139F821D84B79900930A7F /* it.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = it.lproj; path = plateis/it.lproj; sourceTree = SOURCE_ROOT; };
 		28139F871D84BB0000930A7F /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		283A5E751D2EBBA000870CF6 = {
 			isa = PBXGroup;
 			children = (
+				28081DDE1ECE0EC800DDA48E /* README.md */,
 				283A5E801D2EBBA000870CF6 /* PLATEIS */,
 				283A5E991D2EBBA000870CF6 /* PLATEISTests */,
 				283A5EA41D2EBBA000870CF6 /* PLATEISUITests */,
@@ -393,6 +396,7 @@
 				2869B3281D83E2FF001E1D49 /* Scales.swift in Sources */,
 				28D00F251D70AC6A006279DC /* UIViewExtension.swift in Sources */,
 				28C86C761D30F89600D77A99 /* Model.swift in Sources */,
+				28081DDF1ECE0EC800DDA48E /* README.md in Sources */,
 				28AF987F1D44D0EB00713962 /* StartScene.swift in Sources */,
 				28538EB51D8C6BFE00C82058 /* UIWindowExtension.swift in Sources */,
 				28C85D971D7624C8008CBD36 /* ProductCell.swift in Sources */,
