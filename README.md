@@ -7,4 +7,5 @@ You will play in ten worlds with sixteen levels each and the challenge is increa
 Maybe you can beat the algorithm. If yes, please send a screen shot of your personal best solution to plateis@mnet-online.de. Please feel free to send me proposals for new features.
 
 
-![alt tag](https://raw.githubusercontent.com/markussprunck/plateis/master/plateis-screen-01.jpg)
+![](https://raw.githubusercontent.com/markussprunck/plateis/master/plateis-screen-01.jpg =250x250)
+
