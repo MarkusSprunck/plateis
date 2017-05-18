@@ -6,9 +6,25 @@ You will play in ten worlds with sixteen levels each and the challenge is increa
 
 Maybe you can beat the algorithm. If yes, please send a screen shot of your personal best solution to plateis@mnet-online.de. Please feel free to send me proposals for new features.
 
+<table>
+  <col width="20%">
+  <col width="20%">
+  <col width="20%">
+  <col width="20%">
+  <col width="20%">
+  <tr>
+    <td><img src="/plateis-screen-01.jpg" alt="test image size"  width="100%"></td>
+    <td><img src="/plateis-screen-02.jpg" alt="test image size"  width="100%"></td>
+    <td><img src="/plateis-screen-03.jpg" alt="test image size"  width="100%"></td>
+    <td><img src="/plateis-screen-04.jpg" alt="test image size"  width="100%"></td>
+    <td><img src="/plateis-screen-05.jpg" alt="test image size"  width="100%"></td>
+  </tr>
+  <tr>
+    <td>Start</td>
+    <td>Select Level</td>
+    <td>Select Node</td>
+    <td>Tipp</td>
+    <td>Success</td>
+  </tr>
+</table>
 
-<img src="/plateis-screen-01.jpg" alt="test image size" height="25%" width="25%">
-<img src="/plateis-screen-02.jpg" alt="test image size" height="25%" width="25%">
-<img src="/plateis-screen-03.jpg" alt="test image size" height="25%" width="25%">
-<img src="/plateis-screen-04.jpg" alt="test image size" height="25%" width="25%">
-<img src="/plateis-screen-05.jpg" alt="test image size" height="25%" width="25%">
