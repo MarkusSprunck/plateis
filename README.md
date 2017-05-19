@@ -6,6 +6,8 @@ You will play in ten worlds with sixteen levels each and the challenge is increa
 
 ## In the iTunes Store
 
+The application is free of charge. There is just one in-app purcase (jump int next world), but it is possible to play without it.
+
 [https://itunes.apple.com/us/app/plateis/id1141912894](https://itunes.apple.com/us/app/plateis/id1141912894)
 
 ## Look & Feel
@@ -27,7 +29,11 @@ The user interface is as simple as possible. Just a white background and the sta
   </tr>
  </table>
 
-There are two possible models for the traveling salesmen game: 1) Expert mode (the most difficult one) and 2) Standard mode (more simple). Many people gave me the feedback that the first versions have been to difficult. This is the reason why I intruced two different models. Model number 1 is the inital model with a lot of nodes in the lower levels and the model number 2 has less nodes. 
+There are two possible models for the traveling salesmen game: 
+1. Expert mode (the most difficult one) and 
+2. Standard mode (more simple). 
+
+Many people gave me the feedback that the first versions have been to difficult. This is the reason why I intruced two different models. Model number 1 is the inital model with a lot of nodes in the lower levels and the model number 2 has less nodes. 
 
 ## Technology
 - developed with *Xcode 8.3.2* (requires a Mac running macOS 10.12 or later) 
@@ -35,6 +41,9 @@ There are two possible models for the traveling salesmen game: 1) Expert mode (t
 - Devloped on a MacBook Pro (Retina 13 Zoll, Begin 2015) 
 - Mac OS 10.12.4 
 - Tested on iPhone SE, iPhone 6s, iPhone 5s and iPad 2
+- Some basic unit and UI tests are implmented (here is still a lot to do)
 
 ## Best Solutions 
 - solved with Simulated Annealing
+- when pressing the hint button the best solution is showed for two seconds
+- it is not guaranted that it is realy the best, but better than a human may find
