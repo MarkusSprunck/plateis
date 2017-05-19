@@ -50,16 +50,21 @@ Many people gave me the feedback that the first versions have been to difficult.
 - number of possible routes are: (n-1)!/2 
 
 
-    nodes | routes
-    4 | 3 
-    5 | 12 
-    6 | 60 
-    7 | 360 
-    8 | 2520 
-    9 | 20160 
-    10 | 181440 
-    11 | 1814400 
-    12 | 19958400 
-    13 | 239500800 
-    14 | 3113510400 
-    15 | 43589145600 
+  |  nodes | routes      |
+  |--------|-------------|
+  |  4     | 3           |
+  |  5     | 12          |
+  |  6     | 60          |
+  |  7     | 360         |
+  |  8     | 2520        |
+  |  9     | 20160       |
+  |  10    | 181440      |
+  |  11    | 1814400     |
+  |  12    | 19958400    |
+  |  13    | 239500800   |
+  |  14    | 3113510400  |
+  |  15    | 43589145600 |
+
+As you can see the number of possible combinations increases dramaticaly with a higher number of nodes. It is surprising that humans are able to solve a TSM with 15 and more nodes. At least with some training.
+
+
