@@ -19,11 +19,11 @@ The user interface is as simple as possible. Just a white background and the sta
   <col width="18%">
   <col width="18%">
   <tr>
-    <td><img src="/plateis-screen-01.jpg" alt="test image size"  width="100%"></td>
-    <td><img src="/plateis-screen-02.jpg" alt="test image size"  width="100%"></td>
-    <td><img src="/plateis-screen-03.jpg" alt="test image size"  width="100%"></td>
-    <td><img src="/plateis-screen-04.jpg" alt="test image size"  width="100%"></td>
-    <td><img src="/plateis-screen-05.jpg" alt="test image size"  width="100%"></td>
+    <td><img src="/images/plateis-screen-01.jpg" alt="test image size"  width="100%"></td>
+    <td><img src="/images/plateis-screen-02.jpg" alt="test image size"  width="100%"></td>
+    <td><img src="/images/plateis-screen-03.jpg" alt="test image size"  width="100%"></td>
+    <td><img src="/images/plateis-screen-04.jpg" alt="test image size"  width="100%"></td>
+    <td><img src="/images/plateis-screen-05.jpg" alt="test image size"  width="100%"></td>
   </tr>
  </table>
 

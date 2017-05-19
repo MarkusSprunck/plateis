@@ -8,11 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28081DDF1ECE0EC800DDA48E /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 28081DDE1ECE0EC800DDA48E /* README.md */; };
-		28081DE51ECE17E000DDA48E /* plateis-screen-01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 28081DE01ECE17E000DDA48E /* plateis-screen-01.jpg */; };
-		28081DE61ECE17E000DDA48E /* plateis-screen-02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 28081DE11ECE17E000DDA48E /* plateis-screen-02.jpg */; };
-		28081DE71ECE17E000DDA48E /* plateis-screen-03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 28081DE21ECE17E000DDA48E /* plateis-screen-03.jpg */; };
-		28081DE81ECE17E000DDA48E /* plateis-screen-04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 28081DE31ECE17E000DDA48E /* plateis-screen-04.jpg */; };
-		28081DE91ECE17E000DDA48E /* plateis-screen-05.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 28081DE41ECE17E000DDA48E /* plateis-screen-05.jpg */; };
+		28081DEB1ECF61B200DDA48E /* images in Resources */ = {isa = PBXBuildFile; fileRef = 28081DEA1ECF61B200DDA48E /* images */; };
 		280BA48A1D7A41FF002830DC /* ModelDefault.binary in Resources */ = {isa = PBXBuildFile; fileRef = 280BA4891D7A41FF002830DC /* ModelDefault.binary */; };
 		28139F831D84B79900930A7F /* it.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 28139F821D84B79900930A7F /* it.lproj */; };
 		28139F841D84BACE00930A7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28139F861D84BACE00930A7F /* Main.storyboard */; };
@@ -70,11 +66,7 @@
 
 /* Begin PBXFileReference section */
 		28081DDE1ECE0EC800DDA48E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		28081DE01ECE17E000DDA48E /* plateis-screen-01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "plateis-screen-01.jpg"; sourceTree = "<group>"; };
-		28081DE11ECE17E000DDA48E /* plateis-screen-02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "plateis-screen-02.jpg"; sourceTree = "<group>"; };
-		28081DE21ECE17E000DDA48E /* plateis-screen-03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "plateis-screen-03.jpg"; sourceTree = "<group>"; };
-		28081DE31ECE17E000DDA48E /* plateis-screen-04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "plateis-screen-04.jpg"; sourceTree = "<group>"; };
-		28081DE41ECE17E000DDA48E /* plateis-screen-05.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "plateis-screen-05.jpg"; sourceTree = "<group>"; };
+		28081DEA1ECF61B200DDA48E /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		280BA4891D7A41FF002830DC /* ModelDefault.binary */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = ModelDefault.binary; path = plateis/ModelDefault.binary; sourceTree = SOURCE_ROOT; };
 		28139F821D84B79900930A7F /* it.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = it.lproj; path = plateis/it.lproj; sourceTree = SOURCE_ROOT; };
 		28139F871D84BB0000930A7F /* de */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = de; path = de.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -151,11 +143,7 @@
 		283A5E751D2EBBA000870CF6 = {
 			isa = PBXGroup;
 			children = (
-				28081DE01ECE17E000DDA48E /* plateis-screen-01.jpg */,
-				28081DE11ECE17E000DDA48E /* plateis-screen-02.jpg */,
-				28081DE21ECE17E000DDA48E /* plateis-screen-03.jpg */,
-				28081DE31ECE17E000DDA48E /* plateis-screen-04.jpg */,
-				28081DE41ECE17E000DDA48E /* plateis-screen-05.jpg */,
+				28081DEA1ECF61B200DDA48E /* images */,
 				28081DDE1ECE0EC800DDA48E /* README.md */,
 				283A5E801D2EBBA000870CF6 /* PLATEIS */,
 				283A5E991D2EBBA000870CF6 /* PLATEISTests */,
@@ -362,20 +350,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28081DEB1ECF61B200DDA48E /* images in Resources */,
 				28C8C6F41EBD0C9A0033C8CC /* ModelDefaultEasy.binary in Resources */,
 				28139F841D84BACE00930A7F /* Main.storyboard in Resources */,
 				28F483621D85C16700CF833F /* es-MX.lproj in Resources */,
 				283C8DE51D8352FF00AF7FBE /* de.lproj in Resources */,
-				28081DE81ECE17E000DDA48E /* plateis-screen-04.jpg in Resources */,
 				28F483631D85C16700CF833F /* es.lproj in Resources */,
 				28139F831D84B79900930A7F /* it.lproj in Resources */,
-				28081DE91ECE17E000DDA48E /* plateis-screen-05.jpg in Resources */,
 				283C8DF21D8354F100AF7FBE /* Base.lproj in Resources */,
 				283C8DE41D8352F800AF7FBE /* en.lproj in Resources */,
 				28F483651D85C89100CF833F /* LaunchScreen.xib in Resources */,
-				28081DE51ECE17E000DDA48E /* plateis-screen-01.jpg in Resources */,
-				28081DE71ECE17E000DDA48E /* plateis-screen-03.jpg in Resources */,
-				28081DE61ECE17E000DDA48E /* plateis-screen-02.jpg in Resources */,
 				280BA48A1D7A41FF002830DC /* ModelDefault.binary in Resources */,
 				28F483641D85C16700CF833F /* ru.lproj in Resources */,
 				283A5E8D1D2EBBA000870CF6 /* Assets.xcassets in Resources */,
