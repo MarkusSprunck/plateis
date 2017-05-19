@@ -44,6 +44,7 @@ Many people gave me the feedback that the first versions have been to difficult.
 - Some basic unit and UI tests are implmented (here is still a lot to do)
 
 ## Best Solutions 
+- number of possible routes are: (n-1)!/2 
 - solved with Simulated Annealing
 - when pressing the hint button the best solution is showed for two seconds
 - it is not guaranted that it is realy the best, but better than a human may find
