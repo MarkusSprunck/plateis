@@ -2,7 +2,7 @@
 //  ModelController.swift
 //  PLATEIS
 //
-//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016-2017 Markus Sprunck. All rights reserved.
 //
 
 import Foundation
@@ -10,24 +10,24 @@ import UIKit
 
 class ModelController: NSObject {
     
-    internal let FILE_NAME_DEFAULT_MODEL = UserDefaults.standard.bool(forKey: "expertMode") ? "ModelDefault" : "ModelDefaultEasy"
+    let FILE_NAME_DEFAULT_MODEL = UserDefaults.standard.bool(forKey: "expertMode") ? "ModelDefault" : "ModelDefaultEasy"
     
-    internal var allModels: [Model] = []
+    var allModels: [Model] = []
     
-    internal var pageModels: [Model] = []
+    var pageModels: [Model] = []
     
-    public enum WorldKeys : String {
+    enum WorldKeys : String {
         case random01 = "World I", random02 = "World II", random03 = "World III", random04 = "World IV", random05 = "World V",random06 = "World VI", random07 = "World VII", random08 = "World VIII", random09 = "World IX", random10 = "World X"
         static let allValues = [random01, random02, random03, random04, random05, random06, random07, random08, random09, random10]
     }
     
-    fileprivate var currentWorld : String = WorldKeys.random01.rawValue
+    private var currentWorld : String = WorldKeys.random01.rawValue
     
-    fileprivate var indexOfNextFreeLevel = 0
+    private var indexOfNextFreeLevel = 0
     
-    fileprivate let MAX_NUMBER_OF_ROWS = 10
+    private let MAX_NUMBER_OF_ROWS = 10
     
-    fileprivate let MAX_NUMBER_OF_COLUMNS = 7
+    private let MAX_NUMBER_OF_COLUMNS = 7
     
     override init() {
         super.init()
@@ -35,7 +35,7 @@ class ModelController: NSObject {
     }
     
     
-    internal func loadModel() {
+    func loadModel() {
         if let models = loadPageModels() {
             print("Load stored model \(models.count)")
             allModels = models
@@ -52,7 +52,7 @@ class ModelController: NSObject {
         selectModel(WorldKeys.random01.rawValue)
     }
     
-    internal func findNextFreeLevel() {
+    func findNextFreeLevel() {
         indexOfNextFreeLevel = 0
         let indexMax = pageModels.count
         var index = 0
@@ -65,15 +65,15 @@ class ModelController: NSObject {
         }
     }
     
-    internal func getIndexOfNextFreeLevel() -> Int {
+    func getIndexOfNextFreeLevel() -> Int {
         return self.indexOfNextFreeLevel
     }
     
-    internal func getCurrentWorld() -> String {
+    func getCurrentWorld() -> String {
         return self.currentWorld
     }
     
-    internal func selectModel(_ world : String) {
+    func selectModel(_ world : String) {
         print ("Select '\(world)'" )
         currentWorld = world
         pageModels.removeAll()
@@ -84,7 +84,7 @@ class ModelController: NSObject {
         }
     }
     
-    internal func savePageModels() {
+    func savePageModels() {
         let isSuccessfulSave:Bool!
         
         if UserDefaults.standard.bool(forKey: "expertMode") {
@@ -100,7 +100,7 @@ class ModelController: NSObject {
         }
     }
     
-    fileprivate func loadPageModels() -> [Model]? {
+    private func loadPageModels() -> [Model]? {
         if UserDefaults.standard.bool(forKey: "expertMode") {
             print("Load page model:\n\(Model.ArchiveURL.path)")
             return NSKeyedUnarchiver.unarchiveObject(withFile: Model.ArchiveURL.path) as? [Model]
@@ -111,7 +111,7 @@ class ModelController: NSObject {
     }
     
     
-    internal func createModelRandomLevel(_ world : String, start_number : Int) {
+    func createModelRandomLevel(_ world : String, start_number : Int) {
         for index in 1...16 {
             let model = createModel(world,  name: String(index))
             let range = lround( 2.0 + Double(start_number) + sqrt( Double(index * 3 ) ) )
@@ -122,7 +122,7 @@ class ModelController: NSObject {
         }
     }
     
-    fileprivate func getRandomIndex(_ model : Model) -> Int {
+    private func getRandomIndex(_ model : Model) -> Int {
         var dice:Int = 0
         repeat {
             dice = Int(arc4random_uniform(70)) ;
@@ -131,7 +131,7 @@ class ModelController: NSObject {
     }
     
     
-    fileprivate func createModel(_ world: String, name: String) -> Model{
+    private func createModel(_ world: String, name: String) -> Model{
         let model1 = Model(world: world, name: name, rows: MAX_NUMBER_OF_ROWS, cols: MAX_NUMBER_OF_COLUMNS)
         var rowIndex : Int = 0
         while  ((rowIndex) <= MAX_NUMBER_OF_COLUMNS - 1) {
@@ -145,7 +145,7 @@ class ModelController: NSObject {
         return model1
     }
     
-    fileprivate func copyActiveSettings(_ fromModel: Model, toModel: Model) {
+    private func copyActiveSettings(_ fromModel: Model, toModel: Model) {
         var index : Int = 0
         while index < MAX_NUMBER_OF_COLUMNS * MAX_NUMBER_OF_ROWS {
             toModel.getNode(index).setActive( fromModel.getNode(index).isActive() )

@@ -2,26 +2,40 @@
 //  Node.swift
 //  PLATEIS
 //
-//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016-2017 Markus Sprunck. All rights reserved.
 //
 
 import UIKit
 
-open class Node : NSObject, NSCoding {
+class Node : NSObject, NSCoding {
     
-    var x:Int!
+    internal var x:Int!
     
-    var y:Int!
+    internal var y:Int!
     
-    var active:Bool!
+    internal var active:Bool!
     
-    public struct PropertyKey {
+    struct PropertyKey {
         static let xKey = "x"
         static let yKey = "y"
         static let activeKey = "active"
     }
     
-    required convenience public init(coder aDecoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(x, forKey: PropertyKey.xKey)
+        aCoder.encode(y, forKey: PropertyKey.yKey)
+        aCoder.encode(active, forKey: PropertyKey.activeKey)
+    }
+    
+    func setActive(_ active : Bool) {
+        self.active = active
+    }
+    
+    func isActive() -> Bool {
+        return  self.active
+    }
+    
+    required convenience  init(coder aDecoder: NSCoder) {
         let x = aDecoder.decodeObject(forKey: PropertyKey.xKey) as! Int
         let y = aDecoder.decodeObject(forKey: PropertyKey.yKey) as! Int
         let active = aDecoder.decodeObject(forKey: PropertyKey.activeKey) as! Bool
@@ -29,24 +43,11 @@ open class Node : NSObject, NSCoding {
         self.init(x: x, y: y, active: active)
     }
     
-    open func encode(with aCoder: NSCoder) {
-        aCoder.encode(x, forKey: PropertyKey.xKey)
-        aCoder.encode(y, forKey: PropertyKey.yKey)
-        aCoder.encode(active, forKey: PropertyKey.activeKey)
-    }
-    
-    public init(x:Int, y:Int, active:Bool) {
+    init(x:Int, y:Int, active:Bool) {
         self.x = x
         self.y = y
         self.active = active
     }
     
-    open func setActive(_ active : Bool) {
-        self.active = active
-    }
-    
-    open func isActive() -> Bool {
-        return  self.active
-    }
     
 }

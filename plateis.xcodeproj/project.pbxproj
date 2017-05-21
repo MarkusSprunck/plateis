@@ -166,6 +166,16 @@
 		283A5E801D2EBBA000870CF6 /* PLATEIS */ = {
 			isa = PBXGroup;
 			children = (
+				280BA4891D7A41FF002830DC /* ModelDefault.binary */,
+				289249421EAFFEBE002324C3 /* ModelDefaultEasy.binary */,
+				283C8DF11D8354F100AF7FBE /* Base.lproj */,
+				283AA9911D7235A90089C26B /* de.lproj */,
+				283AA9931D7235B80089C26B /* en.lproj */,
+				28F4835F1D85C16700CF833F /* es-MX.lproj */,
+				28F483601D85C16700CF833F /* es.lproj */,
+				28139F821D84B79900930A7F /* it.lproj */,
+				28F483611D85C16700CF833F /* ru.lproj */,
+				283A5E911D2EBBA000870CF6 /* Info.plist */,
 				283A5E811D2EBBA000870CF6 /* AppDelegate.swift */,
 				282A97C11D65FFD5002DBC9D /* Colors.swift */,
 				283A5E851D2EBBA000870CF6 /* DataViewController.swift */,
@@ -185,16 +195,6 @@
 				28D00F241D70AC6A006279DC /* UIViewExtension.swift */,
 				28538EB41D8C6BFE00C82058 /* UIWindowExtension.swift */,
 				283A5E8C1D2EBBA000870CF6 /* Assets.xcassets */,
-				280BA4891D7A41FF002830DC /* ModelDefault.binary */,
-				289249421EAFFEBE002324C3 /* ModelDefaultEasy.binary */,
-				283C8DF11D8354F100AF7FBE /* Base.lproj */,
-				283AA9911D7235A90089C26B /* de.lproj */,
-				283AA9931D7235B80089C26B /* en.lproj */,
-				28F4835F1D85C16700CF833F /* es-MX.lproj */,
-				28F483601D85C16700CF833F /* es.lproj */,
-				28139F821D84B79900930A7F /* it.lproj */,
-				28F483611D85C16700CF833F /* ru.lproj */,
-				283A5E911D2EBBA000870CF6 /* Info.plist */,
 				28F483671D85C89100CF833F /* LaunchScreen.xib */,
 				28139F861D84BACE00930A7F /* Main.storyboard */,
 			);

@@ -27,11 +27,11 @@ public typealias ProductsRequestCompletionHandler = (_ success: Bool, _ products
 
 open class IAPHelper : NSObject  {
     
-    fileprivate let productIdentifiers: Set<ProductIdentifier>
-    fileprivate var purchasedProductIdentifiers = Set<ProductIdentifier>()
+    let productIdentifiers: Set<ProductIdentifier>
+    var purchasedProductIdentifiers = Set<ProductIdentifier>()
     
-    fileprivate var productsRequest: SKProductsRequest?
-    fileprivate var productsRequestCompletionHandler: ProductsRequestCompletionHandler?
+    var productsRequest: SKProductsRequest?
+    var productsRequestCompletionHandler: ProductsRequestCompletionHandler?
     
     static let IAPHelperPurchaseNotification = "IAPHelperPurchaseNotification"
     
@@ -54,7 +54,6 @@ open class IAPHelper : NSObject  {
     }
 }
 
-// MARK: - StoreKit API
 
 extension IAPHelper {
     
@@ -86,9 +85,9 @@ extension IAPHelper {
     }
 }
 
-// MARK: - SKProductsRequestDelegate
 
 extension IAPHelper: SKProductsRequestDelegate {
+    
     public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         print("Loaded list of products...")
         let products = response.products
@@ -107,15 +106,47 @@ extension IAPHelper: SKProductsRequestDelegate {
         clearRequestAndHandler()
     }
     
-    fileprivate func clearRequestAndHandler() {
+    private func clearRequestAndHandler() {
         productsRequest = nil
         productsRequestCompletionHandler = nil
     }
 }
 
-// MARK: - SKPaymentTransactionObserver
 
 extension IAPHelper: SKPaymentTransactionObserver {
+    
+    func completeTransaction(_ transaction: SKPaymentTransaction) {
+        print("completeTransaction...")
+        deliverPurchaseNotificatioForIdentifier(transaction.payment.productIdentifier)
+        SKPaymentQueue.default().finishTransaction(transaction)
+    }
+    
+    func restoreTransaction(_ transaction: SKPaymentTransaction) {
+        guard let productIdentifier = transaction.original?.payment.productIdentifier else { return }
+        
+        print("restoreTransaction... \(productIdentifier)")
+        deliverPurchaseNotificatioForIdentifier(productIdentifier)
+        SKPaymentQueue.default().finishTransaction(transaction)
+    }
+    
+    func failedTransaction(_ transaction: SKPaymentTransaction) {
+        print("failedTransaction...")
+        
+        if transaction.error!._code != SKError.paymentCancelled.rawValue {
+            print("Transaction Error: \(transaction.error?.localizedDescription ?? "not defined")")
+        }
+        
+        SKPaymentQueue.default().finishTransaction(transaction)
+    }
+    
+    func deliverPurchaseNotificatioForIdentifier(_ identifier: String?) {
+        guard let identifier = identifier else { return }
+        
+        purchasedProductIdentifiers.insert(identifier)
+        UserDefaults.standard.set(true, forKey: identifier)
+        UserDefaults.standard.synchronize()
+        NotificationCenter.default.post(name: Notification.Name(rawValue: IAPHelper.IAPHelperPurchaseNotification), object: identifier)
+    }
     
     public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
@@ -137,36 +168,4 @@ extension IAPHelper: SKPaymentTransactionObserver {
         }
     }
     
-    fileprivate func completeTransaction(_ transaction: SKPaymentTransaction) {
-        print("completeTransaction...")
-        deliverPurchaseNotificatioForIdentifier(transaction.payment.productIdentifier)
-        SKPaymentQueue.default().finishTransaction(transaction)
-    }
-    
-    fileprivate func restoreTransaction(_ transaction: SKPaymentTransaction) {
-        guard let productIdentifier = transaction.original?.payment.productIdentifier else { return }
-        
-        print("restoreTransaction... \(productIdentifier)")
-        deliverPurchaseNotificatioForIdentifier(productIdentifier)
-        SKPaymentQueue.default().finishTransaction(transaction)
-    }
-    
-    fileprivate func failedTransaction(_ transaction: SKPaymentTransaction) {
-        print("failedTransaction...")
-        
-        if transaction.error!._code != SKError.paymentCancelled.rawValue {
-            print("Transaction Error: \(transaction.error?.localizedDescription ?? "not defined")")
-        }
-        
-        SKPaymentQueue.default().finishTransaction(transaction)
-    }
-    
-    fileprivate func deliverPurchaseNotificatioForIdentifier(_ identifier: String?) {
-        guard let identifier = identifier else { return }
-        
-        purchasedProductIdentifiers.insert(identifier)
-        UserDefaults.standard.set(true, forKey: identifier)
-        UserDefaults.standard.synchronize()
-        NotificationCenter.default.post(name: Notification.Name(rawValue: IAPHelper.IAPHelperPurchaseNotification), object: identifier)
-    }
 }

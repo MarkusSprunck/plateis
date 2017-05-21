@@ -1,8 +1,8 @@
 //
 //  GameScene.swift
-//  SprunckOne
+//  PLATEIS
 //
-//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016-2017 Markus Sprunck. All rights reserved.
 //
 
 import SpriteKit
@@ -13,115 +13,59 @@ import UIKit
 
 class GameScene : SKScene {
     
-    fileprivate var viewController : DataViewController
+    private var viewController : DataViewController
     
-    fileprivate var background : SKSpriteNode!
+    private var background : SKSpriteNode!
     
-    fileprivate var labelLevel : SKLabelNode!
+    private var labelLevel : SKLabelNode!
     
-    fileprivate var labelResult : SKLabelNode!
+    private var labelResult : SKLabelNode!
     
-    fileprivate var buttonHint : UIButton!
+    private var buttonHint : UIButton!
     
-    fileprivate var buttonUndo : UIButton!
+    private var buttonUndo : UIButton!
     
-    fileprivate var buttonLevels : UIButton!
+    private var buttonLevels : UIButton!
     
-    fileprivate var buttonShare : UIButton!
+    private var buttonShare : UIButton!
     
-    fileprivate var starGreen : SKShapeNode!
+    private var starGreen : SKShapeNode!
     
-    fileprivate var starYellow : SKShapeNode!
+    private var starYellow : SKShapeNode!
     
-    fileprivate var starRed : SKShapeNode!
+    private var starRed : SKShapeNode!
     
-    fileprivate var circles : [SKShapeNode] = []
+    private var circles : [SKShapeNode] = []
     
-    fileprivate var circlesText : [SKLabelNode] = []
+    private var circlesText : [SKLabelNode] = []
     
-    fileprivate static var isTapped : Bool = false
+    private static var isTapped : Bool = false
     
-    fileprivate static var isSwiped : Bool = false
+    private static var isSwiped : Bool = false
     
-    fileprivate var isSelectionBestVisible : Bool = false
+    private var isSelectionBestVisible : Bool = false
     
-    fileprivate var lastSelectedNode : Node!
+    private var lastSelectedNode : Node!
     
-    fileprivate var hasSelectionChanged = false
+    private var hasSelectionChanged = false
     
-    public var isGameVisible = false
+    private var gameVisible = false
     
-    init(size : CGSize, viewController : DataViewController) {
-        self.viewController = viewController
-        super.init(size : size)
-        self.view?.isMultipleTouchEnabled = true
-        
-        createLabels()
-        createButtons()
-        createStars()
-        hideElements()
-    }
-    
-    required init(coder aDecoder : NSCoder) {
-        fatalError("NSCoder not supported")
-    }
-    
-    internal func renderModel() {
-        // delete all elements
-        self.removeAllChildren()
-        self.removeAllActions()
-        
-        // create all elements
-        createBackground()
-        createNodes()
-        createLines()
-        createLinesBest()
-        createLabels()
-        createStars()
-        
-        // update user interface
-        showElements()
-        updateLabels()
-        
-        isGameVisible = true
-    }
-    
-    internal func hideElements() {
-        // make all elements transparent
-        labelLevel.alpha = 0.0
-        labelResult.alpha = 0.0
-        buttonShare.alpha = 0.0
-        buttonUndo.alpha = 0.0
-        buttonHint.alpha = 0.0
-        buttonLevels.alpha = 0.0
-        starYellow.alpha = 0.0
-        starGreen.alpha = 0.0
-        starRed.alpha = 0.0
-        
-        // move buttons out of screen to avoid not wanted clicks
-        buttonHint.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
-        buttonUndo.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
-        buttonShare.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
-        buttonLevels.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
-        
-        isGameVisible = false
-    }
-    
-    @objc fileprivate func actionHint(_ sender : UIButton!) {
+    @objc private func actionHint(_ sender : UIButton!) {
         isSelectionBestVisible = true
-        if !viewController.getModel().isComplete() {
-            viewController.getModel().hints = viewController.getModel().hints + 1
+        if !viewController.getActiveModel().isComplete() {
+            viewController.getActiveModel().hints = viewController.getActiveModel().hints + 1
         }
         renderModel()
     }
     
-    @objc fileprivate func actionUndoButton(_ sender : UIButton!) {
-        viewController.getModel().undoLastSelected()
+    @objc private func actionUndoButton(_ sender : UIButton!) {
+        viewController.getActiveModel().undoLastSelected()
         renderModel()
         updateLabels()
     }
     
-    @objc fileprivate func actionShareButton(_ sender : UIButton!) {
+    @objc private func actionShareButton(_ sender : UIButton!) {
         // make screenshot
         let window: UIWindow! = UIApplication.shared.keyWindow
         let image : UIImage = window.capture()
@@ -142,7 +86,7 @@ class GameScene : SKScene {
         self.viewController.present(activityViewController, animated: true, completion: nil)
     }
     
-    @objc fileprivate func actionLevelsButton(_ sender : UIButton!) {
+    @objc private func actionLevelsButton(_ sender : UIButton!) {
         viewController.actionStart()
         hideElements()
         
@@ -151,15 +95,15 @@ class GameScene : SKScene {
         viewController.sceneLevel.updateElements()
     }
     
-    fileprivate func isDistanceBest() -> Bool {
-        let model : Model = viewController.getModel()
+    private func isDistanceBest() -> Bool {
+        let model : Model = viewController.getActiveModel()
         let distance = round(Model.getDistance(model.nodesSelected) * Float(100.0))
         let distanceBest = round( model.getDistanceBest() * Float(100.0))
         return distance <= distanceBest
     }
     
-    fileprivate func updateLabels() {
-        let model : Model = viewController.getModel()
+    private func updateLabels() {
+        let model : Model = viewController.getActiveModel()
         labelLevel.text = viewController.modelController.getCurrentWorld() + " / " + NSLocalizedString("LEVEL", comment : "Level") + " " + model.getName()
         
         if model.isComplete() {
@@ -196,10 +140,10 @@ class GameScene : SKScene {
         
         GameScene.isTapped = GameScene.isTapped || model.isComplete()
         
-        buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " \(viewController.getModel().hints + 1)"  ,for : UIControlState())
+        buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " \(viewController.getActiveModel().hints + 1)"  ,for : UIControlState())
     }
     
-    fileprivate func showElements() {
+    private func showElements() {
         labelLevel.alpha = 1.0
         buttonShare.fadeIn()
         buttonLevels.fadeIn()
@@ -207,7 +151,7 @@ class GameScene : SKScene {
         buttonUndo.fadeIn()
     }
     
-    fileprivate func createButtons() {
+    private func createButtons() {
         buttonLevels = UIButton(type : UIButtonType.custom)
         buttonLevels.frame = CGRect(x : 0, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonLevels.titleLabel!.font =  UIFont(name : "Helvetica", size : Scales.fontSizeButton)
@@ -244,14 +188,14 @@ class GameScene : SKScene {
         buttonHint.backgroundColor =  Colors.blue
         buttonHint.layer.cornerRadius = 0.5 * buttonLevels.bounds.size.height
         buttonHint.layer.borderWidth = 0
-        buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " \(viewController.getModel().hints)"  ,for : UIControlState())
+        buttonHint.setTitle(NSLocalizedString("HINT", comment : "Show hint about best solution") + " \(viewController.getActiveModel().hints)"  ,for : UIControlState())
         buttonHint.addTarget(self, action : #selector(GameScene.actionHint(_ : )), for : UIControlEvents.touchUpInside)
         viewController.view.addSubview(buttonHint)
     }
     
-    fileprivate func createStars(){
+    private func createStars(){
         let starPath : CGPath = starPathInRect()
-        let model : Model = viewController.getModel()
+        let model : Model = viewController.getActiveModel()
         
         // taffic lights
         let isGreen = model.isReady() && isDistanceBest()
@@ -286,7 +230,7 @@ class GameScene : SKScene {
         addChild(starRed)
     }
     
-    fileprivate func createLabels() {
+    private func createLabels() {
         labelLevel = SKLabelNode(fontNamed : "Helvetica Neue UltraLight")
         labelLevel.fontSize = Scales.fontSizeLabel
         labelLevel.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
@@ -300,23 +244,23 @@ class GameScene : SKScene {
         labelResult.verticalAlignmentMode = SKLabelVerticalAlignmentMode.bottom
         labelResult.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelResult.fontColor = Colors.black
-        labelResult.alpha = viewController.getModel().isReady() ? 1.0 : 0.0
+        labelResult.alpha = viewController.getActiveModel().isReady() ? 1.0 : 0.0
         labelResult.position = CGPoint(x : Scales.width/2, y :Scales.bottom + Scales.bannerBottom * 0.5)
         self.addChild(labelResult)
         
     }
     
-    fileprivate func fadeInResultText() {
+    private func fadeInResultText() {
         let fadeAction = SKAction.fadeAlpha(to: 1.0, duration : 2.0)
         labelResult.run(fadeAction)
     }
     
-    fileprivate func fadeOutResultText() {
+    private func fadeOutResultText() {
         let fadeAction = SKAction.fadeAlpha(to: 0.0, duration : 0.0)
         labelResult.run(fadeAction)
     }
     
-    fileprivate func createBackground() {
+    private func createBackground() {
         if nil == self.background {
             
             self.backgroundColor = Colors.white
@@ -362,7 +306,7 @@ class GameScene : SKScene {
         
     }
     
-    fileprivate func  getColorOfLevel(_ index : Int) -> UIColor {
+    private func  getColorOfLevel(_ index : Int) -> UIColor {
         var color = Colors.lightGray
         if viewController.modelController.pageModels[index].isComplete() {
             color = Colors.green
@@ -374,14 +318,14 @@ class GameScene : SKScene {
         return color
     }
     
-    fileprivate func createNodes() {
-        let indexMax = viewController.getModel().count()
+    private func createNodes() {
+        let indexMax = viewController.getActiveModel().count()
         var index = 0
         while index < indexMax {
-            let node = viewController.getModel().getNode(index)
+            let node = viewController.getActiveModel().getNode(index)
             let position = getLocation(node)
             let alpha = CGFloat(1.0)
-            if viewController.getModel().isSelected(node) {
+            if viewController.getActiveModel().isSelected(node) {
                 let color = getColorOfLevel(viewController.getModelIndex())
                 let circle : SKShapeNode = LevelScene.createcircle(Scales.width * Scales.scaleNodes, position : position, color : color
                     , alpha : alpha, lineWidth : Scales.lineWidth, animate : false, name : String(index))
@@ -392,7 +336,7 @@ class GameScene : SKScene {
                 circles.append(circle)
                 circle.zPosition = 1000
                 
-                if !viewController.getModel().isReady() && viewController.getModel().getNodeSelected(viewController.getModel().getSelectedCount()-1) == node {
+                if !viewController.getActiveModel().isReady() && viewController.getActiveModel().getNodeSelected(viewController.getActiveModel().getSelectedCount()-1) == node {
                     let waitAction = SKAction.wait(forDuration: 0.8)
                     let growAction = SKAction.scale(by: 1.1, duration: 0.3)
                     let shrinkAction = growAction.reversed()
@@ -409,7 +353,7 @@ class GameScene : SKScene {
                 self.addChild(circle)
                 circles.append(circle)
                 circle.zPosition = 2000
-           
+                
                 // this label is just needed for UI Tests
                 let label = SKLabelNode(fontNamed:"Helvetica Neue Light")
                 label.text = String(index)
@@ -427,11 +371,11 @@ class GameScene : SKScene {
         }
     }
     
-    fileprivate func getLocation(_ node : Node) -> CGPoint {
+    private func getLocation(_ node : Node) -> CGPoint {
         return getLocation( nodeX : CGFloat(node.x), nodeY : CGFloat(node.y))
     }
     
-    fileprivate func getLocation( nodeX : CGFloat, nodeY : CGFloat) -> CGPoint {
+    private func getLocation( nodeX : CGFloat, nodeY : CGFloat) -> CGPoint {
         let offsetYTop = Scales.top + Scales.bannerTop * 0.5
         let offsetYBottom = Scales.bottom + Scales.bannerBottom * 3.0
         let sizeY = Scales.height - offsetYBottom - offsetYTop
@@ -439,23 +383,23 @@ class GameScene : SKScene {
         let sizeX = Scales.width - Scales.left - Scales.right
         let radius = Scales.width * Scales.scaleNodes
         
-        let boxWidth : CGFloat  = sizeX / CGFloat(viewController.getModel().getCols())
+        let boxWidth : CGFloat  = sizeX / CGFloat(viewController.getActiveModel().getCols())
         let xLocation : CGFloat =  nodeX * boxWidth + Scales.left + radius * 1.15
         
-        let boxHeight : CGFloat  = sizeY / CGFloat(viewController.getModel().getRows())
+        let boxHeight : CGFloat  = sizeY / CGFloat(viewController.getActiveModel().getRows())
         let yLocation : CGFloat =  nodeY * boxHeight + offsetYBottom
         
         return CGPoint(x : CGFloat(xLocation), y : CGFloat(yLocation))
     }
     
-    fileprivate func createLines() {
+    private func createLines() {
         var firstNodeLocation : CGPoint!
         let path : CGMutablePath = CGMutablePath()
         
-        let indexMax = viewController.getModel().getSelectedCount()
+        let indexMax = viewController.getActiveModel().getSelectedCount()
         var index = 0
         while index < indexMax {
-            let node = viewController.getModel().getNodeSelected(index)
+            let node = viewController.getActiveModel().getNodeSelected(index)
             let location = getLocation(node)
             
             if  nil == firstNodeLocation  {
@@ -465,8 +409,8 @@ class GameScene : SKScene {
                 path.addLine(to: location)
             }
             
-            let isReady = viewController.getModel().isReady()
-            if isReady && viewController.getModel().isSelectedLast(node) {
+            let isReady = viewController.getActiveModel().isReady()
+            if isReady && viewController.getActiveModel().isSelectedLast(node) {
                 path.addLine(to: firstNodeLocation)
             }
             index += 1
@@ -480,15 +424,15 @@ class GameScene : SKScene {
         addChild(shape)
     }
     
-    fileprivate func createLinesBest() {
+    private func createLinesBest() {
         if self.isSelectionBestVisible {
             var firstNodeLocation : CGPoint!
             let path : CGMutablePath = CGMutablePath()
             
-            let indexMax = viewController.getModel().nodesSelectedBest.count
+            let indexMax = viewController.getActiveModel().nodesSelectedBest.count
             var index = 0
             while index < indexMax {
-                let node = viewController.getModel().nodesSelectedBest[index]
+                let node = viewController.getActiveModel().nodesSelectedBest[index]
                 let location = getLocation(node)
                 
                 if  nil == firstNodeLocation  {
@@ -520,7 +464,7 @@ class GameScene : SKScene {
                            animations : {
                             self.buttonHint.backgroundColor = Colors.blue
                             self.buttonLevels.backgroundColor  = Colors.blue
-                },
+            },
                            completion : {
                             (value : Bool) in
                             self.isSelectionBestVisible = false
@@ -531,30 +475,14 @@ class GameScene : SKScene {
         }
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchesHandler(touches , with: event)
-    }
-    
-    override func touchesBegan(_ touches : Set<UITouch>, with event : UIEvent?) {
-        touchesHandler(touches , with: event)
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if hasSelectionChanged {
-            renderModel()
-            updateLabels()
-            hasSelectionChanged = false
-        }
-    }
-    
-    fileprivate func touchesHandler(_ touches : Set<UITouch>, with event : UIEvent?) {
+    private func touchesHandler(_ touches : Set<UITouch>, with event : UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
             let sprite : SKNode = self.atPoint(location)
             if (sprite.name  != nil && !(sprite.name?.isEmpty)!) {
                 let index : Int = Int(sprite.name!)!
-                let node =  viewController.getModel().getNode( index )
-                viewController.getModel().selectNode(node)
+                let node =  viewController.getActiveModel().getNode( index )
+                viewController.getActiveModel().selectNode(node)
                 
                 // Store last selected node for animation
                 lastSelectedNode = node
@@ -565,11 +493,11 @@ class GameScene : SKScene {
         }
     }
     
-    fileprivate func pointFrom(_ angle : CGFloat, radius : CGFloat, offset : CGPoint) -> CGPoint {
+    private func pointFrom(_ angle : CGFloat, radius : CGFloat, offset : CGPoint) -> CGPoint {
         return CGPoint(x : radius * cos(angle) + offset.x, y : radius * sin(angle) + offset.y)
     }
     
-    fileprivate func starPathInRect() -> CGPath {
+    private func starPathInRect() -> CGPath {
         let rect : CGRect = CGRect( x : 0 , y : 0, width : 24, height : 24 )
         let starExtrusion : CGFloat = 24.0
         let center = CGPoint(x : rect.width / 2.0, y : -rect.height )
@@ -603,13 +531,91 @@ class GameScene : SKScene {
         return path.cgPath
     }
     
-    public func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchesHandler(touches , with: event)
+    }
+    
+    override func touchesBegan(_ touches : Set<UITouch>, with event : UIEvent?) {
+        touchesHandler(touches , with: event)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if hasSelectionChanged {
+            renderModel()
+            updateLabels()
+            hasSelectionChanged = false
+        }
+    }
+    
+    func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
         print("pan ")
     }
     
-    public func getModelName() -> String {
-        return viewController.getModel().getName()
+    func getModelName() -> String {
+        return viewController.getActiveModel().getName()
     }
+    
+    func isGameVisible()  -> Bool {
+        return gameVisible
+    }
+        
+    func renderModel() {
+        // delete all elements
+        self.removeAllChildren()
+        self.removeAllActions()
+        
+        // create all elements
+        createBackground()
+        createNodes()
+        createLines()
+        createLinesBest()
+        createLabels()
+        createStars()
+        
+        // update user interface
+        showElements()
+        updateLabels()
+        
+        gameVisible = true
+    }
+    
+    func hideElements() {
+        // make all elements transparent
+        labelLevel.alpha = 0.0
+        labelResult.alpha = 0.0
+        buttonShare.alpha = 0.0
+        buttonUndo.alpha = 0.0
+        buttonHint.alpha = 0.0
+        buttonLevels.alpha = 0.0
+        starYellow.alpha = 0.0
+        starGreen.alpha = 0.0
+        starRed.alpha = 0.0
+        
+        // move buttons out of screen to avoid not wanted clicks
+        buttonHint.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonUndo.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonShare.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        buttonLevels.frame = CGRect(x : -Scales.buttonWidth, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
+        
+        gameVisible = false
+    }
+    
+    required init(coder aDecoder : NSCoder) {
+        fatalError("NSCoder not supported")
+    }
+    
+    
+    init(size : CGSize, viewController : DataViewController) {
+        self.viewController = viewController
+        super.init(size : size)
+        self.view?.isMultipleTouchEnabled = true
+        
+        createLabels()
+        createButtons()
+        createStars()
+        hideElements()
+    }
+    
 }
 
 

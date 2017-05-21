@@ -2,58 +2,33 @@
 //  StartScene.swift
 //  PLATEIS
 //
-//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016-2017 Markus Sprunck. All rights reserved.
 //
-// This class shows the start scene and the inital start button.
-// In the case the button is pressed it opens the first level
-// view.
+//  This class shows the start scene and the inital start button.
+//  In the case the button is pressed it opens the first level
+//  view.
 
 import SpriteKit
 
 class StartScene: SKScene {
     
-    fileprivate var viewController : DataViewController
+    private var viewController : DataViewController
     
-    fileprivate var buttonStart : UIButton!
+    private var buttonStart : UIButton!
     
-    fileprivate var labelTitle  : SKLabelNode!
+    private var labelTitle  : SKLabelNode!
     
-    fileprivate var labelSwitch: SKLabelNode!
+    private var labelSwitch: SKLabelNode!
     
-    fileprivate var switchButton : UISwitch!
+    private var switchButton : UISwitch!
     
-    fileprivate var labelDescriptions : [SKLabelNode] = []
+    private var labelDescriptions : [SKLabelNode] = []
     
-    init(size:CGSize, viewController:DataViewController) {
-        self.viewController = viewController
-        super.init(size:size)
-        
-        // create all ui elements
-        self.removeAllChildren()
-        createBackground()
-        createStartButton()
-        createTitle()
-        createDescription()
-        createSwitchControl()
-        
-        // show controls with delay
-        buttonStart.fadeIn(1.0)
-        for label in labelDescriptions {
-            label.run(SKAction.fadeAlpha(to: 1.0, duration: 3.0))
-        }
-        print("start scene init ready")
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        fatalError("NSCoder not supported")
-    }
-    
-    
-    fileprivate func createBackground() {
+    private func createBackground() {
         self.backgroundColor = Colors.white
     }
     
-    fileprivate func createTitle () {
+    private func createTitle () {
         // create label
         labelTitle = SKLabelNode(fontNamed:"Helvetica Neue UltraLight")
         labelTitle.text = "P L A T E I S "
@@ -72,7 +47,7 @@ class StartScene: SKScene {
         labelTitle.alpha = 1
     }
     
-    fileprivate func createDescription() {
+    private func createDescription() {
         // distance
         let deltaY : CGFloat = Scales.fontSizeLabel * 1.5
         
@@ -118,11 +93,11 @@ class StartScene: SKScene {
         self.addChild(labelDescriptions[4]);
     }
     
-    fileprivate func getLabelYPosition(_ index : CGFloat) -> CGFloat {
+    private func getLabelYPosition(_ index : CGFloat) -> CGFloat {
         return Scales.height * CGFloat(0.5) - CGFloat(40.0) * index
     }
     
-    fileprivate func createStartButton(){
+    private func createStartButton(){
         // create
         buttonStart = UIButton(type: UIButtonType.custom)
         
@@ -145,7 +120,7 @@ class StartScene: SKScene {
         buttonStart.addTarget(self, action: #selector(StartScene.actionStartButton(_:)), for: UIControlEvents.touchUpInside)
     }
     
-    fileprivate func createSwitchControl(){
+    private func createSwitchControl(){
         switchButton = UISwitch(frame: CGRect(x: size.width * 0.5 - Scales.fontSizeLabel, y: Scales.height * 0.83,  width:Scales.fontSizeLabel, height:Scales.fontSizeLabel))
         
         switchButton.isOn  = UserDefaults.standard.bool(forKey: "expertMode")
@@ -164,11 +139,11 @@ class StartScene: SKScene {
         
     }
     
-    internal func actionStartButton(_ sender: UIButton!) {
+    func actionStartButton(_ sender: UIButton!) {
         viewController.actionStart()
     }
     
-    internal func hide() {
+    func hide() {
         labelTitle.alpha = 0
         buttonStart.alpha = 0
         for label in labelDescriptions {
@@ -177,7 +152,7 @@ class StartScene: SKScene {
         switchButton.alpha = 0
     }
     
-    internal func switchChanged(sender: UISwitch!){
+    func switchChanged(sender: UISwitch!){
         
         if (sender.isOn) {
             labelSwitch.fontColor =  Colors.black ;
@@ -191,6 +166,30 @@ class StartScene: SKScene {
         UserDefaults.standard.synchronize()
         
         viewController.modelController.loadModel()
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("NSCoder not supported")
+    }
+    
+    init(size:CGSize, viewController:DataViewController) {
+        self.viewController = viewController
+        super.init(size:size)
+        
+        // create all ui elements
+        self.removeAllChildren()
+        createBackground()
+        createStartButton()
+        createTitle()
+        createDescription()
+        createSwitchControl()
+        
+        // show controls with delay
+        buttonStart.fadeIn(1.0)
+        for label in labelDescriptions {
+            label.run(SKAction.fadeAlpha(to: 1.0, duration: 3.0))
+        }
+        print("start scene init ready")
     }
     
 }

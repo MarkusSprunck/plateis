@@ -1,115 +1,57 @@
 //
 //  LevelScene.swift
-//  SprunckOne
+//  PLATEIS
 //
-//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016-2017 Markus Sprunck. All rights reserved.
 //
 
 import SpriteKit
 
 class LevelScene: SKScene {
     
-    fileprivate var viewController:DataViewController
+    private var viewController:DataViewController
     
-    fileprivate var labelNameOfLevel: SKLabelNode!
+    private var labelNameOfLevel: SKLabelNode!
     
-    fileprivate var labelBest : SKLabelNode!
+    private var labelBest : SKLabelNode!
     
-    fileprivate var labelResult : SKLabelNode!
+    private var labelResult : SKLabelNode!
     
-    fileprivate var labelWorld : SKLabelNode!
+    private var labelWorld : SKLabelNode!
     
-    fileprivate  var buttonPlayLevel : UIButton!
+    private  var buttonPlayLevel : UIButton!
     
-    fileprivate  var buttonGameCenter : UIButton!
+    private  var buttonGameCenter : UIButton!
     
-    fileprivate  var buttonFeatures : UIButton!
+    private  var buttonFeatures : UIButton!
     
-    fileprivate  var buttonPreviousWorld : UIButton!
+    private  var buttonPreviousWorld : UIButton!
     
-    fileprivate  var buttonNextWorld : UIButton!
+    private  var buttonNextWorld : UIButton!
     
-    fileprivate var selectedModelIndex : Int = 0
+    private var selectedModelIndex : Int = 0
     
-    fileprivate var timerSnapToPosition = Timer()
+    private var timerSnapToPosition = Timer()
     
-    fileprivate var timerRenderModel = Timer()
+    private var timerRenderModel = Timer()
     
-    fileprivate var circles : [SKShapeNode] = []
+    private var circles : [SKShapeNode] = []
     
-    fileprivate var circlesText : [SKLabelNode] = []
+    private var circlesText : [SKLabelNode] = []
     
-    fileprivate var isTapped : Bool = false
+    private var isTapped : Bool = false
     
-    fileprivate var allNodesReady = true
+    private var allNodesReady = true
     
-    fileprivate var gamma:CGFloat = 0.0
+    private var gamma:CGFloat = 0.0
     
-    fileprivate var gammaOffset:CGFloat = -CGFloat(Double.pi/2)
+    private var gammaOffset:CGFloat = -CGFloat(Double.pi/2)
     
-    init(size:CGSize, viewController:DataViewController) {
-        self.viewController = viewController
-        super.init(size: size)
-       
-        // Restore default settings
-        if let name = UserDefaults.standard.string(forKey: "selectedModelIndex") {
-            print("restored setting selectedModelIndex \(name)")
-            viewController.modelController.selectModel("\(name)")
-        }
-        
-        if !viewController.modelController.pageModels.isEmpty {
-            createBackground()
-            createPlayButton()
-            createLabels()
-            createNodes()
-            updateScene()
-        }
-        print("level scene init ready")
-        
-        
-        GameCenterManager.calculateScore(models:viewController.modelController.allModels)
-    }
-    
-    internal func showButtons() {
-        buttonGameCenter.fadeIn(0.1)
-        buttonPlayLevel.fadeIn(0.1)
-        buttonFeatures.fadeIn(0.1)
-        buttonNextWorld.fadeIn(0.1)
-        buttonPreviousWorld.fadeIn(0.1)
-    }
-    
-    internal func hideButtons() {
-        buttonGameCenter.fadeOut(0.1)
-        buttonPlayLevel.fadeOut(0.1)
-        buttonFeatures.fadeOut(0.1)
-        buttonNextWorld.fadeOut(0.1)
-        buttonPreviousWorld.fadeOut(0.1)
-    }
-    
-    internal func updateScene() {
-        findActiveIndex()
-        updateNodes()
-        updateElements()
-    }
-    
-    internal func getGamma() -> CGFloat {
-        return gamma;
-    }
-    
-    internal func setGamma(_ value:CGFloat)  {
-        gamma = value;
-    }
-    
-    internal func setGammaOffset(_ value:CGFloat)  {
-        gammaOffset = value;
-    }
-
-    
-    fileprivate func createBackground() {
+    private func createBackground() {
         self.backgroundColor = Colors.white
     }
     
-    fileprivate func createPlayButton(){
+    private func createPlayButton(){
         
         print("current world = \(viewController.modelController.getCurrentWorld())")
         
@@ -124,7 +66,6 @@ class LevelScene: SKScene {
         buttonPlayLevel.alpha = 0
         viewController.view.addSubview(buttonPlayLevel)
         
-        
         buttonGameCenter = UIButton(type : UIButtonType.custom)
         buttonGameCenter.frame = CGRect(x : 0, y : 0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonGameCenter.titleLabel!.font =  UIFont(name : "Helvetica", size : Scales.fontSizeButton)
@@ -136,7 +77,6 @@ class LevelScene: SKScene {
         buttonGameCenter.alpha = 0
         viewController.view.addSubview(buttonGameCenter)
         
-        
         buttonFeatures = UIButton(type: UIButtonType.custom)
         buttonFeatures.frame = CGRect(x : 0, y :0, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonFeatures.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
@@ -147,7 +87,6 @@ class LevelScene: SKScene {
         buttonFeatures.addTarget(self, action: #selector(LevelScene.actionFeaturesButton(_:)), for: UIControlEvents.touchUpInside)
         buttonFeatures.alpha = 0
         viewController.view.addSubview(buttonFeatures)
-        
         
         buttonPreviousWorld = UIButton(type: UIButtonType.custom)
         buttonPreviousWorld.frame =   CGRect(x : Scales.left, y: Scales.top , width : Scales.buttonWidth, height : Scales.buttonHeight)
@@ -162,7 +101,6 @@ class LevelScene: SKScene {
         buttonPreviousWorld.backgroundColor = buttonPreviousWorld.isEnabled ? Colors.blue : Colors.lightGray
         viewController.view.addSubview(buttonPreviousWorld)
         
-        
         buttonNextWorld = UIButton(type: UIButtonType.custom)
         buttonNextWorld.frame =    CGRect(x : (Scales.width - Scales.buttonWidth - Scales.right), y: Scales.top, width : Scales.buttonWidth, height : Scales.buttonHeight)
         buttonNextWorld.titleLabel!.font =  UIFont(name: "Helvetica", size: Scales.fontSizeButton)
@@ -176,32 +114,7 @@ class LevelScene: SKScene {
         viewController.view.addSubview(buttonNextWorld)
     }
     
-    internal func actionPlayButton(_ sender: UIButton!) {
-        viewController.actionOpenGame(selectedModelIndex)
-    }
-    
-    internal func actionGameCenterButton(_ sender: UIButton!) {
-        viewController.showLeaderboard()
-    }
-    
-    internal func actionFeaturesButton(_ sender: UIButton!) {
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        
-        let secondViewController = storyboard.instantiateViewController(withIdentifier: "FeatureId") as UIViewController
-        
-        let window = UIApplication.shared.windows[0] as UIWindow
-        UIView.transition(
-            from: window.rootViewController!.view,
-            to: secondViewController.view,
-            duration: 0.65,
-            options: .transitionCrossDissolve,
-            completion: {
-                finished in window.rootViewController = secondViewController
-        })
-        
-    }
-    
-    @objc fileprivate func actionPreviousWorldButton(_ sender: UIButton!) {
+    @objc private func actionPreviousWorldButton(_ sender: UIButton!) {
         let isSkipWorldAllowed = PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
         let isNextWorldAllowed = allNodesReady  || isSkipWorldAllowed
         let worldCurrent : String = viewController.modelController.getCurrentWorld()
@@ -233,7 +146,7 @@ class LevelScene: SKScene {
         updateScene()
     }
     
-    @objc fileprivate func actionNextWorldButton(_ sender: UIButton!) {
+    @objc private func actionNextWorldButton(_ sender: UIButton!) {
         let worldCurrent : String = viewController.modelController.getCurrentWorld()
         let isSkipWorldAllowed = PlateisProducts.store.isProductPurchased(PlateisProducts.SkipWorlds)
         let isNextWorldAllowed = allNodesReady  || isSkipWorldAllowed
@@ -263,7 +176,7 @@ class LevelScene: SKScene {
         updateScene()
     }
     
-    fileprivate func actionExitButton(_ sender: UIButton!) {
+    private func actionExitButton(_ sender: UIButton!) {
         let alert = UIAlertController(title: "Do you like exit the game?", message: "Current state will not be stored.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Continue", style: UIAlertActionStyle.default, handler: { action in
             exit(0)
@@ -272,7 +185,7 @@ class LevelScene: SKScene {
         viewController.present(alert, animated: true, completion: nil)
     }
     
-    fileprivate func createLabels() {
+    private func createLabels() {
         let model : Model = viewController.modelController.pageModels[selectedModelIndex]
         
         labelWorld = SKLabelNode(fontNamed:"Helvetica Neue")
@@ -307,10 +220,9 @@ class LevelScene: SKScene {
         labelResult.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         labelResult.fontColor = Colors.black
         self.addChild(labelResult)
-        
     }
     
-    fileprivate func createNodes() {
+    private func createNodes() {
         let indexMax = viewController.modelController.pageModels.count
         var index = 0
         while index < indexMax {
@@ -337,7 +249,7 @@ class LevelScene: SKScene {
     }
     
     
-    fileprivate func findActiveIndex() {
+    private func findActiveIndex() {
         let indexMax = viewController.modelController.pageModels.count
         var minXPositon:CGFloat = 10000
         var index = 0
@@ -351,7 +263,7 @@ class LevelScene: SKScene {
         }
     }
     
-    fileprivate func updateNodes() {
+    private func updateNodes() {
         let indexMax = viewController.modelController.pageModels.count
         var index = 0
         allNodesReady = true
@@ -376,7 +288,66 @@ class LevelScene: SKScene {
         }
     }
     
-    internal func updateElements() {
+    func showButtons() {
+        buttonGameCenter.fadeIn(0.1)
+        buttonPlayLevel.fadeIn(0.1)
+        buttonFeatures.fadeIn(0.1)
+        buttonNextWorld.fadeIn(0.1)
+        buttonPreviousWorld.fadeIn(0.1)
+    }
+    
+    func hideButtons() {
+        buttonGameCenter.fadeOut(0.1)
+        buttonPlayLevel.fadeOut(0.1)
+        buttonFeatures.fadeOut(0.1)
+        buttonNextWorld.fadeOut(0.1)
+        buttonPreviousWorld.fadeOut(0.1)
+    }
+    
+    func updateScene() {
+        findActiveIndex()
+        updateNodes()
+        updateElements()
+    }
+    
+    func getGamma() -> CGFloat {
+        return gamma;
+    }
+    
+    func setGamma(_ value:CGFloat)  {
+        gamma = value;
+    }
+    
+    func setGammaOffset(_ value:CGFloat)  {
+        gammaOffset = value;
+    }
+    
+    func actionPlayButton(_ sender: UIButton!) {
+        viewController.actionOpenGame(selectedModelIndex)
+    }
+    
+    func actionGameCenterButton(_ sender: UIButton!) {
+        viewController.showLeaderboard()
+    }
+    
+    func actionFeaturesButton(_ sender: UIButton!) {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        
+        let secondViewController = storyboard.instantiateViewController(withIdentifier: "FeatureId") as UIViewController
+        
+        let window = UIApplication.shared.windows[0] as UIWindow
+        UIView.transition(
+            from: window.rootViewController!.view,
+            to: secondViewController.view,
+            duration: 0.65,
+            options: .transitionCrossDissolve,
+            completion: {
+                finished in window.rootViewController = secondViewController
+        })
+        
+    }
+    
+    func updateElements() {
         
         let model : Model = viewController.modelController.pageModels[selectedModelIndex]
         labelWorld.text = model.world;
@@ -415,24 +386,19 @@ class LevelScene: SKScene {
         labelResult.position = CGPoint(x: getLabelXPosition(), y:  getLabelYPosition(7.0))
     }
     
-    fileprivate func getLabelYPosition(_ index : CGFloat) -> CGFloat {
+    private func getLabelYPosition(_ index : CGFloat) -> CGFloat {
         return (self.size.height * (1.0 - index / 14.0 ))
     }
     
-    fileprivate func getButtonYPosition() -> CGFloat {
+    private func getButtonYPosition() -> CGFloat {
         return Scales.height - Scales.bottom
     }
     
-    
-    fileprivate func getLabelXPosition() -> CGFloat {
+    private func getLabelXPosition() -> CGFloat {
         return Scales.centerLarge.x
     }
     
-    internal func setSelectedModel(_ index: Int) {
-        selectedModelIndex = index
-    }
-    
-    fileprivate func getColorOfLevel(_ index : Int) -> UIColor {
+    private func getColorOfLevel(_ index : Int) -> UIColor {
         var color = Colors.darkGrey
         if viewController.modelController.pageModels[index].isComplete() {
             color = Colors.green
@@ -444,20 +410,7 @@ class LevelScene: SKScene {
         return color
     }
     
-    internal static func createcircle(_ radius : CGFloat, position : CGPoint, color : SKColor, alpha: CGFloat = 1.0, lineWidth:CGFloat = 1, animate:Bool = false, name : String = "") ->  SKShapeNode {
-        let circle = SKShapeNode(circleOfRadius: radius)
-        circle.position = position
-        circle.isAntialiased = false
-        circle.alpha = alpha
-        circle.name = name
-        circle.fillColor = color
-        circle.strokeColor = color
-        circle.glowWidth = 0.0
-        circle.lineWidth = 0.0
-        return circle
-    }
-    
-    fileprivate func updateAnimationOfCircle(_ circle : SKShapeNode, animate :Bool) {
+    private func updateAnimationOfCircle(_ circle : SKShapeNode, animate :Bool) {
         
         // restore inital state
         circle.removeAllActions()
@@ -487,7 +440,7 @@ class LevelScene: SKScene {
         }
     }
     
-    fileprivate func getLocation(_ index:Int) -> CGPoint {
+    private func getLocation(_ index:Int) -> CGPoint {
         let numberOfNodes = 16
         let angle : CGFloat = 3.14 * CGFloat(index) / CGFloat(numberOfNodes) * 2
         let xLocation :CGFloat =  Scales.centerLarge.x + Scales.radiusLargeX * sin(angle + gamma + gammaOffset)
@@ -495,8 +448,17 @@ class LevelScene: SKScene {
         return CGPoint(x: Int(xLocation), y: Int(yLocation))
     }
     
-    required init(coder aDecoder: NSCoder) {
-        fatalError("NSCoder not supported")
+    static func createcircle(_ radius : CGFloat, position : CGPoint, color : SKColor, alpha: CGFloat = 1.0, lineWidth:CGFloat = 1, animate:Bool = false, name : String = "") ->  SKShapeNode {
+        let circle = SKShapeNode(circleOfRadius: radius)
+        circle.position = position
+        circle.isAntialiased = false
+        circle.alpha = alpha
+        circle.name = name
+        circle.fillColor = color
+        circle.strokeColor = color
+        circle.glowWidth = 0.0
+        circle.lineWidth = 0.0
+        return circle
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -511,5 +473,37 @@ class LevelScene: SKScene {
             }
         }
     }
-
+    
+    func setSelectedModel(_ index: Int) {
+        selectedModelIndex = index
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("NSCoder not supported")
+    }
+    
+    
+    init(size:CGSize, viewController:DataViewController) {
+        self.viewController = viewController
+        super.init(size: size)
+        
+        // Restore default settings
+        if let name = UserDefaults.standard.string(forKey: "selectedModelIndex") {
+            print("restored setting selectedModelIndex \(name)")
+            viewController.modelController.selectModel("\(name)")
+        }
+        
+        if !viewController.modelController.pageModels.isEmpty {
+            createBackground()
+            createPlayButton()
+            createLabels()
+            createNodes()
+            updateScene()
+        }
+        print("level scene init ready")
+        
+        
+        GameCenterManager.calculateScore(models:viewController.modelController.allModels)
+    }
+    
 }

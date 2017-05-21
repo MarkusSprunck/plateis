@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  PLATEIS
 //
-//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016-2017 Markus Sprunck. All rights reserved.
 //
 
 import UIKit
@@ -10,7 +10,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var window: UIWindow?
+    internal var window: UIWindow?
     
     func applicationWillResignActive(_ application: UIApplication) {
         storeModel()
@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
+        // nothing to do here
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

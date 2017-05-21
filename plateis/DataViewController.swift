@@ -2,7 +2,10 @@
 //  DataViewController.swift
 //  PLATEIS
 //
-//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016-2017 Markus Sprunck. All rights reserved.
+//
+//
+//  The class is the central view controller which managages all scenes
 //
 
 import UIKit
@@ -11,12 +14,7 @@ import StoreKit
 import Foundation
 import GameKit
 
-///
-/// The class is the central view controller which managages all scenes
-///
 class DataViewController: UIViewController , GKGameCenterControllerDelegate {
-    
-    //  let defaults = UserDefaults.standard
     
     // Stores if the user has Game Center enabled
     var gcEnabled = Bool()
@@ -24,6 +22,7 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
     // Stores the default leaderboardID
     var gcDefaultLeaderBoard = String()
     
+    // Create just one instance of model controller
     var modelController : ModelController {
         get {
             if DataViewController._modelController == nil {
@@ -33,46 +32,25 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         }
     }
     
-    fileprivate static var  _modelController : ModelController? = nil
+    var sceneLevel: LevelScene!
     
-    fileprivate var sceneStart: StartScene!
+    var sceneGame:  GameScene!
     
-    internal var sceneLevel: LevelScene!
+    private static var  _modelController : ModelController? = nil
     
-    internal var sceneGame:  GameScene!
+    private var sceneStart: StartScene!
     
-    fileprivate var indexOfActiveModel : Int = 0;
+    private var indexOfActiveModel : Int = 0;
     
-    fileprivate var isInSwipe:Bool = false
+    private var isInSwipe:Bool = false
     
-    fileprivate var products : [SKProduct] = []
+    private var products : [SKProduct] = []
     
-    fileprivate var skview: SKView!
+    private var skview: SKView!
     
-    fileprivate var timeLastScroll = NSDate().timeIntervalSince1970
+    private var timeLastScroll = NSDate().timeIntervalSince1970
     
-    internal func actionStart() {
-        
-        sceneStart.hide()
-        
-        sceneGame.hideElements()
-        
-        skview.presentScene(sceneLevel)
-        
-        sceneLevel.showButtons()
-        
-        modelController.findNextFreeLevel()
-        
-        sceneLevel.setSelectedModel(modelController.getIndexOfNextFreeLevel())
-        
-        rotateToNextModel()
-        
-        sceneLevel.updateScene()
-        
-        authenticateLocalPlayer()
-    }
-    
-    func authenticateLocalPlayer() {
+    private func authenticateLocalPlayer() {
         let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
         
         localPlayer.authenticateHandler = {(ViewController, error) -> Void in
@@ -101,97 +79,27 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         }
     }
     
-    
-    public func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismiss(animated: true, completion: nil)
-    }
-    
-    
-    public func showLeaderboard() {
-        let gcVC: GKGameCenterViewController = GKGameCenterViewController()
-        gcVC.gameCenterDelegate = self
-        gcVC.viewState = GKGameCenterViewControllerState.leaderboards
-        gcVC.leaderboardIdentifier = "leaderboardID"
-        self.present(gcVC, animated: true, completion: nil)
-    }
-    
-    
-    internal func actionOpenGame(_ indexOfModel : Int){
-        indexOfActiveModel = indexOfModel
-        
-        // rotate so that the active model is at 9am
-        sceneLevel.setGamma(-(CGFloat(Double.pi / 8.0) * CGFloat(indexOfModel)))
-        
-        sceneLevel.hideButtons()
-        
-        skview.presentScene(sceneGame)
-        sceneGame.renderModel()
-    }
-    
-    func rotateToNextModel() {
-        sceneLevel.setGamma( -CGFloat(Double.pi / 8.0) * CGFloat(4 + modelController.getIndexOfNextFreeLevel()))
-        sceneLevel.setGammaOffset(0)
-    }
-    
-    func getModel() -> Model {
-        return modelController.pageModels[indexOfActiveModel]
-    }
-    
-    func getModelIndex() -> Int {
-        return indexOfActiveModel
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        Scales.setSize(size: UIScreen.main.bounds.size)
-        
-        skview = SKView(frame: CGRect(x: 0, y: 0, width: Scales.width, height: Scales.height));
-        self.view.addSubview(skview);
-        
-        sceneStart = StartScene(size: skview.frame.size, viewController: self)
-        skview.showsFPS = false
-        skview.showsNodeCount = false
-        skview.ignoresSiblingOrder = false
-        sceneStart.scaleMode = SKSceneScaleMode.aspectFill
-        skview.presentScene(sceneStart, transition: SKTransition.flipHorizontal(withDuration: 1))
-        
-        sceneGame = GameScene(size:skview.bounds.size, viewController: self)
-        sceneGame.scaleMode = SKSceneScaleMode.aspectFill
-        
-        sceneLevel = LevelScene(size:skview.bounds.size, viewController: self)
-        sceneLevel.scaleMode = SKSceneScaleMode.aspectFill
-        
-        addPan()
-        
-        // Force the device in portrait mode when the view controller gets loaded
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-        
-    }
-    
-    
-    override var prefersStatusBarHidden : Bool {
-        return true
-    }
-    
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-        let orientation: UIInterfaceOrientationMask = [UIInterfaceOrientationMask.portrait, UIInterfaceOrientationMask.portraitUpsideDown]
-        return orientation
-    }
-    
-    override var shouldAutorotate : Bool {
-        return true
-    }
-    
-    func addPan() {
+    private  func addPan() {
         let panGesture = UIPanGestureRecognizer(target: self, action:(#selector(DataViewController.handlePanGesture(_:))))
         self.view.addGestureRecognizer(panGesture)
+    }
+    
+    func actionStart() {
+        sceneStart.hide()
+        sceneGame.hideElements()
+        skview.presentScene(sceneLevel)
+        sceneLevel.showButtons()
+        modelController.findNextFreeLevel()
+        sceneLevel.setSelectedModel(modelController.getIndexOfNextFreeLevel())
+        rotateToNextModel()
+        sceneLevel.updateScene()
+        authenticateLocalPlayer()
     }
     
     func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
         let translation = panGesture.translation(in: view)
         panGesture.setTranslation(CGPoint.zero, in: view)
-        if panGesture.state == UIGestureRecognizerState.changed && sceneGame.isGameVisible {
+        if panGesture.state == UIGestureRecognizerState.changed && sceneGame.isGameVisible() {
             
             // it must be significant translation
             if abs(translation.x) < 10 {
@@ -249,6 +157,74 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         }
     }
     
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
+    }
+    
+    func actionOpenGame(_ indexOfModel : Int){
+        indexOfActiveModel = indexOfModel
+        // rotate so that the active model is at 9am
+        sceneLevel.setGamma(-(CGFloat(Double.pi / 8.0) * CGFloat(indexOfModel)))
+        sceneLevel.hideButtons()
+        skview.presentScene(sceneGame)
+        sceneGame.renderModel()
+    }
+    
+    func showLeaderboard() {
+        let gcVC: GKGameCenterViewController = GKGameCenterViewController()
+        gcVC.gameCenterDelegate = self
+        gcVC.viewState = GKGameCenterViewControllerState.leaderboards
+        gcVC.leaderboardIdentifier = "leaderboardID"
+        self.present(gcVC, animated: true, completion: nil)
+    }
+    
+    func rotateToNextModel() {
+        sceneLevel.setGamma( -CGFloat(Double.pi / 8.0) * CGFloat(4 + modelController.getIndexOfNextFreeLevel()))
+        sceneLevel.setGammaOffset(0)
+    }
+    
+    func getActiveModel() -> Model {
+        return modelController.pageModels[indexOfActiveModel]
+    }
+    
+    func getModelIndex() -> Int {
+        return indexOfActiveModel
+    }
+    
+    static func getFormattedString(value: Float) -> String{
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        return numberFormatter.string(from: NSNumber(value : value))!
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        Scales.setSize(size: UIScreen.main.bounds.size)
+        
+        skview = SKView(frame: CGRect(x: 0, y: 0, width: Scales.width, height: Scales.height));
+        self.view.addSubview(skview);
+        
+        sceneStart = StartScene(size: skview.frame.size, viewController: self)
+        skview.showsFPS = false
+        skview.showsNodeCount = false
+        skview.ignoresSiblingOrder = false
+        sceneStart.scaleMode = SKSceneScaleMode.aspectFill
+        skview.presentScene(sceneStart, transition: SKTransition.flipHorizontal(withDuration: 1))
+        
+        sceneGame = GameScene(size:skview.bounds.size, viewController: self)
+        sceneGame.scaleMode = SKSceneScaleMode.aspectFill
+        
+        sceneLevel = LevelScene(size:skview.bounds.size, viewController: self)
+        sceneLevel.scaleMode = SKSceneScaleMode.aspectFill
+        
+        addPan()
+        
+        // Force the device in portrait mode when the view controller gets loaded
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -257,10 +233,17 @@ class DataViewController: UIViewController , GKGameCenterControllerDelegate {
         super.viewWillAppear(animated)
     }
     
-    public static func getFormattedString(value: Float) -> String{
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        return numberFormatter.string(from: NSNumber(value : value))!
+    override var prefersStatusBarHidden : Bool {
+        return true
+    }
+    
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        let orientation: UIInterfaceOrientationMask = [UIInterfaceOrientationMask.portrait, UIInterfaceOrientationMask.portraitUpsideDown]
+        return orientation
+    }
+    
+    override var shouldAutorotate : Bool {
+        return true
     }
     
 }

@@ -2,19 +2,19 @@
 //  Scales.swift
 //  PLATEIS
 //
-//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016-2017 Markus Sprunck. All rights reserved.
 //
+//
+//  The class provides scaled values to render the grafic on all possible devices
+// 
 
 import SpriteKit
 
-///
-/// The class provides scaled values to render the grafic on all possible devices
-///
 class Scales {
     
-    fileprivate static var initReady = false
+    private static var initReady = false
     
-    internal static func setSize(size : CGSize) {
+    static func setSize(size : CGSize) {
         if !Scales.initReady {
             
             // Set size of screen
@@ -57,43 +57,43 @@ class Scales {
             Scales.initReady = true
         }
     }
-  
+    
     // Default aspect ratio
-    internal static var width : CGFloat = 320.0
-    internal static var height : CGFloat = 568.0
+    static var width : CGFloat = 320.0
+    static var height : CGFloat = 568.0
     
     // Center of large circle of nodes in level scene
-    internal static var centerLarge : CGPoint = CGPoint(x: 0.0, y: 0.0)
-    internal static var radiusLevel : CGFloat = 0.0
-    internal static var radiusLargeX : CGFloat = 0.0
-    internal static var radiusLargeY : CGFloat = 0.0
+    static var centerLarge : CGPoint = CGPoint(x: 0.0, y: 0.0)
+    static var radiusLevel : CGFloat = 0.0
+    static var radiusLargeX : CGFloat = 0.0
+    static var radiusLargeY : CGFloat = 0.0
     
     // Borders
-    internal static var top : CGFloat = 15
-    internal static var bottom : CGFloat = buttonHeight + 10
-    internal static var left : CGFloat = 10
-    internal static var right : CGFloat = 10
+    static var top : CGFloat = 15
+    static var bottom : CGFloat = buttonHeight + 10
+    static var left : CGFloat = 10
+    static var right : CGFloat = 10
     
     // Labels
-    internal static var scaleStars : CGFloat = 0.45
-    internal static var fontSizeLabel : CGFloat = 20
+    static var scaleStars : CGFloat = 0.45
+    static var fontSizeLabel : CGFloat = 20
     
     // Buttons
-    internal static var fontSizeButton : CGFloat = 20
-    internal static var buttonHeight : CGFloat = 34
-    internal static var buttonWidth : CGFloat = 95
+    static var fontSizeButton : CGFloat = 20
+    static var buttonHeight : CGFloat = 34
+    static var buttonWidth : CGFloat = 95
     
     // Distance between grafic and contol elements
-    internal static var bannerTop : CGFloat = 30
-    internal static var bannerBottom : CGFloat = 20
+    static var bannerTop : CGFloat = 30
+    static var bannerBottom : CGFloat = 20
     
     // Size of nodes in game view
-    internal static var scaleNodes : CGFloat = 0.06
+    static var scaleNodes : CGFloat = 0.06
     
     // Lines
-    internal static var lineWidth : CGFloat = 2.0
+    static var lineWidth : CGFloat = 2.0
     
     // Stars
-    internal static var starDistance : CGFloat = 30
+    static var starDistance : CGFloat = 30
     
 }

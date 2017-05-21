@@ -1,13 +1,13 @@
 //
 //  UIWindowExtension.swift
-//  plateis
+//  PLATEIS
 //
-//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016-2017 Markus Sprunck. All rights reserved.
 //
 
 import UIKit
 
-public extension UIWindow {
+extension UIWindow {
     
     func capture() -> UIImage {
         

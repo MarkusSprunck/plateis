@@ -2,27 +2,26 @@
 //  ModelSolver.swift
 //  PLATEIS
 //
-//  Copyright (c) 2016 Markus Sprunck. All rights reserved.
+//  Copyright (c) 2016-2017 Markus Sprunck. All rights reserved.
 //
 
-// import Foundation
 import UIKit
 
 class ModelSolver {
     
-    fileprivate static let VERBOSE = false
+    private static let VERBOSE = false
     
     // Number of steps for simulated annealing
-    fileprivate static let STEPS = 32
+    private static let STEPS = 32
     
     // Number of iterations per step and node
-    fileprivate static let ITERATIONS = 50
+    private static let ITERATIONS = 50
     
     // Start temperature for simulated annealing
-    fileprivate static let START_TEMPERATURE : Float = 2000.0
+    private static let START_TEMPERATURE : Float = 2000.0
     
     // Select all active nodes from model
-    fileprivate class func getActiveNodes(_ model : Model) -> [Node] {
+    private static func getActiveNodes(_ model : Model) -> [Node] {
         var activeNodes : [Node] = []
         for node in model.nodes {
             if node.isActive() {
@@ -33,11 +32,11 @@ class ModelSolver {
     }
     
     // Find the shortest path between active nodes
-    class func run(_ model : Model) -> ([Node], Float) {
+    static func run(_ model : Model) -> ([Node], Float) {
         
         var activeNodes : [Node] = ModelSolver.getActiveNodes(model)
         
-       // print("\(model.world.padding(toLength: 10, withPad: " ", startingAt: 0) ) level=\(model.getName())  \tnodes=\(model.getActiveNodesCount())")
+        // print("\(model.world.padding(toLength: 10, withPad: " ", startingAt: 0) ) level=\(model.getName())  \tnodes=\(model.getActiveNodesCount())")
         if VERBOSE {
             print("step   better    worse rejected    const      cost   temperature")
             print("")
